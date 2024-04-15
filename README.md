@@ -4,5 +4,5 @@
 
 Paso 1:
 ```shell
-git
+git clone {url del proyecto}
 ```
