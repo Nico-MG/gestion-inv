@@ -1,4 +1,5 @@
 const { app, BrowserWindow } = require('electron')
+const pruebaExpress = require('./api/app')
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -7,6 +8,7 @@ const createWindow = () => {
   })
 
   win.loadFile('./public/index.html')
+  pruebaExpress()
 }
 
 app.whenReady().then(() => {
