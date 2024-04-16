@@ -6,4 +6,3 @@ Paso 1:
 ```shell
 git clone {url del proyecto}
 ```
-.
