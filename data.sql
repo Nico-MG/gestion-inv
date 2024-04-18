@@ -69,17 +69,17 @@ create table venta(
 );
 
 create table devolucion(
+  id serial primary key,
   numero_folio varchar(20),
   id_producto int,
   rut_cliente varchar(20),
   rut_usuario varchar(20),
+  numero_nota int,
   fecha timestamp,
   cantidad int,
   precio_unitario float,
   precio_total float,
-  foreign key (id_producto) references producto(id) on delete cascade on update cascade,
+  foreign key (numero_folio, id_producto) references venta(numero_folio, id_producto) on delete cascade on update cascade,
   foreign key (rut_cliente) references cliente(rut) on delete cascade on update cascade,
-  foreign key (rut_usuario) references usuario(rut) on delete cascade on update cascade,
-  foreign key (numero_folio) references venta(numero_folio) on delete cascade,
-  primary key (numero_folio, id_producto)
+  foreign key (rut_usuario) references usuario(rut) on delete cascade on update cascade
 );
