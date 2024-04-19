@@ -37,8 +37,6 @@ create table cliente(
   apellido varchar(20)
 );
 
-
-
 create table pedido_usuario(
   id serial primary key,
   rut_usuario varchar(20),
