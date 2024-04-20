@@ -1,5 +1,5 @@
-import Versions from './components/Versions'
 import electronLogo from './assets/electron.svg'
+import Clientes from './Clientes'
 
 function App() {
   const ipcHandle = () => window.electron.ipcRenderer.send('ping')
@@ -26,7 +26,6 @@ function App() {
           </a>
         </div>
       </div>
-      <Versions></Versions>
     </>
   )
 }

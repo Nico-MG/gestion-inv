@@ -21,7 +21,7 @@ function createWindow() {
     win.show()
   })
 
-  win.setFullScreen(true)
+  win.setFullScreen(false)
 
   win.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
