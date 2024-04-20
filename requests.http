@@ -1,5 +1,0 @@
-# Ejemplo 1
-@api = http://localhost:3001/
-
-### Get all data
-GET {{api}}

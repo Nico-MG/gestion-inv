@@ -5,7 +5,7 @@ import icon from '../../resources/icon.png?asset'
 
 function createWindow() {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  const win = new BrowserWindow({
     width: 900,
     height: 670,
     show: false,
@@ -17,11 +17,13 @@ function createWindow() {
     }
   })
 
-  mainWindow.on('ready-to-show', () => {
-    mainWindow.show()
+  win.on('ready-to-show', () => {
+    win.show()
   })
 
-  mainWindow.webContents.setWindowOpenHandler((details) => {
+  win.setFullScreen(true)
+
+  win.webContents.setWindowOpenHandler((details) => {
     shell.openExternal(details.url)
     return { action: 'deny' }
   })
@@ -29,9 +31,9 @@ function createWindow() {
   // HMR for renderer base on electron-vite cli.
   // Load the remote URL for development or the local html file for production.
   if (is.dev && process.env['ELECTRON_RENDERER_URL']) {
-    mainWindow.loadURL(process.env['ELECTRON_RENDERER_URL'])
+    win.loadURL(process.env['ELECTRON_RENDERER_URL'])
   } else {
-    mainWindow.loadFile(join(__dirname, '../renderer/index.html'))
+    win.loadFile(join(__dirname, '../renderer/index.html'))
   }
 }
 
