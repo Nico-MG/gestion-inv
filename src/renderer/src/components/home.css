@@ -1,0 +1,20 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Nunito', sans-serif;
+}
+
+.home a{
+  background-color: #292929;
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  color: white;
+  font-size: 40px;
+  text-decoration: none;
+}
+
+#logo {
+  width: 90px;
+  margin: 20px;
+}

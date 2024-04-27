@@ -1,0 +1,21 @@
+.tabla-datos{
+  position: absolute;
+  width: 1024px;
+  height: 74px;
+  left: 360px;
+  top: 250px;
+}
+
+.tabla-datos thead th{
+  width: 256.3px;
+  height: 42.8px;
+  background: #F0F0F0;
+  border: 1px solid #EBEBEB;
+}
+
+.tabla-datos tbody td{
+width: 256.63px;
+height: 71.61px;
+background: #FFFFFF;
+border: 1px solid #EBEBEB;
+}
