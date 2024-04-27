@@ -49,10 +49,6 @@
     position: absolute;
     transition: width 0.5s ease;
   }
-
-  /*.cont-menu.menu-retractado { */
-    /*width: 60px; /* Ancho reducido del menú lateral */
-  /* } */
   
   .cont-menu nav {
     transform: translateY(15%);
@@ -66,7 +62,6 @@
     border-left: 5px solid transparent;
     transition: all 400ms ease;
     position: relative;
-    /* Agregado */
   }
 
   .cont-menu nav a:hover {
