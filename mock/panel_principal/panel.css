@@ -98,14 +98,6 @@ body {
   /* margin-left: 200px; */
 }
 
-.contenedor-sup h1 {
-  font-size: 58px;
-  font-weight: 500;
-  text-transform: uppercase;
-  color: #000000;
-  border: 0;
-}
-
 .contenedor-botones {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -137,10 +129,22 @@ body {
 
 
 
+.contenedor-sup h1 {
+  /* font-size: 58px; */
+  font-size: 75px;
+  font-family: Arial;
+  font-weight: 500;
+  /* text-transform: uppercase; */
+  color: #000000;
+  border: 0;
+}
+
 #logo{
   width: 250px;
   padding-right: 50px;
 }
+
+
 
 .contenedor-sup{
   display: flex;
