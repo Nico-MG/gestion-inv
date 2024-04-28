@@ -4,17 +4,21 @@
   font-family: 'Nunito', sans-serif;
 }
 
-.home a{
+.home a {
   background-color: #292929;
   display: flex;
   align-items: center;
-  padding: 5px;
+  padding: 1px 2px;
   color: white;
-  font-size: 40px;
+  font-size: 15px;
   text-decoration: none;
+  position: fixed;
+  top: 0px; 
+  left: 0px; 
+  width: 100%;
 }
 
 #logo {
-  width: 90px;
+  width: 60px;
   margin: 20px;
 }

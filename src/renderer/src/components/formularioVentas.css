@@ -16,10 +16,11 @@ h1 {
 
 .formulario{
   position: absolute;
-  width: 713.69px;
-  height: 532.2px;
-  left: 524.37px;
-  top: 200px;
+  width: 500px; /* Ajusta el ancho */
+  height: 400px; /* Ajusta la altura*/
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   background: #FFFFFF;
   border-radius: 12px;
   display: flex;
@@ -27,6 +28,7 @@ h1 {
   justify-content: center;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
+
 
 .titulo{
   display: flex;
@@ -53,9 +55,9 @@ h1 {
 
 .detalle {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+  flex-direction: column;
+  align-items: flex-start; 
+  margin-bottom: 1px;
 }
 
 .detalle input {
