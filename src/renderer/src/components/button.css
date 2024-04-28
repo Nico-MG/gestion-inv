@@ -1,0 +1,23 @@
+#boton-flotante {
+  font-family: 'Material Symbols Outlined';
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 60px;
+  height: 60px;
+  background-color: #292929;
+  color: #fff;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 60px;
+  font-size: 24px;
+  font-weight: bold;
+  /* box-shadow: 2px 2px 3px #999;*//* Sombra*/
+  cursor: pointer;
+}
+
+#boton-flotante:hover {
+  background-color: #F9B872;
+  color: #000;
+  font-weight: bold;
+}
