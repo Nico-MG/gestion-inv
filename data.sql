@@ -1,4 +1,4 @@
-create database gestion:
+create database gestion
 
 create table usuario(
        rut_usuario varchar(20) primary key,
