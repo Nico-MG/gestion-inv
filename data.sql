@@ -1,83 +1,117 @@
-create database gestion;
--- drop schema public cascade;
--- create schema public;
+create database gestion:
 
 create table usuario(
-  rut varchar(20) primary key,
-  correo varchar(320),
-  contrasena varchar(16),
-  nombre varchar(20),
-  apellido varchar(20)
+       rut_usuario varchar(20) primary key,
+       correo varchar(50),
+       contrasena varchar(60),
+       nombre varchar(20),
+       apellido varchar(20)
 );
 
 create table producto(
-    id int primary key,
-    nombre varchar(20),
-    stock int,
-    precio float
-  );
+       id_producto varchar(20) primary key,
+       nombre varchar(20),
+       categoria varchar(20),
+       stock int,
+       precio_venta int
+);
 
 create table proveedor(
-  rut varchar(20) primary key,
-  nombre varchar(20),
-  direccion varchar(50),
-  numero varchar(50),
-  tipo varchar(20)
-  );
-
-create table notificacion(
-  fecha timestamp primary key,
-  titulo varchar(50),
-  descripcion text
+       rut_proveedor varchar(20) primary key,
+       nombre  varchar(20),
+       direccion varchar(20),
+       numero varchar(20),
+       tipo varchar(20)
 );
+
 
 create table cliente(
-  rut varchar(20) primary key,
-  nombre varchar(20),
-  apellido varchar(20)
+       rut_cliente varchar(20) primary key,
+       nombre varchar(20),
+       apellido varchar(20)
 );
 
-create table pedido_usuario(
-  id serial primary key,
-  rut_usuario varchar(20),
-  rut_proveedor varchar(20),
-  id_producto int,
-  cantidad int,
-  precio_unitario float,
-  precio_total float,
-  estado varchar(20),
-  foreign key (rut_usuario) references usuario(rut) on delete cascade on update cascade,
-  foreign key (rut_proveedor) references proveedor(rut) on delete cascade on update cascade,
-  foreign key (id_producto) references producto(id) on delete cascade on update cascade
+
+create table pedido(
+       id_pedido varchar(20) primary key,
+       rut_proveedor varchar(20),
+       rut_usuario varchar(20),
+       fecha TIMESTAMP,
+       compra_total int,
+       foreign key (rut_proveedor) references proveedor(rut_proveedor) on delete cascade on update cascade,
+       foreign key (rut_usuario) references usuario(rut_usuario) on delete cascade on update cascade
+
 );
+
+create table detalle_pedido(
+       id_pedido varchar(20),
+       id_producto varchar(20),
+       cantidad int,
+       precio_total int, 
+       foreign key (id_producto) references producto(id_producto) on delete cascade on update cascade,
+       foreign key (id_pedido) references pedido(id_pedido) on delete cascade on update cascade,
+       primary key(id_pedido, id_producto)
+);
+
+create table notificacion(
+       id_notificacion SERIAL primary key,
+       fecha TIMESTAMP,
+       id_producto varchar(20),
+       titulo varchar(20),
+       descripcion TEXT,
+       foreign key (id_producto) references producto(id_producto) on delete cascade on update cascade
+
+);
+
 
 create table venta(
-  numero_folio varchar(20),
-  id_producto int,
-  rut_cliente varchar(20),
-  rut_usuario varchar(20),
-  fecha timestamp,
-  cantidad int,
-  precio_unitario float,
-  precio_total float,
-  foreign key (id_producto) references producto(id) on delete cascade on update cascade,
-  foreign key (rut_cliente) references cliente(rut) on delete cascade on update cascade,
-  foreign key (rut_usuario) references usuario(rut) on delete cascade on update cascade,
-  primary key (numero_folio, id_producto)
+       id_venta varchar(20) primary key,
+       rut_cliente varchar(20),
+       rut_usuario varchar(20),
+       fecha TIMESTAMP,
+       venta_total int,
+       foreign key (rut_cliente) references cliente(rut_cliente) on delete cascade on update cascade,
+       foreign key (rut_usuario) references usuario(rut_usuario) on delete cascade on update cascade
+
+);
+
+
+create table detalle_venta(
+       id_venta varchar(20),
+       id_producto varchar(20),
+       cantidad int,
+       precio_total int,
+       foreign key (id_venta) references venta(id_venta) on delete cascade on update cascade,
+       foreign key (id_producto) references producto(id_producto) on delete cascade on update cascade,
+       primary key(id_venta, id_producto)
+
 );
 
 create table devolucion(
-  id serial primary key,
-  numero_folio varchar(20),
-  id_producto int,
-  rut_cliente varchar(20),
-  rut_usuario varchar(20),
-  numero_nota int,
-  fecha timestamp,
-  cantidad int,
-  precio_unitario float,
-  precio_total float,
-  foreign key (numero_folio, id_producto) references venta(numero_folio, id_producto) on delete cascade on update cascade,
-  foreign key (rut_cliente) references cliente(rut) on delete cascade on update cascade,
-  foreign key (rut_usuario) references usuario(rut) on delete cascade on update cascade
+       id_devolucion varchar(20) primary key,
+       id_venta varchar(20),
+       fecha TIMESTAMP,
+       descripcion text,
+       foreign key (id_venta) references venta(id_venta) on delete cascade on update cascade
+       
+
 );
+
+
+create table detalle_devolucion(
+       id_devolucion varchar(20),
+       id_producto varchar(20),
+       cantidad int,
+       foreign key (id_devolucion) references devolucion(id_devolucion) on delete cascade on update cascade,
+       foreign key (id_producto) references producto(id_producto) on delete cascade on update cascade,
+       primary key(id_devolucion,id_producto)
+
+
+);
+
+
+
+
+
+
+
