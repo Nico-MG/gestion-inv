@@ -12,9 +12,11 @@ create table producto(
        id_producto varchar(20) primary key,
        nombre varchar(20),
        categoria varchar(20),
-       stock int,
+       cantidad int,
+       min_cantidad int,
        precio_venta int
 );
+
 
 create table proveedor(
        rut_proveedor varchar(20) primary key,
