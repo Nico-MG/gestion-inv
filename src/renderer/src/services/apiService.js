@@ -1,4 +1,4 @@
-const API_URL = "https://gestion-api-mapl.onrender.com/api";
+const API_URL = "https://gestion-api-mapl.onrender.com";
 // const API_URL = "http://localhost:3001/api"
 
 export const ApiProducts = {
