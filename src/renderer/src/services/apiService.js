@@ -1,5 +1,4 @@
-const API_URL = "https://gestion-api-mapl.onrender.com";
-// const API_URL = "http://localhost:3001/api"
+const API_URL = process.env.API_URL;
 
 export const ApiProducts = {
   async getAllProducts() {

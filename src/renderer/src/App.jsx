@@ -1,9 +1,9 @@
 import React from "react";
 import Sidebar from "./components/SideBar";
-import Productos from "./layouts/Productos";
 import Login from "./components/Login";
 import OrderForm from "./components/OrderForm";
 import Pedidos from "./layouts/Pedidos";
+import Productos from "./layouts/Productos";
 
 const App = () => {
   return (
