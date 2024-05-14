@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { ApiOrders } from "../services/apiService";
+import { ApiProducts } from "../services/apiService";
 import Banner from "../components/Banner";
 import ExtendedTable from "../components/ExtendedTable";
 
-const Pedidos = () => {
+const Productos = () => {
   const [tableData, setTableData] = useState([]);
 
   const fetchData = async () => {
     try {
-      const pedidos = await ApiOrders.getAllOrders();
-      setTableData(pedidos);
+      const productos = await ApiProducts.getAllProducts();
+      setTableData(productos);
     } catch (error) {
-      console.error("Error al obtener pedidos:", error);
+      console.error("Error al obtener productos:", error);
     }
   };
 
@@ -27,15 +27,15 @@ const Pedidos = () => {
     <>
       <Banner />
       <ExtendedTable
-        currentTable="pedidos"
+        currentTable="productos"
         data={tableData}
         fetchData={fetchData}
-        deleteTuple={ApiOrders.deleteOrder}
-        createTuple={ApiOrders.createOrder}
-        updateTuple={ApiOrders.updateOrder}
+        deleteTuple={ApiProducts.deleteProduct}
+        createTuple={ApiProducts.createProduct}
+        updateTuple={ApiProducts.updateProduct}
       />
     </>
   );
 };
 
-export default Pedidos;
+export default Productos;

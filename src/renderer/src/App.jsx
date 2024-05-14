@@ -1,11 +1,18 @@
+import React from "react";
+import Sidebar from "./components/SideBar";
+import Productos from "./layouts/Productos";
+import Login from "./components/Login";
+import OrderForm from "./components/OrderForm";
+import Pedidos from "./layouts/Pedidos";
 
-
-function App () {
+const App = () => {
   return (
     <>
-    <h1>Hola mundo</h1>
+      {/* <Pedidos /> */}
+      <Productos />
+      <Sidebar />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

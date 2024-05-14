@@ -1,0 +1,19 @@
+.izquierda {
+    background-color: #22B7C1;
+    color: white;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.sombra-azul{
+    width: 1%; /* Ancho de la sombra */
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0)); /* Gradiente para la sombra */
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-0%);
+  }
