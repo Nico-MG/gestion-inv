@@ -166,4 +166,40 @@ export const ApiOrders = {
       throw error;
     }
   },
+};
+
+
+export const ApiUsers = {
+  async logUsers(credentials){
+
+    try {
+      
+      const response = await fetch(`${API_URL}/usuario/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+      });
+
+      if (!response.ok) {
+        throw new Error("Error al obtener usuario");
+      }
+      
+      return await response.json();
+
+    } catch (error) {
+      console.error("Error al obtener usuario:", error);
+      throw error;
+    }
+
+  }
+  //getInfo
+  //deleteUser
+  //updateUser
+  //regsiterUser
+
+
 }
+
+
