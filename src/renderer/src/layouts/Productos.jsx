@@ -19,10 +19,6 @@ const Productos = () => {
     fetchData();
   }, []);
 
-  const updateTableData = (newData) => {
-    setTableData(newData);
-  };
-
   return (
     <>
       <Banner />
