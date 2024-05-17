@@ -4,28 +4,31 @@ import "./productform.css";
 const ProductForm = ({
   mode,
   initialData,
+  setInitialData,
   createTuple,
   updateTuple,
   closeForm,
   fetchData,
 }) => {
-  const [formData, setFormData] = useState(
-    initialData || {
-      id_producto: "",
-      nombre: "",
-      categoria: "",
-      cantidad: "",
-      min_cantidad: "",
-      precio_venta: "",
-    }
-  );
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const [formData, setFormData] = useState({
+    id_producto: initialData?.id_producto || "",
+    nombre: initialData?.nombre || "",
+    categoria: initialData?.categoria || "",
+    cantidad: initialData?.cantidad || "",
+    min_cantidad: initialData?.min_cantidad || "",
+    precio_venta: initialData?.precio_venta || "",
+  });
+  
+  const handleChange = (e) => {
     setFormData({
       ...formData,
-      [name]: value,
+      [e.target.name]: e.target.value,
     });
+  };
+
+  const handleClose = () => {
+    setInitialData(null);
+    closeForm();
   };
 
   const handleSubmit = async (event) => {
@@ -37,7 +40,7 @@ const ProductForm = ({
       createTuple(formData);
     }
 
-    closeForm();
+    handleClose();
   };
 
   return (
@@ -108,7 +111,7 @@ const ProductForm = ({
             />
           </div>
           <div className="opciones">
-            <button className="cerrar-btn" onClick={closeForm}>
+            <button className="cerrar-btn" onClick={handleClose}>
               Cerrar
             </button>
             <button className="guardar-btn" type="submit">

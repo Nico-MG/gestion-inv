@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { capitalizeFirstLetter } from "../functions/helpers";
-import "./extendedtable.css";
+import "./table.css";
 import ProductForm from "./ProductForm";
 import OrderForm from "./OrderForm";
 
 const IndexTable = ({ data }) => {
-  const [primaryKey, setPrimaryKey] = useState(null);
   const [columns, setColumns] = useState([]);
+  const [columnId, setColumnId] = useState(null);
 
   useEffect(() => {
     if (data && data.length > 0) {
       const keys = Object.keys(data[0]);
-      setPrimaryKey(Object.keys(data[0])[0]);
       setColumns(keys);
+      setColumnId(Object.keys(data[0])[0]);
     }
   }, [data]);
 
-  return { columns, primaryKey };
+  return { columns, columnId };
 };
 
 const DeleteButton = (id, handleDelete) => {
@@ -28,7 +28,12 @@ const DeleteButton = (id, handleDelete) => {
   );
 };
 
-const ModifyButton = ({ handleFormAction, handleModify, handleShowForm }) => {
+const ModifyButton = ({
+  id,
+  handleModify,
+  handleFormAction,
+  handleShowForm,
+}) => {
   return (
     <button
       className="boton boton-modificar"
@@ -41,7 +46,7 @@ const ModifyButton = ({ handleFormAction, handleModify, handleShowForm }) => {
   );
 };
 
-const AddButton = ({ handleShowForm, handleFormAction }) => {
+const AddButton = ({ handleFormAction, handleShowForm }) => {
   return (
     <div
       id="boton-flotante"
@@ -56,24 +61,13 @@ const AddButton = ({ handleShowForm, handleFormAction }) => {
   );
 };
 
-const RenderForm = (formProps) => {
-  switch (currentTable) {
-    case "productos":
-      return <ProductForm {...formProps} />;
-    case "pedidos":
-      return <OrderForm {...formProps} />;
-    default:
-      return null;
-  }
-};
-
 const Tuples = ({
   data,
   columns,
-  primaryKey,
+  columnId,
+  handleShowForm,
   handleFormAction,
   handleModify,
-  handleShowForm,
   handleDelete,
 }) => {
   const [hoveredRow, setHoveredRow] = useState(null);
@@ -89,21 +83,22 @@ const Tuples = ({
   return data.map((item, index) => (
     <tr
       key={index}
-      onMouseEnter={() => handleMouseEnter(item[primaryKey])}
+      onMouseEnter={() => handleMouseEnter(item[columnId])}
       onMouseLeave={handleMouseLeave}
     >
       {columns.map((column) => (
-        <td key={column}>{capitalizeFirstLetter(item[column])}</td>
+        <td key={column}>{item[column]}</td>
       ))}
       <td className="boton-celda">
-        {hoveredRow === item[primaryKey] && (
+        {hoveredRow === item[columnId] && (
           <div className="boton-contenedor">
             <ModifyButton
+              id={item[columnId]}
               handleModify={handleModify}
               handleFormAction={handleFormAction}
               handleShowForm={handleShowForm}
             />
-            <DeleteButton id={item[primaryKey]} handleDelete={handleDelete} />
+            <DeleteButton id={item[columnId]} handleDelete={handleDelete} />
           </div>
         )}
       </td>
@@ -123,19 +118,34 @@ const Table = ({
   const [formAction, setFormAction] = useState(null);
   const [showForm, setShowForm] = useState(false);
 
-  const { columns, primaryKey } = IndexTable({ data });
+  const { columns, columnId } = IndexTable({ data });
 
   const handleShowForm = () => {
     setShowForm(!showForm);
   };
 
+  const handleModifyTuple = (arg) => {
+    setModifyTuple(arg);
+  }
+
   const handleModify = (id) => {
-    const modifyTuple = data.find((item) => item[primaryKey] === id);
+    const modifyTuple = data.find((item) => item[columnId] === id);
     setModifyTuple(modifyTuple);
   };
 
   const handleFormAction = (arg) => {
     setFormAction(arg);
+  };
+
+  const renderForm = (formProps) => {
+    switch (currentTable) {
+      case "productos":
+        return <ProductForm {...formProps} />;
+      case "pedidos":
+        return <OrderForm {...formProps} />;
+      default:
+        return null;
+    }
   };
 
   return (
@@ -145,7 +155,7 @@ const Table = ({
           <thead>
             <tr>
               {columns.map((column) => (
-                <th key={column}>{capitalizeFirstLetter(column)}</th>
+                <th key={column}>{column}</th>
               ))}
             </tr>
           </thead>
@@ -154,10 +164,10 @@ const Table = ({
               <Tuples
                 data={data}
                 columns={columns}
-                primaryKey={primaryKey}
+                columnId={columnId}
+                handleShowForm={handleShowForm}
                 handleFormAction={handleFormAction}
                 handleModify={handleModify}
-                handleShowForm={handleShowForm}
                 handleDelete={deleteTuple}
               />
             )}
@@ -169,13 +179,14 @@ const Table = ({
         handleShowForm={handleShowForm}
       />
       {showForm &&
-        RenderForm({
+        renderForm({
           mode: formAction,
-          closeForm: handleShowForm,
           initialData: modifyTuple,
+          setInitialData: handleModifyTuple,
+          closeForm: handleShowForm,
+          fetchData: fetchData,
           createTuple: createTuple,
           updateTuple: updateTuple,
-          fetchData: fetchData,
         })}
     </>
   );
