@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ApiProducts } from "../services/apiService";
 import Banner from "../components/Banner";
-import ExtendedTable from "../components/ExtendedTable";
+import Table from "../components/Table";
 
 const Productos = () => {
   const [tableData, setTableData] = useState([]);
@@ -26,13 +26,13 @@ const Productos = () => {
   return (
     <>
       <Banner />
-      <ExtendedTable
+      <Table
         currentTable="productos"
         data={tableData}
         fetchData={fetchData}
-        deleteTuple={ApiProducts.deleteProduct}
         createTuple={ApiProducts.createProduct}
         updateTuple={ApiProducts.updateProduct}
+        deleteTuple={ApiProducts.deleteProduct}
       />
     </>
   );
