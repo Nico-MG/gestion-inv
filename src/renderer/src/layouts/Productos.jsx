@@ -30,9 +30,9 @@ const Productos = () => {
         currentTable="productos"
         data={tableData}
         fetchData={fetchData}
-        createTuple={ApiProducts.createProduct}
-        updateTuple={ApiProducts.updateProduct}
-        deleteTuple={ApiProducts.deleteProduct}
+        createTableRow={ApiProducts.createProduct}
+        updateTableRow={ApiProducts.updateProduct}
+        deleteTableRow={ApiProducts.deleteProduct}
       />
     </>
   );

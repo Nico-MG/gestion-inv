@@ -4,7 +4,7 @@ import "./table.css";
 import ProductForm from "./ProductForm";
 import OrderForm from "./OrderForm";
 
-const IndexTable = ({ data }) => {
+const useTableColumns = ({ data }) => {
   const [columns, setColumns] = useState([]);
   const [columnId, setColumnId] = useState(null);
 
@@ -19,41 +19,41 @@ const IndexTable = ({ data }) => {
   return { columns, columnId };
 };
 
-const DeleteButton = ({ id, handleDelete, fetchData }) => {
+const DeleteButton = ({ id, deleteTableRow, fetchData }) => {
   return (
     <button
       className="boton boton-eliminar"
-      onClick={() => handleDelete(id).then(() => fetchData())}
+      onClick={() => deleteTableRow(id).then(() => fetchData())}
     ></button>
   );
 };
 
 const ModifyButton = ({
   id,
-  handleModify,
-  handleFormAction,
-  handleShowForm,
+  prepareModifyData,
+  selectFormAction,
+  toggleFormVisibility,
 }) => {
   return (
     <button
       className="boton boton-modificar"
       onClick={() => {
-        handleFormAction("modify");
-        handleModify(id);
-        handleShowForm();
+        selectFormAction("modify");
+        prepareModifyData(id);
+        toggleFormVisibility();
       }}
     ></button>
   );
 };
 
-const AddButton = ({ handleFormAction, handleShowForm }) => {
+const AddButton = ({ selectFormAction, toggleFormVisibility }) => {
   return (
     <div
       id="boton-flotante"
       className="material-symbols-outlined"
       onClick={() => {
-        handleFormAction("create");
-        handleShowForm();
+        selectFormAction("create");
+        toggleFormVisibility();
       }}
     >
       +
@@ -61,14 +61,14 @@ const AddButton = ({ handleFormAction, handleShowForm }) => {
   );
 };
 
-const Tuples = ({
+const TableRows = ({
   data,
   columns,
   columnId,
-  handleShowForm,
-  handleFormAction,
-  handleModify,
-  handleDelete,
+  toggleFormVisibility,
+  selectFormAction,
+  prepareModifyData,
+  deleteTableRow,
   fetchData,
 }) => {
   const [hoveredRow, setHoveredRow] = useState(null);
@@ -95,13 +95,13 @@ const Tuples = ({
           <div className="boton-contenedor">
             <ModifyButton
               id={item[columnId]}
-              handleModify={handleModify}
-              handleFormAction={handleFormAction}
-              handleShowForm={handleShowForm}
+              prepareModifyData={prepareModifyData}
+              selectFormAction={selectFormAction}
+              toggleFormVisibility={toggleFormVisibility}
             />
             <DeleteButton
               id={item[columnId]}
-              handleDelete={handleDelete}
+              deleteTableRow={deleteTableRow}
               fetchData={fetchData}
             />
           </div>
@@ -114,32 +114,28 @@ const Tuples = ({
 const Table = ({
   currentTable,
   data,
-  deleteTuple,
-  createTuple,
-  updateTuple,
   fetchData,
+  createTableRow,
+  updateTableRow,
+  deleteTableRow,
 }) => {
-  const [modifyTuple, setModifyTuple] = useState(null);
+  const [initialModifyData, setInitialModifyData] = useState(null);
   const [formAction, setFormAction] = useState(null);
-  const [showForm, setShowForm] = useState(false);
+  const [showFormState, setShowFormState] = useState(false);
 
-  const { columns, columnId } = IndexTable({ data });
+  const { columns, columnId } = useTableColumns({ data });
 
-  const handleShowForm = () => {
-    setShowForm(!showForm);
+  const toggleFormVisibility = () => {
+    setShowFormState(!showFormState);
   };
 
-  const handleModifyTuple = (arg) => {
-    setModifyTuple(arg);
+  const prepareModifyData = (id) => {
+    const toModifyData = data.find((item) => item[columnId] === id);
+    setInitialModifyData(toModifyData);
   };
 
-  const handleModify = (id) => {
-    const modifyTuple = data.find((item) => item[columnId] === id);
-    setModifyTuple(modifyTuple);
-  };
-
-  const handleFormAction = (arg) => {
-    setFormAction(arg);
+  const selectFormAction = (action) => {
+    setFormAction(action);
   };
 
   const renderForm = (formProps) => {
@@ -166,14 +162,14 @@ const Table = ({
           </thead>
           <tbody>
             {data && (
-              <Tuples
+              <TableRows
                 data={data}
                 columns={columns}
                 columnId={columnId}
-                handleShowForm={handleShowForm}
-                handleFormAction={handleFormAction}
-                handleModify={handleModify}
-                handleDelete={deleteTuple}
+                toggleFormVisibility={toggleFormVisibility}
+                selectFormAction={selectFormAction}
+                prepareModifyData={prepareModifyData}
+                deleteTableRow={deleteTableRow}
                 fetchData={fetchData}
               />
             )}
@@ -181,18 +177,18 @@ const Table = ({
         </table>
       </div>
       <AddButton
-        handleFormAction={handleFormAction}
-        handleShowForm={handleShowForm}
+        selectFormAction={selectFormAction}
+        toggleFormVisibility={toggleFormVisibility}
       />
-      {showForm &&
+      {showFormState &&
         renderForm({
           mode: formAction,
-          initialData: modifyTuple,
-          setInitialData: handleModifyTuple,
-          closeForm: handleShowForm,
+          initialData: initialModifyData,
+          setInitialData: setInitialModifyData,
+          closeForm: toggleFormVisibility,
           fetchData: fetchData,
-          createTuple: createTuple,
-          updateTuple: updateTuple,
+          createTableRow: createTableRow,
+          updateTableRow: updateTableRow,
         })}
     </>
   );

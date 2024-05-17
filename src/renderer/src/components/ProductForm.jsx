@@ -5,8 +5,8 @@ const ProductForm = ({
   mode,
   initialData,
   setInitialData,
-  createTuple,
-  updateTuple,
+  createTableRow,
+  updateTableRow,
   closeForm,
   fetchData,
 }) => {
@@ -40,9 +40,9 @@ const ProductForm = ({
     console.log(formData);
 
     if (mode === "modify") {
-      updateTuple(initialData.id_producto, formData).then(() => fetchData());
+      updateTableRow(initialData.id_producto, formData).then(() => fetchData());
     } else {
-      createTuple(formData).then(() => fetchData());
+      createTableRow(formData).then(() => fetchData());
     }
 
     handleClose();
