@@ -17,6 +17,9 @@ const ProductForm = ({
     cantidad: initialData?.cantidad || "",
     min_cantidad: initialData?.min_cantidad || "",
     precio_venta: initialData?.precio_venta || "",
+    // Object.fromEntries(
+    //   Object.entries(initialData || {}).map(([key, value]) => [key, value || ""])
+    // )
   });
   
   const handleChange = (e) => {
@@ -34,10 +37,12 @@ const ProductForm = ({
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    console.log(formData);
+
     if (mode === "modify") {
-      updateTuple(initialData.id_producto, formData);
+      updateTuple(initialData.id_producto, formData).then(() => fetchData());
     } else {
-      createTuple(formData);
+      createTuple(formData).then(() => fetchData());
     }
 
     handleClose();

@@ -19,11 +19,11 @@ const IndexTable = ({ data }) => {
   return { columns, columnId };
 };
 
-const DeleteButton = (id, handleDelete) => {
+const DeleteButton = ({ id, handleDelete, fetchData }) => {
   return (
     <button
       className="boton boton-eliminar"
-      onClick={() => handleDelete(id)}
+      onClick={() => handleDelete(id).then(() => fetchData())}
     ></button>
   );
 };
@@ -69,6 +69,7 @@ const Tuples = ({
   handleFormAction,
   handleModify,
   handleDelete,
+  fetchData,
 }) => {
   const [hoveredRow, setHoveredRow] = useState(null);
 
@@ -98,7 +99,11 @@ const Tuples = ({
               handleFormAction={handleFormAction}
               handleShowForm={handleShowForm}
             />
-            <DeleteButton id={item[columnId]} handleDelete={handleDelete} />
+            <DeleteButton
+              id={item[columnId]}
+              handleDelete={handleDelete}
+              fetchData={fetchData}
+            />
           </div>
         )}
       </td>
@@ -126,7 +131,7 @@ const Table = ({
 
   const handleModifyTuple = (arg) => {
     setModifyTuple(arg);
-  }
+  };
 
   const handleModify = (id) => {
     const modifyTuple = data.find((item) => item[columnId] === id);
@@ -169,6 +174,7 @@ const Table = ({
                 handleFormAction={handleFormAction}
                 handleModify={handleModify}
                 handleDelete={deleteTuple}
+                fetchData={fetchData}
               />
             )}
           </tbody>
