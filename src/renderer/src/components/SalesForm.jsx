@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./salesform.css";
 
-const FormVenta = ({
+const SalesForm = ({
   createTuple,
   updateTuple,
   mode,
@@ -87,4 +87,4 @@ const FormVenta = ({
   );
 };
 
-export default FormVenta;
+export default SalesForm;
