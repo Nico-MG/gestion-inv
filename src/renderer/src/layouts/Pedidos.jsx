@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ApiOrders } from "../services/apiService";
 import Banner from "../components/Banner";
-import ExtendedTable from "../components/ExtendedTable";
+import Table from "../components/Table";
 
 const Pedidos = () => {
   const [tableData, setTableData] = useState([]);
@@ -18,21 +18,17 @@ const Pedidos = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const updateTableData = (newData) => {
-    setTableData(newData);
-  };
-
+  
   return (
     <>
-      <Banner />
-      <ExtendedTable
+      <Banner page="Pedidos" />
+      <Table
         currentTable="pedidos"
         data={tableData}
         fetchData={fetchData}
-        deleteTuple={ApiOrders.deleteOrder}
-        createTuple={ApiOrders.createOrder}
-        updateTuple={ApiOrders.updateOrder}
+        createTableRow={ApiOrders.createOrder}
+        updateTableRow={ApiOrders.updateOrder}
+        deleteTableRow={ApiOrders.deleteOrder}
       />
     </>
   );
