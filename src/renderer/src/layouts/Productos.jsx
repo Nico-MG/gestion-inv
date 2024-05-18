@@ -21,7 +21,7 @@ const Productos = () => {
 
   return (
     <>
-      <Banner />
+      <Banner page="Productos" />
       <Table
         currentTable="productos"
         data={tableData}
