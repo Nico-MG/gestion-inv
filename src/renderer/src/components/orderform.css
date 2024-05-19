@@ -86,6 +86,12 @@ input {
   font-weight: bold; 
 }
 
+.borrar-btn {
+  background: url('/src/images/delete.png') no-repeat;
+  width: 30px; /* Ajusta el ancho del botón según lo necesites */
+  height: 30px; /* Ajusta la altura del botón según lo necesites */
+}
+
 .total {
   flex: 0; 
   text-align: center;

@@ -7,13 +7,17 @@ const FormPedido = ({
   mode,
   closeForm,
   initialData,
+  initialDetailData,
   fetchData,
 }) => {
   const initialRow = {
+    id_pedido: "",
     id_producto: "",
     cantidad: "",
+    precio_total: "",
   };
 
+  const [priceUnit, setPriceUnit] = useState([0])
   const [formRows, setFormRows] = useState([initialRow]);
 
   const handleChange = (index, e) => {
@@ -24,8 +28,9 @@ const FormPedido = ({
   };
 
   const handleAddRow = () => {
-    setFormRows([...formRows, initialRow]);
+    setFormRows([...formRows, { ...initialRow }]);
   };
+  
 
   const handleRemoveRow = (index) => {
     if (formRows.length > 1) {
@@ -50,17 +55,15 @@ const FormPedido = ({
         {mode === "modificar" ? "Modificar Pedido" : "Registro de Pedido"}
       </div>
       <div className="contenido">
-        
         <div className="fila centrado">
           <div className="etiqueta">ID del pedido:</div>
           <input type="text" className="input" name="id_pedido" value="" />
         </div>
-        
+
         <div className="fila centrado">
           <div className="etiqueta">RUT de la Empresa:</div>
           <input type="text" className="input" name="rut_proveedor" value="" />
         </div>
-
 
         <div className="fila">
           <div className="titulo_producto">ID del Producto</div>
@@ -69,29 +72,31 @@ const FormPedido = ({
         </div>
         {formRows.map((row, index) => (
           <>
-          <div key={index} className="fila">
-            <input
-              type="text"
-              className="input"
-              name="id_producto"
-              value={row.id_producto}
-              onChange={(e) => handleChange(index, e)}
-            />
-            <div className="cantidad">
+            <div key={index} className="fila">
               <input
-                type="number"
-                className="input_cantidad"
-                name="cantidad"
-                value={row.cantidad}
+                type="text"
+                className="input"
+                name="id_producto"
+                value={row.id_producto}
                 onChange={(e) => handleChange(index, e)}
               />
-              <span className="unidad">x 1000</span>
+              <div className="cantidad">
+                <input
+                  type="number"
+                  className="input_cantidad"
+                  name="cantidad"
+                  value={row.cantidad}
+                  onChange={(e) => handleChange(index, e)}
+                />
+                <span className="unidad">x 1000</span>
+              </div>
+              <button
+                className="borrar-btn"
+                onClick={() => handleRemoveRow(index)}
+              />
+              <div className="total">$5.000</div>
             </div>
-            
-            <div className="total">$5.000</div>
-          
-          </div>
-          {index === formRows.length - 1 && (
+            {index === formRows.length - 1 && (
               <>
                 <button
                   className="boton-anadir"
@@ -99,13 +104,6 @@ const FormPedido = ({
                   onClick={handleAddRow}
                 >
                   Agregar
-                </button>
-                <button
-                  className="boton-Eliminar"
-                  type="button"
-                  onClick={() => handleRemoveRow(index)}
-                >
-                  Cancelar
                 </button>
               </>
             )}
