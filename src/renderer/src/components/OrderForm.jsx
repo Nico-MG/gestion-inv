@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./orderform.css";
 
-const FormPedido = ({
+const  OrderForm = ({
   createTableRow,
   updateTableRow,
   mode,
@@ -122,4 +122,4 @@ const FormPedido = ({
   );
 };
 
-export default FormPedido;
+export default OrderForm;
