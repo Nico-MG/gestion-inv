@@ -14,23 +14,36 @@ const OrderForm = ({
     id_pedido: "",
     id_producto: "",
     cantidad: "",
+    precio_unidad: "",
     precio_total: "",
   };
 
-  const [priceUnit, setPriceUnit] = useState([0])
   const [formRows, setFormRows] = useState([initialRow]);
 
   const handleChange = (index, e) => {
     const { name, value } = e.target;
-    const newRows = [...formRows];
+    let newRows = [...formRows];
     newRows[index][name] = value;
+    newRows = calculateTotal(newRows, index);
     setFormRows(newRows);
   };
+
+  
 
   const handleAddRow = () => {
     setFormRows([...formRows, { ...initialRow }]);
   };
-  
+
+  const calculateTotal = (newRows, index) => {
+    const cantidad = newRows[index]['cantidad'];
+    const precio_unidad = newRows[index]['precio_unidad'];
+    let precio_total = newRows[index]['precio_total'];
+    ((cantidad != "") && (precio_unidad != ""))? precio_total = cantidad * precio_unidad : precio_total = 0;
+
+    newRows[index]['precio_total'] = precio_total;
+
+    return newRows;
+  }
 
   const handleRemoveRow = (index) => {
     if (formRows.length > 1) {
@@ -68,6 +81,7 @@ const OrderForm = ({
         <div className="fila">
           <div className="titulo_producto">ID del Producto</div>
           <div className="titulo_cantidad">Cantidad</div>
+          <div className="titulo_precio">Precio</div>
           <div className="titulo_total">Total</div>
         </div>
         {formRows.map((row, index) => (
@@ -75,7 +89,7 @@ const OrderForm = ({
             <div key={index} className="fila">
               <input
                 type="text"
-                className="input"
+                className="input_producto"
                 name="id_producto"
                 value={row.id_producto}
                 onChange={(e) => handleChange(index, e)}
@@ -88,13 +102,23 @@ const OrderForm = ({
                   value={row.cantidad}
                   onChange={(e) => handleChange(index, e)}
                 />
-                <span className="unidad">x 1000</span>
+                <span className="unidad">
+                  x
+                  <input
+                    type="number"
+                    className="input_unidad"
+                    name="precio_unidad"
+                    value={row.precio_unidad}
+                    onChange={(e) => handleChange(index, e)}
+                  />
+                </span>
               </div>
               <button
                 className="borrar-btn"
+                type="button"
                 onClick={() => handleRemoveRow(index)}
               />
-              <div className="total">$5.000</div>
+              <div className="total">{row.precio_total}</div>
             </div>
             {index === formRows.length - 1 && (
               <>
