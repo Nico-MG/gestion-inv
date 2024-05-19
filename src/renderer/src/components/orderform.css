@@ -1,109 +1,142 @@
-* {
-  margin: 0;
+#ventana_flotante {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 600px; 
+  max-height: 80vh;
+  overflow-y: auto;
+  background-color: #ffffff;
+  border: 2px solid #000;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+#ventana_flotante .contenido {
+  margin: 0; 
 }
 
 body {
-  background-color: #f5f5f5;
-  overflow-y: hidden;
+  font-family: 'Nunito', sans-serif; 
 }
 
-
-/*BARRA SUPERIOR*/
-.container-sup {
-  height: 60px;
+.titulo {
   background-color: #292929;
+  color: #43C8D0;
+  padding: 20px 20px;
+  margin: 1;
+  text-align: center;
+  border-radius: 10px 10px 0 0;
+  width: 100%;
+}
+
+.contenido {
+  padding: 20px 0;
+  width: 85%;
+}
+
+.fila {
+  font-weight: bold;
   display: flex;
+  justify-content: space-between;
   align-items: center;
-
+  margin-bottom: 20px;
 }
 
-h1 {
-  background-color: #292929;
-  color: aliceblue;
-  flex: 1;
-  /* El título ocupará todo el espacio restante */
-  margin-right: 20px;
-  /* Margen a la derecha para separar la imagen */
+.centrado {
+  justify-content: center;
 }
 
-img {
-  width: 150px;
-  /* Ajusta la imagen al ancho del contenedor */
-  height: auto;
-  /* Mantiene la proporción de la imagen */
+.etiqueta {
+  flex: 0.6;
+  margin-right: 1px;
+  font-weight: bold; 
 }
 
-/*FIN DE BARRA SUPERIOR*/
-
-
-
-
-
-/*MENU LATERAL*/
-
-.cont-menu {
-  width: 200px; /* Ancho completo del menú lateral */
-  max-width: 200px;
-  background-color: #292929;
-  height: 100vh;
-  position: absolute;
-  transition: width 0.5s ease;
+input {
+  flex: 0;
+  padding: 9px;
+  border: 1.5px solid #000000;
+  color: #00000080;
+  border-radius: 3%;
+  font-size: 13px;
 }
 
-.cont-menu nav {
-  transform: translateY(15%);
+.input_producto {
+  flex: 0.5; 
+  padding: 8px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  font-size: 16px;
 }
 
-.cont-menu nav a {
-  display: block;
-  text-decoration: none;
-  padding: 20px;
-  color: aliceblue;
-  border-left: 5px solid transparent;
-  transition: all 400ms ease;
-  position: relative;
+.input_cantidad {
+  width: 50px; 
+  padding: 8px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  font-size: 15px;
+  
 }
 
-.cont-menu nav a:hover {
-  border-left: 5px solid #c7c7c7;
-  background-color: #1f1f1f;
-}
-
-.boton-opciones {
-  text-align: center; 
-  margin-top: 20px;
+.unidad {
+  margin-left: 4px;
+  color: #0000008f;
+  font-weight: bold; 
 }
 
 .total {
-  border-top: 2px solid #000;
+  flex: 0; 
+  text-align: center;
+  color: #0000008f;
+  font-weight: bold; 
 }
 
-
-/*FIN DEL MENU LATERAL*/
-
-/*BOTON FLOTANTE*/
-#boton-flotante {
-  font-family: 'Material Symbols Outlined';
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: #292929;
-  color: #fff;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 60px;
-  font-size: 24px;
+.boton-anadir {
+  background-color: #40B4BB;
   font-weight: bold;
-  /* box-shadow: 2px 2px 3px #999;*//* Sombra*/
+  color: #fff;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-bottom: 10px; 
+}
+
+.boton-cancelar {
+  background-color: #fff;
+  font-weight: bold;
+  color: #000000d5;
+  padding: 7.5px 10px;
+  border: 1.5px solid #00000065;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  /* box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); */
+}
+
+.boton-opciones {
+  position: absolute;
+  bottom: 20px;
+}
+
+.cerrar-btn {
+  background-color: #F9B872;
+  color: #000000;
+  padding: 10px 40px;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-#boton-flotante:hover {
+.guardar-btn {
   background-color: #F9B872;
   color: #000;
-  font-weight: bold;
+  padding: 10px 30px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 30px;
 }
-
-/*FIN DEL BOTON FLOTANTE*/

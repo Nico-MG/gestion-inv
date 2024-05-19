@@ -50,41 +50,68 @@ const FormPedido = ({
         {mode === "modificar" ? "Modificar Pedido" : "Registro de Pedido"}
       </div>
       <div className="contenido">
+        
         <div className="fila centrado">
-          <div className="etiqueta">ID del Pedido:</div>
-          <input type="text" className="input" value="" />
-        </div>
-        <div className="fila centrado">
-          <div className="etiqueta">RUT del Cliente:</div>
-          <input type="text" className="input" value="" />
+          <div className="etiqueta">ID del pedido:</div>
+          <input type="text" className="input" name="id_pedido" value="" />
         </div>
         
-          <div className="fila">
-            <div className="columna id_producto">ID de producto</div>
-            <div className="columna cantidad">Cantidad</div>
-            <div className="columna total">Total</div>
-          </div>
-
-
-        <div className="contenido-ventas">
-
-          <div className="fila">
-            <input className="columna input_producto" type="text"/>
-            <input className="columna input_cantidad" type="number"/>
-            <h1 className="unidad">x 1.000</h1>
-            <h1>3.000</h1>
-          </div>
+        <div className="fila centrado">
+          <div className="etiqueta">RUT de la Empresa:</div>
+          <input type="text" className="input" name="rut_proveedor" value="" />
         </div>
+
+
+        <div className="fila">
+          <div className="titulo_producto">ID del Producto</div>
+          <div className="titulo_cantidad">Cantidad</div>
+          <div className="titulo_total">Total</div>
+        </div>
+        {formRows.map((row, index) => (
+          <>
+          <div key={index} className="fila">
+            <input
+              type="text"
+              className="input"
+              name="id_producto"
+              value={row.id_producto}
+              onChange={(e) => handleChange(index, e)}
+            />
+            <div className="cantidad">
+              <input
+                type="number"
+                className="input_cantidad"
+                name="cantidad"
+                value={row.cantidad}
+                onChange={(e) => handleChange(index, e)}
+              />
+              <span className="unidad">x 1000</span>
+            </div>
+            
+            <div className="total">$5.000</div>
           
-
-        
-
-
+          </div>
+          {index === formRows.length - 1 && (
+              <>
+                <button
+                  className="boton-anadir"
+                  type="button"
+                  onClick={handleAddRow}
+                >
+                  Agregar
+                </button>
+                <button
+                  className="boton-Eliminar"
+                  type="button"
+                  onClick={() => handleRemoveRow(index)}
+                >
+                  Cancelar
+                </button>
+              </>
+            )}
+          </>
+        ))}
       </div>
-
-
-
-
       <div className="boton-opciones">
         <button className="cerrar-btn" onClick={closeForm}>
           Cerrar
