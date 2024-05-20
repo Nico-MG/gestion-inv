@@ -52,9 +52,6 @@ const OrderForm = (props) => {
     e.preventDefault();
     addDetailId();
     formOrder['compra_total'] = calculateCompraTotal();
-    // Handle form submission for each row here
-    console.log("Form Order:", formOrder);
-    console.log("Form Rows:", formRows);
 
     props.createTableRow(formOrder).then(() => handleSubmitRows().then(() => props.fetchData()))
 
