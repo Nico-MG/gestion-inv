@@ -29,6 +29,8 @@ const Pedidos = () => {
         createTableRow={ApiOrders.createOrder}
         updateTableRow={ApiOrders.updateOrder}
         deleteTableRow={ApiOrders.deleteOrder}
+        createDetailTableRow={ApiOrders.createDetailOrder}
+        updateDetailTableRow={ApiOrders.updateDetailOrder}
       />
     </>
   );

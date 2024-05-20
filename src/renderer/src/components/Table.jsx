@@ -111,19 +111,14 @@ const TableRows = ({
   ));
 };
 
-const Table = ({
-  currentTable,
-  data,
-  fetchData,
-  createTableRow,
-  updateTableRow,
-  deleteTableRow,
-}) => {
+const Table = (props) => {
+
+  const { data } = props;
   const [initialModifyData, setInitialModifyData] = useState(null);
   const [formAction, setFormAction] = useState(null);
   const [showFormState, setShowFormState] = useState(false);
 
-  const { columns, columnId } = useTableColumns({ data });
+  const { columns, columnId } = useTableColumns( {data} );
 
   const toggleFormVisibility = () => {
     setShowFormState(!showFormState);
@@ -139,7 +134,7 @@ const Table = ({
   };
 
   const renderForm = (formProps) => {
-    switch (currentTable) {
+    switch (props.currentTable) {
       case "productos":
         return <ProductForm {...formProps} />;
       case "pedidos":
@@ -169,8 +164,8 @@ const Table = ({
                 toggleFormVisibility={toggleFormVisibility}
                 selectFormAction={selectFormAction}
                 prepareModifyData={prepareModifyData}
-                deleteTableRow={deleteTableRow}
-                fetchData={fetchData}
+                deleteTableRow={props.deleteTableRow}
+                fetchData={props.fetchData}
               />
             )}
           </tbody>
@@ -186,9 +181,11 @@ const Table = ({
           initialData: initialModifyData,
           setInitialData: setInitialModifyData,
           closeForm: toggleFormVisibility,
-          fetchData: fetchData,
-          createTableRow: createTableRow,
-          updateTableRow: updateTableRow,
+          fetchData: props.fetchData,
+          createTableRow: props.createTableRow,
+          updateTableRow: props.updateTableRow,
+          createDetailRow: props.createDetailTableRow,
+          updateDetailRow: props.updateDetailTableRow,
         })}
     </>
   );

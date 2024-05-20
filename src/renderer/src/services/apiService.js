@@ -166,6 +166,88 @@ export const ApiOrders = {
       throw error;
     }
   },
+
+  async getAllDetailOrders() {
+    try {
+      const response = await fetch(`${API_URL}/detalle_pedido`);
+      if (!response.ok) {
+        throw new Error("Error al obtener detalle de pedido");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error al obtener detalle de pedido:", error);
+      throw error;
+    }
+  },
+
+  async getDetailOrder(orderId, productId) {
+    try {
+      const response = await fetch(`${API_URL}/detalle_pedido/${orderId}/${productId}`);
+      if (!response.ok) {
+        throw new Error("Error al obtener detalle de pedido");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error al obtener detalle de pedido:", error);
+      throw error;
+    }
+  },
+
+  async createDetailOrder(detailOrderData) {
+    try {
+      const response = await fetch(`${API_URL}/detalle_pedido`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(detailOrderData),
+      });
+      if (!response.ok) {
+        throw new Error("Error al crear detalle de pedido");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error al crear detalle de pedido:", error);
+      throw error;
+    }
+  },
+
+  async updateDetailOrder(orderId, productId, updatedDetailOrderData) {
+    try {
+      const response = await fetch(`${API_URL}/detalle_pedido/${orderId}/${productId}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedDetailOrderData),
+      });
+      if (!response.ok) {
+        throw new Error("Error al actualizar detalle de pedido");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error al actualizar detalle de pedido:", error);
+      throw error;
+    }
+  },
+
+  async deleteDetailOrder(orderId, productId) {
+    try {
+      const response = await fetch(`${API_URL}/detalle_pedido/${orderId}/${productId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (!response.ok) {
+        throw new Error("Error al eliminar detalle de pedido");
+      }
+      return await response.json();
+    } catch (error) {
+      console.error("Error al eliminar detalle de pedido:", error);
+      throw error;
+    }
+  },
 };
 
 

@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "./orderform.css";
 
-const OrderForm = ({
-  createTableRow,
-  updateTableRow,
-  mode,
-  closeForm,
-  initialData,
-  initialDetailData,
-  fetchData,
-}) => {
+const OrderForm = (props) => {
+  const initialOrder = {
+    id_pedido: "",
+    rut_proveedor: "",
+    rut_usuario: "123456789",
+    fecha: new Date().toISOString(),
+    compra_total: "",
+  };
+
   const initialRow = {
     id_pedido: "",
     id_producto: "",
@@ -18,32 +18,27 @@ const OrderForm = ({
     precio_total: "",
   };
 
+  const [formOrder, setFormOrder] = useState(initialOrder);
   const [formRows, setFormRows] = useState([initialRow]);
 
-  const handleChange = (index, e) => {
+  const handleChange = (e) => {
+    setFormOrder({
+      ...formOrder,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleChangeDetail = (index, e) => {
     const { name, value } = e.target;
     let newRows = [...formRows];
     newRows[index][name] = value;
-    newRows = calculateTotal(newRows, index);
+    newRows = calculatePrecioTotal(newRows, index);
     setFormRows(newRows);
   };
-
-  
 
   const handleAddRow = () => {
     setFormRows([...formRows, { ...initialRow }]);
   };
-
-  const calculateTotal = (newRows, index) => {
-    const cantidad = newRows[index]['cantidad'];
-    const precio_unidad = newRows[index]['precio_unidad'];
-    let precio_total = newRows[index]['precio_total'];
-    ((cantidad != "") && (precio_unidad != ""))? precio_total = cantidad * precio_unidad : precio_total = 0;
-
-    newRows[index]['precio_total'] = precio_total;
-
-    return newRows;
-  }
 
   const handleRemoveRow = (index) => {
     if (formRows.length > 1) {
@@ -53,29 +48,86 @@ const OrderForm = ({
     }
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    addDetailId();
+    formOrder['compra_total'] = calculateCompraTotal();
     // Handle form submission for each row here
+    console.log("Form Order:", formOrder);
     console.log("Form Rows:", formRows);
 
-    closeForm();
+    props.createTableRow(formOrder).then(() => handleSubmitRows().then(() => props.fetchData()))
+
+    props.closeForm();
+  };
+
+  const handleSubmitRows = async () => {
+    formRows.forEach((row) => {
+      console.log(row);
+      props.createDetailRow(row);
+    });
+  }
+
+  const addDetailId = () => {
+    const id_pedido = formOrder["id_pedido"];
+    formRows.forEach((row) => {
+      row.id_pedido = id_pedido;
+    });
+
+    setFormRows(...formRows);
+  };
+
+  const calculatePrecioTotal = (newRows, index) => {
+    const cantidad = newRows[index]["cantidad"];
+    const precio_unidad = newRows[index]["precio_unidad"];
+    let precio_total = newRows[index]["precio_total"];
+    cantidad != "" && precio_unidad != ""
+      ? (precio_total = cantidad * precio_unidad)
+      : (precio_total = 0);
+
+    newRows[index]["precio_total"] = precio_total;
+
+    return newRows;
+  };
+
+  const calculateCompraTotal = () => {
+    let compra_total = 0;
+    for (const row of formRows) {
+      const cantidad = parseInt(row.cantidad);
+      const precio_unidad = parseInt(row.precio_unidad);
+      if (!isNaN(cantidad) && !isNaN(precio_unidad)) {
+        compra_total += cantidad * precio_unidad;
+      }
+    }
+    return compra_total;
   };
 
   return (
     <form style={{ zIndex: 1 }} id="ventana_flotante" onSubmit={handleSubmit}>
       <div className="titulo">
-        {mode === "modificar" ? "Modificar Pedido" : "Registro de Pedido"}
+        {props.mode === "modificar" ? "Modificar Pedido" : "Registro de Pedido"}
       </div>
       <div className="contenido">
         <div className="fila centrado">
           <div className="etiqueta">ID del pedido:</div>
-          <input type="text" className="input" name="id_pedido" value="" />
+          <input
+            type="text"
+            className="input"
+            name="id_pedido"
+            value={formOrder.id_pedido}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="fila centrado">
           <div className="etiqueta">RUT de la Empresa:</div>
-          <input type="text" className="input" name="rut_proveedor" value="" />
+          <input
+            type="text"
+            className="input"
+            name="rut_proveedor"
+            value={formOrder.rut_proveedor}
+            onChange={handleChange}
+          />
         </div>
 
         <div className="fila">
@@ -92,7 +144,7 @@ const OrderForm = ({
                 className="input_producto"
                 name="id_producto"
                 value={row.id_producto}
-                onChange={(e) => handleChange(index, e)}
+                onChange={(e) => handleChangeDetail(index, e)}
               />
               <div className="cantidad">
                 <input
@@ -100,7 +152,7 @@ const OrderForm = ({
                   className="input_cantidad"
                   name="cantidad"
                   value={row.cantidad}
-                  onChange={(e) => handleChange(index, e)}
+                  onChange={(e) => handleChangeDetail(index, e)}
                 />
                 <span className="unidad">
                   x
@@ -109,7 +161,7 @@ const OrderForm = ({
                     className="input_unidad"
                     name="precio_unidad"
                     value={row.precio_unidad}
-                    onChange={(e) => handleChange(index, e)}
+                    onChange={(e) => handleChangeDetail(index, e)}
                   />
                 </span>
               </div>
@@ -135,11 +187,11 @@ const OrderForm = ({
         ))}
       </div>
       <div className="boton-opciones">
-        <button className="cerrar-btn" onClick={closeForm}>
+        <button className="cerrar-btn" onClick={props.closeForm}>
           Cerrar
         </button>
         <button className="guardar-btn" type="submit">
-          {mode === "modify" ? "Modificar" : "Guardar"}
+          {props.mode === "modify" ? "Modificar" : "Guardar"}
         </button>
       </div>
     </form>
