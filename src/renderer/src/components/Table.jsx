@@ -25,9 +25,10 @@ const useTableDetailColumns = ({ detailData }) => {
 
   useEffect(() => {
     if (detailData && detailData.length > 0) {
-      const keys = Object.keys(data[0]);
+      const keys = Object.keys(detailData[0]);
       setDetailColumns(keys);
-      setDetailColumnId(Object.keys(data[0])[0]);
+      setDetailColumnId(Object.keys(detailData[0])[0]);
+      console.log(detailData)
     }
   }, [detailData]);
 
@@ -127,7 +128,6 @@ const TableRows = ({
 };
 
 const Table = (props) => {
-
   const { data, detailData } = props;
   const [initialModifyData, setInitialModifyData] = useState(null);
   const [initialDetailModifyData, setInitialDetailModifyData] = useState(null);
@@ -135,7 +135,9 @@ const Table = (props) => {
   const [showFormState, setShowFormState] = useState(false);
 
   const { columns, columnId } = useTableColumns({ data });
-  const { detailColumns, detailColumnId } = useTableDetailColumns({ detailData })
+  const { detailColumns, detailColumnId } = useTableDetailColumns({
+    detailData,
+  });
 
   const toggleFormVisibility = () => {
     setShowFormState(!showFormState);
@@ -144,6 +146,13 @@ const Table = (props) => {
   const prepareModifyData = (id) => {
     const toModifyData = data.find((item) => item[columnId] === id);
     setInitialModifyData(toModifyData);
+    if (detailData) {
+      const toModifyDetailData = detailData.filter(
+        (item) => item[detailColumnId] == id
+      );
+      console.log(toModifyDetailData)
+      setInitialDetailModifyData(toModifyDetailData);
+    }
   };
 
   const selectFormAction = (action) => {
@@ -196,7 +205,9 @@ const Table = (props) => {
         renderForm({
           mode: formAction,
           initialData: initialModifyData,
+          initialDetailData: initialDetailModifyData,
           setInitialData: setInitialModifyData,
+          setInitialDetailData: setInitialDetailModifyData,
           closeForm: toggleFormVisibility,
           fetchData: props.fetchData,
           createTableRow: props.createTableRow,

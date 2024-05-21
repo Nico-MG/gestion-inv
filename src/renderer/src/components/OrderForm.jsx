@@ -2,34 +2,33 @@ import React, { useState } from "react";
 import "./orderform.css";
 
 const OrderForm = (props) => {
-
-  const { initialData, initialDetailData } = props;
+  const { initialData, initialDetailData, mode } = props;
 
   const [formData, setFormData] = useState({
     id_pedido: initialData?.id_pedido || "",
     rut_proveedor: initialData?.rut_proveedor || "",
-    rut_usuario: initialData?.usuario || "",
+    rut_usuario: initialData?.usuario || "123456789",
     fecha: initialData?.cantidad || new Date().toISOString(),
     compra_total: initialData?.compra_total || "",
   });
 
-  const [formRows, setFormRows] = useState({
-    id_pedido: initialDetailData?.id_pedido || "",
-    id_producto: initialDetailData?.id_producto || "",
-    cantidad: initialDetailData?.cantidad || "",
-    precio_unidad: initialDetailData?.precio_unidad || "",
-    precio_total: initialDetailData?.precio_total || "",
-  })
-
-  // const initialRow = {
-  //   id_pedido: "",
-  //   id_producto: "",
-  //   cantidad: "",
-  //   precio_unidad: "",
-  //   precio_total: "",
-  // };
-
-  // const [formRows, setFormRows] = useState([initialRow]);
+  const [formRows, setFormRows] = useState(
+    initialDetailData?.map((detail) => ({
+      id_pedido: detail.id_pedido || "",
+      id_producto: detail.id_producto || "",
+      cantidad: detail.cantidad || "",
+      precio_unidad: detail.precio_unidad || "",
+      precio_total: detail.precio_total || "",
+    })) || [
+      {
+        id_pedido: "",
+        id_producto: "",
+        cantidad: "",
+        precio_unidad: "",
+        precio_total: "",
+      },
+    ]
+  );
 
   const handleChange = (e) => {
     setFormData({
@@ -44,6 +43,12 @@ const OrderForm = (props) => {
     newRows[index][name] = value;
     newRows = calculatePrecioTotal(newRows, index);
     setFormRows(newRows);
+  };
+
+  const handleClose = () => {
+    props.setInitialData(null);
+    props.setInitialDetailData(null);
+    props.closeForm();
   };
 
   const handleAddRow = () => {
@@ -61,19 +66,37 @@ const OrderForm = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     addDetailId();
-    formData['compra_total'] = calculateCompraTotal();
+    formData["compra_total"] = calculateCompraTotal();
 
-    props.createTableRow(formData).then(() => handleSubmitRows().then(() => props.fetchData()))
+    if (mode === "modify") {
+      props
+      .updateTableRow(initialData.id_pedido, formData)
+      .then(() => handleSubmitRows().then(() => props.fetchData()));
+    }
+    else {
+      props
+        .createTableRow(formData)
+        .then(() => handleSubmitRows().then(() => props.fetchData()));
+    }
 
-    props.closeForm();
+    console.log("Pedido:", formData)
+    console.log("Detalle pedido:", formRows)
+
+    handleClose();
   };
 
   const handleSubmitRows = async () => {
-    formRows.forEach((row) => {
-      console.log(row);
-      props.createDetailRow(row);
-    });
-  }
+    if (mode === "modify") {
+      formRows.forEach((row) => {
+        props.updateDetailRow(formData.id_pedido, row.id_producto, row);
+      });
+    }
+    else {
+      formRows.forEach((row) => {
+        props.createDetailRow(row);
+      });
+    }
+  };
 
   const addDetailId = () => {
     const id_pedido = formData["id_pedido"];
@@ -194,7 +217,7 @@ const OrderForm = (props) => {
         ))}
       </div>
       <div className="boton-opciones">
-        <button className="cerrar-btn" onClick={props.closeForm}>
+        <button className="cerrar-btn" onClick={handleClose}>
           Cerrar
         </button>
         <button className="guardar-btn" type="submit">
