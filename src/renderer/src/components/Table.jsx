@@ -19,6 +19,21 @@ const useTableColumns = ({ data }) => {
   return { columns, columnId };
 };
 
+const useTableDetailColumns = ({ detailData }) => {
+  const [detailColumns, setDetailColumns] = useState([]);
+  const [detailColumnId, setDetailColumnId] = useState(null);
+
+  useEffect(() => {
+    if (detailData && detailData.length > 0) {
+      const keys = Object.keys(data[0]);
+      setDetailColumns(keys);
+      setDetailColumnId(Object.keys(data[0])[0]);
+    }
+  }, [detailData]);
+
+  return { detailColumns, detailColumnId };
+};
+
 const DeleteButton = ({ id, deleteTableRow, fetchData }) => {
   return (
     <button
@@ -113,12 +128,14 @@ const TableRows = ({
 
 const Table = (props) => {
 
-  const { data } = props;
+  const { data, detailData } = props;
   const [initialModifyData, setInitialModifyData] = useState(null);
+  const [initialDetailModifyData, setInitialDetailModifyData] = useState(null);
   const [formAction, setFormAction] = useState(null);
   const [showFormState, setShowFormState] = useState(false);
 
-  const { columns, columnId } = useTableColumns( {data} );
+  const { columns, columnId } = useTableColumns({ data });
+  const { detailColumns, detailColumnId } = useTableDetailColumns({ detailData })
 
   const toggleFormVisibility = () => {
     setShowFormState(!showFormState);

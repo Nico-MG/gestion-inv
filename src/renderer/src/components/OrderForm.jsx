@@ -2,28 +2,38 @@ import React, { useState } from "react";
 import "./orderform.css";
 
 const OrderForm = (props) => {
-  const initialOrder = {
-    id_pedido: "",
-    rut_proveedor: "",
-    rut_usuario: "123456789",
-    fecha: new Date().toISOString(),
-    compra_total: "",
-  };
 
-  const initialRow = {
-    id_pedido: "",
-    id_producto: "",
-    cantidad: "",
-    precio_unidad: "",
-    precio_total: "",
-  };
+  const { initialData, initialDetailData } = props;
 
-  const [formOrder, setFormOrder] = useState(initialOrder);
-  const [formRows, setFormRows] = useState([initialRow]);
+  const [formData, setFormData] = useState({
+    id_pedido: initialData?.id_pedido || "",
+    rut_proveedor: initialData?.rut_proveedor || "",
+    rut_usuario: initialData?.usuario || "",
+    fecha: initialData?.cantidad || new Date().toISOString(),
+    compra_total: initialData?.compra_total || "",
+  });
+
+  const [formRows, setFormRows] = useState({
+    id_pedido: initialDetailData?.id_pedido || "",
+    id_producto: initialDetailData?.id_producto || "",
+    cantidad: initialDetailData?.cantidad || "",
+    precio_unidad: initialDetailData?.precio_unidad || "",
+    precio_total: initialDetailData?.precio_total || "",
+  })
+
+  // const initialRow = {
+  //   id_pedido: "",
+  //   id_producto: "",
+  //   cantidad: "",
+  //   precio_unidad: "",
+  //   precio_total: "",
+  // };
+
+  // const [formRows, setFormRows] = useState([initialRow]);
 
   const handleChange = (e) => {
-    setFormOrder({
-      ...formOrder,
+    setFormData({
+      ...formData,
       [e.target.name]: e.target.value,
     });
   };
@@ -51,9 +61,9 @@ const OrderForm = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     addDetailId();
-    formOrder['compra_total'] = calculateCompraTotal();
+    formData['compra_total'] = calculateCompraTotal();
 
-    props.createTableRow(formOrder).then(() => handleSubmitRows().then(() => props.fetchData()))
+    props.createTableRow(formData).then(() => handleSubmitRows().then(() => props.fetchData()))
 
     props.closeForm();
   };
@@ -66,7 +76,7 @@ const OrderForm = (props) => {
   }
 
   const addDetailId = () => {
-    const id_pedido = formOrder["id_pedido"];
+    const id_pedido = formData["id_pedido"];
     formRows.forEach((row) => {
       row.id_pedido = id_pedido;
     });
@@ -111,7 +121,7 @@ const OrderForm = (props) => {
             type="text"
             className="input"
             name="id_pedido"
-            value={formOrder.id_pedido}
+            value={formData.id_pedido}
             onChange={handleChange}
           />
         </div>
@@ -122,7 +132,7 @@ const OrderForm = (props) => {
             type="text"
             className="input"
             name="rut_proveedor"
-            value={formOrder.rut_proveedor}
+            value={formData.rut_proveedor}
             onChange={handleChange}
           />
         </div>
