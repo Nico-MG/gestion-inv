@@ -1,4 +1,5 @@
 import React from "react";
+import SidebarMenu from "./components/SidebarMenu";
 import Sidebar from "./components/SideBar";
 import Login from "./components/Login";
 import OrderForm from "./components/OrderForm";
@@ -8,7 +9,7 @@ import Panel from "./components/Panel"
 const App = () => {
   return (
     <>
-      <Login />
+      <SidebarMenu />
       {/*
       <Productos />
       <Panel />
