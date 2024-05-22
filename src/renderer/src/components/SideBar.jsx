@@ -1,38 +1,95 @@
 import React from "react";
-import "../globals.css";
 import "./sidebar.css";
-import proveedores from "../images/proveedores.png";
-import ventas from "../images/ventas.png";
-import productos from "../images/productos.png";
-import pedidos from "../images/pedidos.png";
+import logo_plus from "../images/logo_plus.png";
+import i_producto from "../images/i_producto.png";
+import i_clientes from "../images/i_clientes.png";
+import i_proveedores from "../images/i_proveedores.png";
+import i_pedidos from "../images/i_pedidos.png";
+import i_historial from "../images/i_historial.png";
+import i_analitica from "../images/i_analitica.png";
+import i_alerta from "../images/i_alerta.png";
+import i_devolucion from "../images/i_devolucion.png";
+import i_informes from "../images/i_informes.png";
+import i_ayuda from "../images/i_ayuda.png";
+import i_configuracion from "../images/i_configuracion.png";
 
-const Sidebar = () => {
+const SideBar = () => {
   return (
-    <div className="container-menu">
-      <div className="cont-menu">
-        <nav>
-          <div id="contenedor-button">
-            <a id="proveedores" href="#">
-              <img src={proveedores} />
-              <h1>Proveedores</h1>
-            </a>
-            <a id="ventas" href="#">
-              <img src={ventas} />
-              <h1>Ventas</h1>
-            </a>
-            <a id="productos" href="#">
-              <img src={productos} />
-              <h1>Productos</h1>
-            </a>
-            <a id="pedidos" href="#">
-              <img src={pedidos} />
-              <h1>Pedidos</h1>
-            </a>
-          </div>
-        </nav>
+    <div className="barra-lateral">
+      <img src={logo_plus} alt="logo_plus" className="logo" />
+      <div className="encabezado-barra-lateral">
+        <i className="fas fa-bars"></i> <span>MENÚ</span>
       </div>
+      <ul className="menu">
+        <li>
+          <a href="#">
+            <img src={i_producto} alt="Producto" className="icono" />{" "}
+            <span className="texto-opcion"> PRODUCTOS </span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src={i_clientes} alt="Clientes" className="icono" />{" "}
+            <span className="texto-opcion"> CLIENTES </span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src={i_proveedores} alt="Proveedores" className="icono" />{" "}
+            <span className="texto-opcion"> PROVEEDORES </span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src={i_pedidos} alt="Pedidos" className="icono" />{" "}
+            <span className="texto-opcion">PEDIDOS</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src={i_historial} alt="Historial" className="icono" />{" "}
+            <span className="texto-opcion">HISTORIAL</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src={i_analitica} alt="Analista" className="icono" />{" "}
+            <span className="texto-opcion">ANALITÍCA</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src={i_alerta} alt="Alertas" className="icono" />{" "}
+            <span className="texto-opcion">ALERTAS</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src={i_devolucion} alt="Devolución" className="icono" />{" "}
+            <span className="texto-opcion">DEVOLUCIÓN</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src={i_informes} alt="Informes" className="icono" />{" "}
+            <span className="texto-opcion">INFORMES</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src={i_ayuda} alt="Ayuda" className="icono" />{" "}
+            <span className="texto-opcion">AYUDA Y SOPORTE</span>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <img src={i_configuracion} alt="Configuracion" className="icono" />{" "}
+            <span className="texto-opcion">CONFIGURACIÓN</span>
+          </a>
+        </li>
+      </ul>
     </div>
   );
 };
 
-export default Sidebar;
+export default SideBar;
