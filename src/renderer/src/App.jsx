@@ -9,12 +9,7 @@ import Panel from "./components/Panel"
 const App = () => {
   return (
     <>
-      <SidebarMenu />
-      {/*
-      <Productos />
-      <Panel />
-      <Sidebar />
-       <Pedidos /> */}
+      <Pedidos />
     </>
   );
 };
