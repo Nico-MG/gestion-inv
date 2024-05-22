@@ -13,7 +13,7 @@ import i_informes from "../images/i_informes.png";
 import i_ayuda from "../images/i_ayuda.png";
 import i_configuracion from "../images/i_configuracion.png";
 
-const SideBar = () => {
+const Sidebar = () => {
   return (
     <div className="barra-lateral">
       <img src={logo_plus} alt="logo_plus" className="logo" />
@@ -92,4 +92,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default Sidebar;

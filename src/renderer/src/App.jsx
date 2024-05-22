@@ -1,15 +1,10 @@
 import React from "react";
-import SidebarMenu from "./components/SidebarMenu";
-import Sidebar from "./components/SideBar";
-import Login from "./components/Login";
-import OrderForm from "./components/OrderForm";
-import Pedidos from "./layouts/Pedidos";
-import Productos from "./layouts/Productos";
-import Panel from "./components/Panel"
+import Sidebar from "./components/Sidebar";
+
 const App = () => {
   return (
     <>
-      <Pedidos />
+      <Sidebar />
     </>
   );
 };
