@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import "./orderform.css";
+import { ApiOrders } from "../services/apiService";
 
 const OrderForm = (props) => {
   const { initialData, initialDetailData, mode } = props;
+  const initialRow = {
+    id_pedido: "",
+    id_producto: "",
+    cantidad: "",
+    precio_unidad: "",
+    precio_total: "",
+  }
 
   const [formData, setFormData] = useState({
     id_pedido: initialData?.id_pedido || "",
@@ -13,22 +21,18 @@ const OrderForm = (props) => {
   });
 
   const [formRows, setFormRows] = useState(
-    initialDetailData?.map((detail) => ({
-      id_pedido: detail.id_pedido || "",
-      id_producto: detail.id_producto || "",
-      cantidad: detail.cantidad || "",
-      precio_unidad: detail.precio_unidad || "",
-      precio_total: detail.precio_total || "",
-    })) || [
-      {
-        id_pedido: "",
-        id_producto: "",
-        cantidad: "",
-        precio_unidad: "",
-        precio_total: "",
-      },
-    ]
+    initialDetailData && initialDetailData.length > 0 
+      ? initialDetailData.map((detail) => ({
+        id_pedido: detail.id_pedido || "",
+        id_producto: detail.id_producto || "",
+        cantidad: detail.cantidad || "",
+        precio_unidad: detail.precio_unidad || "",
+        precio_total: detail.precio_total || "",
+      })) 
+      : [initialRow]
   );
+
+  console.log("Rows:", formRows)
 
   const handleChange = (e) => {
     setFormData({
