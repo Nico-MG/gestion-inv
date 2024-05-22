@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./orderform.css";
 import { ApiOrders } from "../services/apiService";
 
@@ -10,7 +10,7 @@ const OrderForm = (props) => {
     cantidad: "",
     precio_unidad: "",
     precio_total: "",
-  }
+  };
 
   const [formData, setFormData] = useState({
     id_pedido: initialData?.id_pedido || "",
@@ -21,18 +21,20 @@ const OrderForm = (props) => {
   });
 
   const [formRows, setFormRows] = useState(
-    initialDetailData && initialDetailData.length > 0 
+    initialDetailData && initialDetailData.length > 0
       ? initialDetailData.map((detail) => ({
-        id_pedido: detail.id_pedido || "",
-        id_producto: detail.id_producto || "",
-        cantidad: detail.cantidad || "",
-        precio_unidad: detail.precio_unidad || "",
-        precio_total: detail.precio_total || "",
-      })) 
+          id_pedido: detail.id_pedido || "",
+          id_producto: detail.id_producto || "",
+          cantidad: detail.cantidad || "",
+          precio_unidad: detail.precio_unidad || "",
+          precio_total: detail.precio_total || "",
+        }))
       : [initialRow]
   );
 
-  console.log("Rows:", formRows)
+  const [originalProductIds, setOriginalProductIds] = useState(
+    initialDetailData ? initialDetailData.map((detail) => detail.id_producto) : []
+  );
 
   const handleChange = (e) => {
     setFormData({
@@ -72,34 +74,66 @@ const OrderForm = (props) => {
     addDetailId();
     formData["compra_total"] = calculateCompraTotal();
 
-    if (mode === "modify") {
-      props
-      .updateTableRow(initialData.id_pedido, formData)
-      .then(() => handleSubmitRows().then(() => props.fetchData()));
-    }
-    else {
-      props
-        .createTableRow(formData)
-        .then(() => handleSubmitRows().then(() => props.fetchData()));
+    try {
+      if (mode === "modify") {
+        await props.updateTableRow(initialData.id_pedido, formData);
+        await handleSubmitRows();
+        await handleDeleteRemovedRows();
+      } else {
+        await props.createTableRow(formData);
+        await handleSubmitRows();
+      }
+      props.fetchData();
+    } catch (error) {
+      console.error("Error al enviar el formulario:", error);
     }
 
-    console.log("Pedido:", formData)
-    console.log("Detalle pedido:", formRows)
+    console.log("Detalle inicial:", initialDetailData);
 
     handleClose();
   };
 
   const handleSubmitRows = async () => {
-    if (mode === "modify") {
-      formRows.forEach((row) => {
-        props.updateDetailRow(formData.id_pedido, row.id_producto, row);
-      });
-    }
-    else {
-      formRows.forEach((row) => {
-        props.createDetailRow(row);
-      });
-    }
+    const promises = formRows.map(async (row) => {
+      try {
+        const response = await ApiOrders.getDetailOrder(
+          formData.id_pedido,
+          row.id_producto
+        );
+        if (response) {
+          await props.updateDetailRow(formData.id_pedido, row.id_producto, row);
+        } else {
+          await props.createDetailRow(row);
+        }
+      } catch (error) {
+        console.error("Error al obtener detalle de pedido:", error);
+      }
+    });
+    await Promise.all(promises);
+  };
+
+  const handleDeleteRemovedRows = async () => {
+    const currentProductIds = formRows.map((row) => row.id_producto);
+    const productIdsToDelete = originalProductIds.filter(
+      (id) => !currentProductIds.includes(id)
+    );
+
+    const deletePromises = productIdsToDelete.map(async (id_producto) => {
+      try {
+        const response = await ApiOrders.deleteDetailOrder(
+          formData.id_pedido,
+          id_producto
+        );
+        if (response.status === 200 || response.status === 404) {
+          console.log("Detalle eliminado exitosamente o no encontrado");
+        } else {
+          console.error("Error inesperado al eliminar el detalle del pedido");
+        }
+      } catch (error) {
+        console.error("Error al eliminar el detalle del pedido:", error);
+      }
+    });
+    await Promise.all(deletePromises);
   };
 
   const addDetailId = () => {
@@ -108,14 +142,14 @@ const OrderForm = (props) => {
       row.id_pedido = id_pedido;
     });
 
-    setFormRows(...formRows);
+    setFormRows([...formRows]);
   };
 
   const calculatePrecioTotal = (newRows, index) => {
     const cantidad = newRows[index]["cantidad"];
     const precio_unidad = newRows[index]["precio_unidad"];
     let precio_total = newRows[index]["precio_total"];
-    cantidad != "" && precio_unidad != ""
+    cantidad !== "" && precio_unidad !== ""
       ? (precio_total = cantidad * precio_unidad)
       : (precio_total = 0);
 
@@ -139,7 +173,7 @@ const OrderForm = (props) => {
   return (
     <form style={{ zIndex: 1 }} id="ventana_flotante" onSubmit={handleSubmit}>
       <div className="titulo">
-        {props.mode === "modificar" ? "Modificar Pedido" : "Registro de Pedido"}
+        {props.mode === "modify" ? "Modificar Pedido" : "Registro de Pedido"}
       </div>
       <div className="contenido">
         <div className="fila centrado">
@@ -171,54 +205,48 @@ const OrderForm = (props) => {
           <div className="titulo_total">Total</div>
         </div>
         {formRows.map((row, index) => (
-          <>
-            <div key={index} className="fila">
+          <div key={index} className="fila">
+            <input
+              type="text"
+              className="input_producto"
+              name="id_producto"
+              value={row.id_producto}
+              onChange={(e) => handleChangeDetail(index, e)}
+            />
+            <div className="cantidad">
               <input
-                type="text"
-                className="input_producto"
-                name="id_producto"
-                value={row.id_producto}
+                type="number"
+                className="input_cantidad"
+                name="cantidad"
+                value={row.cantidad}
                 onChange={(e) => handleChangeDetail(index, e)}
               />
-              <div className="cantidad">
+              <span className="unidad">
+                x
                 <input
                   type="number"
-                  className="input_cantidad"
-                  name="cantidad"
-                  value={row.cantidad}
+                  className="input_unidad"
+                  name="precio_unidad"
+                  value={row.precio_unidad}
                   onChange={(e) => handleChangeDetail(index, e)}
                 />
-                <span className="unidad">
-                  x
-                  <input
-                    type="number"
-                    className="input_unidad"
-                    name="precio_unidad"
-                    value={row.precio_unidad}
-                    onChange={(e) => handleChangeDetail(index, e)}
-                  />
-                </span>
-              </div>
-              <button
-                className="borrar-btn"
-                type="button"
-                onClick={() => handleRemoveRow(index)}
-              />
-              <div className="total">{row.precio_total}</div>
+              </span>
             </div>
-            {index === formRows.length - 1 && (
-              <>
-                <button
-                  className="boton-anadir"
-                  type="button"
-                  onClick={handleAddRow}
-                >
-                  Agregar
-                </button>
-              </>
-            )}
-          </>
+            <button
+              className="borrar-btn"
+              type="button"
+              onClick={() => handleRemoveRow(index)}
+            />
+            <div className="total">{row.precio_total}</div>
+          </div>
         ))}
+        <button
+          className="boton-anadir"
+          type="button"
+          onClick={handleAddRow}
+        >
+          Agregar
+        </button>
       </div>
       <div className="boton-opciones">
         <button className="cerrar-btn" onClick={handleClose}>
