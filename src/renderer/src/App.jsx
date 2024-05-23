@@ -1,10 +1,12 @@
 import React from "react";
-import Sidebar from "./components/Organisms/Sidebar";
+import Sidebar from "./components/Organisms/Menus/Sidebar";
+import Productos from "./layouts/Productos";
 
 const App = () => {
   return (
     <>
       <Sidebar />
+      <Productos />
     </>
   );
 };
