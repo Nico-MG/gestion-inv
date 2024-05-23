@@ -1,9 +1,9 @@
 /*LOGIN ver. 0.2*/
-import "./login.css";
-import logo_plus from "../images/logo_plus.png";
-import { ApiUsers } from "../../../services/apiService";
 import { useState } from "react";
-import SidebarMenu from './SidebarMenu';
+import "./login.css";
+import logo_plus from "../../../../images/logo_plus.png";
+import { ApiUsers } from "../../../../services/apiService";
+import Sidebar from '../../Menus/Sidebar';
 
 const T2 = ({handleChange, handleSubmit}) => {
     return (
@@ -80,7 +80,7 @@ const Login = () => {
     return (
 	<>
 	    {logged === "Login" && <T2 handleChange = {handleChange} handleSubmit = {handleSubmit} />}
-	    {logged === "Dashboard" && <SidebarMenu />}
+	    {logged === "Dashboard" && <Sidebar />}
 	</>
 	
   );

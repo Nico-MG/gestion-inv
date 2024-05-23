@@ -12,6 +12,8 @@ import i_devolucion from "../../../images/i_devolucion.png";
 import i_informes from "../../../images/i_informes.png";
 import i_ayuda from "../../../images/i_ayuda.png";
 import i_configuracion from "../../../images/i_configuracion.png";
+import Pedidos from "../../../layouts/Pedidos";
+import Productos from "../../../layouts/Productos";
 
 const Sidebar = () => {
   const [active, setActive ] = useState("");
