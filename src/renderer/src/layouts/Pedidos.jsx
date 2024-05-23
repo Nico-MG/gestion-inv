@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ApiOrders } from "../services/apiService";
-import Table from "../components/Table";
+import Table from "../components/Organisms/Tables/Table";
 
 const Pedidos = () => {
   const [tableData, setTableData] = useState([]);
