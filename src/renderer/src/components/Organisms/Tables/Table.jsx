@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { capitalizeFirstLetter } from "../functions/helpers";
 import "./table.css";
-import ProductForm from "./ProductForm";
-import OrderForm from "./OrderForm";
+import ProductForm from "../Forms/Product/ProductForm";
+import OrderForm from "../Forms/Order/OrderForm";
 
 const useTableColumns = ({ data }) => {
   const [columns, setColumns] = useState([]);

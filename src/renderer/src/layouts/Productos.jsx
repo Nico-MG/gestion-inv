@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { ApiProducts } from "../services/apiService";
-import Table from "../components/Table";
+import Table from "../components/Organisms/Tables/Table";
 
 const Productos = () => {
   const [tableData, setTableData] = useState([]);
@@ -20,7 +20,6 @@ const Productos = () => {
 
   return (
     <>
-      
       <Table
         currentTable="productos"
         data={tableData}

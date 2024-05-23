@@ -1,23 +1,20 @@
-import React from "react";
-import "./sidebarmenu.css";
-import { useState } from "react";
-import logo_plus from "../images/logo_plus.png";
-import i_producto from "../images/i_producto.png";
-import i_clientes from "../images/i_clientes.png";
-import i_proveedores from "../images/i_proveedores.png";
-import i_pedidos from "../images/i_pedidos.png";
-import i_historial from "../images/i_historial.png";
-import i_analitica from "../images/i_analitica.png";
-import i_alerta from "../images/i_alerta.png";
-import i_devolucion from "../images/i_devolucion.png";
-import i_informes from "../images/i_informes.png";
-import i_ayuda from "../images/i_ayuda.png";
-import i_configuracion from "../images/i_configuracion.png";
-import Productos from "../layouts/Productos";
-import Pedidos from "../layouts/Pedidos";
+import React, { useState } from "react";
+import "./sidebar.css";
+import logo_plus from "../../../images/logo_plus.png";
+import i_producto from "../../../images/i_producto.png";
+import i_clientes from "../../../images/i_clientes.png";
+import i_proveedores from "../../../images/i_proveedores.png";
+import i_pedidos from "../../../images/i_pedidos.png";
+import i_historial from "../../../images/i_historial.png";
+import i_analitica from "../../../images/i_analitica.png";
+import i_alerta from "../../../images/i_alerta.png";
+import i_devolucion from "../../../images/i_devolucion.png";
+import i_informes from "../../../images/i_informes.png";
+import i_ayuda from "../../../images/i_ayuda.png";
+import i_configuracion from "../../../images/i_configuracion.png";
 
-const SidebarMenu = () => {
-    const [active, setActive ] = useState("");
+const Sidebar = () => {
+  const [active, setActive ] = useState("");
   return (
       <>
       <div className="barra-lateral">
@@ -101,4 +98,4 @@ const SidebarMenu = () => {
   );
 };
 
-export default SidebarMenu;
+export default Sidebar;
