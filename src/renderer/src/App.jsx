@@ -6,7 +6,7 @@ import Login from "./components/Organisms/Forms/Login/Login";
 const App = () => {
   return (
     <>
-      <Sidebar />
+      <Login />
     </>
   );
 };
