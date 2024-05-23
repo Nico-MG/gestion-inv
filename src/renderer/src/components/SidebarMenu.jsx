@@ -1,5 +1,6 @@
 import React from "react";
 import "./sidebarmenu.css";
+import { useState } from "react";
 import logo_plus from "../images/logo_plus.png";
 import i_producto from "../images/i_producto.png";
 import i_clientes from "../images/i_clientes.png";
@@ -12,23 +13,27 @@ import i_devolucion from "../images/i_devolucion.png";
 import i_informes from "../images/i_informes.png";
 import i_ayuda from "../images/i_ayuda.png";
 import i_configuracion from "../images/i_configuracion.png";
+import Productos from "../layouts/Productos";
+import Pedidos from "../layouts/Pedidos";
 
 const SidebarMenu = () => {
+    const [active, setActive ] = useState("");
   return (
-    <div className="barra-lateral">
+      <>
+      <div className="barra-lateral">
       <img src={logo_plus} alt="logo_plus" className="logo" />
       <div className="encabezado-barra-lateral">
         <i className="fas fa-bars"></i> <span>MENÚ</span>
       </div>
       <ul className="menu">
         <li>
-          <a href="#">
+            <a href="#" onClick = {() => setActive("Product")}>
             <img src={i_producto} alt="Producto" className="icono" />{" "}
             <span className="texto-opcion"> PRODUCTOS </span>
           </a>
         </li>
         <li>
-          <a href="#">
+          <a href="#" onClick = {() => setActive("Client")}>
             <img src={i_clientes} alt="Clientes" className="icono" />{" "}
             <span className="texto-opcion"> CLIENTES </span>
           </a>
@@ -40,7 +45,7 @@ const SidebarMenu = () => {
           </a>
         </li>
         <li>
-          <a href="#">
+            <a href="#" onClick={() => setActive("Pedidos")}>
             <img src={i_pedidos} alt="Pedidos" className="icono" />{" "}
             <span className="texto-opcion">PEDIDOS</span>
           </a>
@@ -88,7 +93,11 @@ const SidebarMenu = () => {
           </a>
         </li>
       </ul>
-    </div>
+      </div>
+	  {active === "Product" && <Productos/>}
+	  {active === "Pedidos" && <Pedidos/>}
+	  
+      </>
   );
 };
 

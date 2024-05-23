@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { ApiOrders } from "../services/apiService";
-import Banner from "../components/Banner";
 import Table from "../components/Table";
 
 const Pedidos = () => {
@@ -24,7 +23,7 @@ const Pedidos = () => {
   
   return (
     <>
-      <Banner page="Pedidos" />
+     
       <Table
         currentTable="pedidos"
         data={tableData}
