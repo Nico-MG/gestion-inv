@@ -1,9 +1,10 @@
 .tabla-datos{
-  position: absolute;
-  width: 900px;
-  height: 74px;
-  left: 300px;
-  top: 200px;
+  display: flex;
+  justify-content: center;
+  margin-left: 300px; /* Espacio en el lado izquierdo */
+  margin-top: 100px;
+  max-width: calc(100% - 250px); /* Calcula el ancho máximo menos el espacio izquierdo */
+  overflow-x: auto; /* Agrega desplazamiento horizontal si la tabla es muy ancha */
 }
 
 .tabla-datos thead th{
