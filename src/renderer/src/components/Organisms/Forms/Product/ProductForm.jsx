@@ -1,15 +1,10 @@
 import React, { useState } from "react";
+import { ApiProducts } from "../../../../services/apiService";
 import "./productform.css";
 
-const ProductForm = ({
-  mode,
-  initialData,
-  setInitialData,
-  createTableRow,
-  updateTableRow,
-  closeForm,
-  fetchData,
-}) => {
+const ProductForm = (props) => {
+  const { mode, initialData, setInitialData, closeForm, fetchData } = props;
+
   const [formData, setFormData] = useState({
     id_producto: initialData?.id_producto || "",
     nombre: initialData?.nombre || "",
@@ -17,11 +12,8 @@ const ProductForm = ({
     cantidad: initialData?.cantidad || "",
     min_cantidad: initialData?.min_cantidad || "",
     precio_venta: initialData?.precio_venta || "",
-    // Object.fromEntries(
-    //   Object.entries(initialData || {}).map(([key, value]) => [key, value || ""])
-    // )
   });
-  
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -30,7 +22,7 @@ const ProductForm = ({
   };
 
   const handleClose = () => {
-    setInitialData(null);
+    setInitialData && setInitialData(null)
     closeForm();
   };
 
@@ -40,9 +32,11 @@ const ProductForm = ({
     console.log(formData);
 
     if (mode === "modify") {
-      updateTableRow(initialData.id_producto, formData).then(() => fetchData());
+      ApiProducts.updateProduct(initialData.id_producto, formData).then(() =>
+        fetchData()
+      );
     } else {
-      createTableRow(formData).then(() => fetchData());
+      ApiProducts.createProduct(formData).then(() => fetchData());
     }
 
     handleClose();

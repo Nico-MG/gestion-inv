@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import "./table.css";
 import ProductForm from "../Forms/Product/ProductForm";
 import OrderForm from "../Forms/Order/OrderForm";
+import AddButton from "../../Molecules/TableButtons/Add/AddButton";
+import EditButton from "../../Molecules/TableButtons/Edit/EditButton";
+import DeleteButton from "../../Molecules/TableButtons/Delete/DeleteButton";
 
 const useTableColumns = ({ data }) => {
   const [columns, setColumns] = useState([]);
@@ -27,66 +30,25 @@ const useTableDetailColumns = ({ detailData }) => {
       const keys = Object.keys(detailData[0]);
       setDetailColumns(keys);
       setDetailColumnId(Object.keys(detailData[0])[0]);
-      console.log(detailData)
+      console.log(detailData);
     }
   }, [detailData]);
 
   return { detailColumns, detailColumnId };
 };
 
-const DeleteButton = ({ id, deleteTableRow, fetchData }) => {
-  return (
-    <button
-      className="boton boton-eliminar"
-      onClick={() => deleteTableRow(id).then(() => fetchData())}
-    ></button>
-  );
-};
-
-const ModifyButton = ({
-  id,
-  prepareModifyData,
-  selectFormAction,
-  toggleFormVisibility,
-}) => {
-  return (
-    <button
-      className="boton boton-modificar"
-      onClick={() => {
-        selectFormAction("modify");
-        prepareModifyData(id);
-        toggleFormVisibility();
-      }}
-    ></button>
-  );
-};
-
-const AddButton = ({ selectFormAction, toggleFormVisibility }) => {
-  return (
-    <div
-      id="boton-flotante"
-      className="material-symbols-outlined"
-      onClick={() => {
-        selectFormAction("create");
-        toggleFormVisibility();
-      }}
-    >
-      +
-    </div>
-  );
-};
-
-const TableRows = ({
-  data,
-  columns,
-  columnId,
-  toggleFormVisibility,
-  selectFormAction,
-  prepareModifyData,
-  deleteTableRow,
-  fetchData,
-}) => {
+const TableRows = (props) => {
   const [hoveredRow, setHoveredRow] = useState(null);
+
+  const {
+    currentTable,
+    data,
+    detailData,
+    columns,
+    columnId,
+    detailColumnId,
+    fetchData,
+  } = props;
 
   const handleMouseEnter = (id) => {
     setHoveredRow(id);
@@ -108,15 +70,18 @@ const TableRows = ({
       <td className="boton-celda">
         {hoveredRow === item[columnId] && (
           <div className="boton-contenedor">
-            <ModifyButton
+            <EditButton
+              currentTable={currentTable}
               id={item[columnId]}
-              prepareModifyData={prepareModifyData}
-              selectFormAction={selectFormAction}
-              toggleFormVisibility={toggleFormVisibility}
+              data={data}
+              detailData={detailData}
+              columnId={columnId}
+              detailColumnId={detailColumnId}
+              fetchData={fetchData}
             />
             <DeleteButton
+              currentTable={currentTable}
               id={item[columnId]}
-              deleteTableRow={deleteTableRow}
               fetchData={fetchData}
             />
           </div>
@@ -127,47 +92,12 @@ const TableRows = ({
 };
 
 const Table = (props) => {
-  const { data, detailData } = props;
-  const [initialModifyData, setInitialModifyData] = useState(null);
-  const [initialDetailModifyData, setInitialDetailModifyData] = useState(null);
-  const [formAction, setFormAction] = useState(null);
-  const [showFormState, setShowFormState] = useState(false);
+  const { data, detailData, fetchData, currentTable } = props;
 
   const { columns, columnId } = useTableColumns({ data });
   const { detailColumns, detailColumnId } = useTableDetailColumns({
     detailData,
   });
-
-  const toggleFormVisibility = () => {
-    setShowFormState(!showFormState);
-  };
-
-  const prepareModifyData = (id) => {
-    const toModifyData = data.find((item) => item[columnId] === id);
-    setInitialModifyData(toModifyData);
-    if (detailData) {
-      const toModifyDetailData = detailData.filter(
-        (item) => item[detailColumnId] == id
-      );
-      console.log(toModifyDetailData)
-      setInitialDetailModifyData(toModifyDetailData);
-    }
-  };
-
-  const selectFormAction = (action) => {
-    setFormAction(action);
-  };
-
-  const renderForm = (formProps) => {
-    switch (props.currentTable) {
-      case "productos":
-        return <ProductForm {...formProps} />;
-      case "pedidos":
-        return <OrderForm {...formProps} />;
-      default:
-        return null;
-    }
-  };
 
   return (
     <>
@@ -183,37 +113,19 @@ const Table = (props) => {
           <tbody>
             {data && (
               <TableRows
+                currentTable={currentTable}
                 data={data}
+                detailData={detailData}
                 columns={columns}
                 columnId={columnId}
-                toggleFormVisibility={toggleFormVisibility}
-                selectFormAction={selectFormAction}
-                prepareModifyData={prepareModifyData}
-                deleteTableRow={props.deleteTableRow}
-                fetchData={props.fetchData}
+                detailColumnId={detailColumnId}
+                fetchData={fetchData}
               />
             )}
           </tbody>
         </table>
       </div>
-      <AddButton
-        selectFormAction={selectFormAction}
-        toggleFormVisibility={toggleFormVisibility}
-      />
-      {showFormState &&
-        renderForm({
-          mode: formAction,
-          initialData: initialModifyData,
-          initialDetailData: initialDetailModifyData,
-          setInitialData: setInitialModifyData,
-          setInitialDetailData: setInitialDetailModifyData,
-          closeForm: toggleFormVisibility,
-          fetchData: props.fetchData,
-          createTableRow: props.createTableRow,
-          updateTableRow: props.updateTableRow,
-          createDetailRow: props.createDetailTableRow,
-          updateDetailRow: props.updateDetailTableRow,
-        })}
+      <AddButton currentTable={currentTable} fetchData={fetchData} />
     </>
   );
 };

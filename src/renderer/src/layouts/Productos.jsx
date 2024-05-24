@@ -21,7 +21,7 @@ const Productos = () => {
   return (
     <>
       <Table
-        currentTable="productos"
+        currentTable="products"
         data={tableData}
         fetchData={fetchData}
         createTableRow={ApiProducts.createProduct}

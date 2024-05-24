@@ -25,7 +25,7 @@ const Pedidos = () => {
     <>
      
       <Table
-        currentTable="pedidos"
+        currentTable="orders"
         data={tableData}
         detailData={tableDetailData}
         fetchData={fetchData}

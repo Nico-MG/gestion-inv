@@ -3,7 +3,7 @@ import "./orderform.css";
 import { ApiOrders } from "../../../../services/apiService";
 
 const OrderForm = (props) => {
-  const { initialData, initialDetailData, mode } = props;
+  const { initialData, initialDetailData, mode, fetchData, closeForm } = props;
   const initialRow = {
     id_pedido: "",
     id_producto: "",
@@ -33,7 +33,9 @@ const OrderForm = (props) => {
   );
 
   const [originalProductIds, setOriginalProductIds] = useState(
-    initialDetailData ? initialDetailData.map((detail) => detail.id_producto) : []
+    initialDetailData
+      ? initialDetailData.map((detail) => detail.id_producto)
+      : []
   );
 
   const handleChange = (e) => {
@@ -54,7 +56,7 @@ const OrderForm = (props) => {
   const handleClose = () => {
     props.setInitialData(null);
     props.setInitialDetailData(null);
-    props.closeForm();
+    closeForm();
   };
 
   const handleAddRow = () => {
@@ -76,14 +78,14 @@ const OrderForm = (props) => {
 
     try {
       if (mode === "modify") {
-        await props.updateTableRow(initialData.id_pedido, formData);
+        await ApiOrders.updateOrder(initialData.id_pedido, formData);
         await handleSubmitRows();
         await handleDeleteRemovedRows();
       } else {
-        await props.createTableRow(formData);
+        await ApiOrders.createOrder(formData);
         await handleSubmitRows();
       }
-      props.fetchData();
+      fetchData();
     } catch (error) {
       console.error("Error al enviar el formulario:", error);
     }
@@ -101,9 +103,9 @@ const OrderForm = (props) => {
           row.id_producto
         );
         if (response) {
-          await props.updateDetailRow(formData.id_pedido, row.id_producto, row);
+          await ApiOrders.updateDetailOrder(formData.id_pedido, row.id_producto, row);
         } else {
-          await props.createDetailRow(row);
+          await ApiOrders.createDetailOrder(row);
         }
       } catch (error) {
         console.error("Error al obtener detalle de pedido:", error);
@@ -240,11 +242,7 @@ const OrderForm = (props) => {
             <div className="total">{row.precio_total}</div>
           </div>
         ))}
-        <button
-          className="boton-anadir"
-          type="button"
-          onClick={handleAddRow}
-        >
+        <button className="boton-anadir" type="button" onClick={handleAddRow}>
           Agregar
         </button>
       </div>
