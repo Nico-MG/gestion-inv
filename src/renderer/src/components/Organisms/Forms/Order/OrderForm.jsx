@@ -3,7 +3,16 @@ import "./orderform.css";
 import { ApiOrders } from "../../../../services/apiService";
 
 const OrderForm = (props) => {
-  const { initialData, initialDetailData, mode, fetchData, closeForm } = props;
+  const {
+    initialData,
+    setInitialData,
+    initialDetailData,
+    setInitialDetailData,
+    mode,
+    fetchData,
+    closeForm,
+  } = props;
+
   const initialRow = {
     id_pedido: "",
     id_producto: "",
@@ -54,8 +63,8 @@ const OrderForm = (props) => {
   };
 
   const handleClose = () => {
-    props.setInitialData(null);
-    props.setInitialDetailData(null);
+    setInitialData && setInitialData(null);
+    setInitialDetailData && setInitialDetailData(null);
     closeForm();
   };
 
@@ -103,7 +112,11 @@ const OrderForm = (props) => {
           row.id_producto
         );
         if (response) {
-          await ApiOrders.updateDetailOrder(formData.id_pedido, row.id_producto, row);
+          await ApiOrders.updateDetailOrder(
+            formData.id_pedido,
+            row.id_producto,
+            row
+          );
         } else {
           await ApiOrders.createDetailOrder(row);
         }
