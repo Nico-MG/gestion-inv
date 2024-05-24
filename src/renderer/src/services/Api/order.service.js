@@ -1,6 +1,6 @@
 import axios from "axios";
 
-API_URL = `${env("API_URL")}/pedido`;
+API_URL = `${import.meta.env.VITE_API_URL}/pedido`;
 
 const OrderApi = {
   async getAllOrders() {

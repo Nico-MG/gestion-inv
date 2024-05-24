@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = "https://gestion-api-mapl.onrender.com";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const ApiProducts = {
   async getAllProducts() {

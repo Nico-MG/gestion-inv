@@ -1,6 +1,6 @@
 import axios from "axios";
 
-API_URL = `${env("API_URL")}/detalle_pedido`;
+API_URL = `${import.meta.env.VITE_API_URL}/detalle_pedido`;
 
 const OrderDetailApi = {
   async getAllOrdersDetail() {
