@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./orderform.css";
-import { OrderApi } from "../../../../services/Api/order.service";
-import { OrderDetailApi } from "../../../../services/Api/order_detail.service";
+import OrderApi from "../../../../services/Api/order.service";
+import OrderDetailApi from "../../../../services/Api/order_detail.service";
 
 const OrderForm = (props) => {
   const {
@@ -92,7 +92,7 @@ const OrderForm = (props) => {
         await handleSubmitRows();
         await handleDeleteRemovedRows();
       } else {
-        await ApiOrders.createOrder(formData);
+        await OrderApi.createOrder(formData);
         await handleSubmitRows();
       }
       fetchData();

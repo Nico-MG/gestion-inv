@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ApiProducts } from "../../../../services/apiService";
+import ProductApi from "../../../../services/Api/product.service";
 import "./productform.css";
 
 const ProductForm = (props) => {
@@ -32,11 +32,11 @@ const ProductForm = (props) => {
     console.log(formData);
 
     if (mode === "modify") {
-      ApiProducts.updateProduct(initialData.id_producto, formData).then(() =>
+      ProductApi.updateProduct(initialData.id_producto, formData).then(() =>
         fetchData()
       );
     } else {
-      ApiProducts.createProduct(formData).then(() => fetchData());
+      ProductApi.createProduct(formData).then(() => fetchData());
     }
 
     handleClose();

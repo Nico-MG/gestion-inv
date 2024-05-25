@@ -1,7 +1,14 @@
 import OrderForm from "../../Organisms/Forms/Order/OrderForm";
 import ProductForm from "../../Organisms/Forms/Product/ProductForm";
 import SalesForm from "../../Organisms/Forms/Sales/SalesForm";
-import { ApiProducts, ApiOrders } from "../../../services/apiService";
+import ClientApi from "../../../services/Api/client.service";
+import NotificationApi from "../../../services/Api/notification.service";
+import OrderApi from "../../../services/Api/order.service";
+import ProductApi from "../../../services/Api/product.service";
+import ProviderApi from "../../../services/Api/provider.service";
+import RefundApi from "../../../services/Api/refund.service";
+import SalesApi from "../../../services/Api/sales.service";
+import UserApi from "../../../services/Api/user.service";
 
 const Switch = {
   renderForm: (currentTable, formProps) => {
@@ -19,10 +26,22 @@ const Switch = {
 
   apiDelete: (currentTable) => {
     switch (currentTable) {
-      case "products":
-        return ApiProducts.deleteProduct;
+      case "clients":
+        return ClientApi.deleteClient;
+      case "notifications":
+        return NotificationApi.deleteNotification;
       case "orders":
-        return ApiOrders.deleteOrder;
+        return OrderApi.deleteOrder;
+      case "products":
+        return ProductApi.deleteProduct;
+      case "providers":
+        return ProviderApi.deleteProvider;
+      case "refunds":
+        return RefundApi.deleteProvider;
+      case "sales":
+        return SalesApi.deleteSales;
+      case "users":
+        return UserApi.deleteUser;
       default:
         return null;
     }

@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { ApiOrders } from "../../services/apiService";
+import OrderApi from "../../services/Api/order.service";
+import OrderDetailApi from "../../services/Api/order_detail.service";
 import Table from "../Organisms/Tables/Table";
 
-const Pedidos = () => {
+const Orders = () => {
   const [tableData, setTableData] = useState([]);
   const [tableDetailData, setTableDetailData] = useState([])
 
   const fetchData = async () => {
     try {
-      const pedidos = await ApiOrders.getAllOrders();
-      const detalle_pedidos = await ApiOrders.getAllDetailOrders();
+      const pedidos = await OrderApi.getAllOrders();
+      const detalle_pedidos = await OrderDetailApi.getAllOrdersDetail();
       setTableData(pedidos);
       setTableDetailData(detalle_pedidos);
     } catch (error) {
@@ -29,14 +30,9 @@ const Pedidos = () => {
         data={tableData}
         detailData={tableDetailData}
         fetchData={fetchData}
-        createTableRow={ApiOrders.createOrder}
-        updateTableRow={ApiOrders.updateOrder}
-        deleteTableRow={ApiOrders.deleteOrder}
-        createDetailTableRow={ApiOrders.createDetailOrder}
-        updateDetailTableRow={ApiOrders.updateDetailOrder}
       />
     </>
   );
 };
 
-export default Pedidos;
+export default Orders;

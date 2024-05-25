@@ -12,8 +12,8 @@ import i_devolucion from "../../../images/i_devolucion.png";
 import i_informes from "../../../images/i_informes.png";
 import i_ayuda from "../../../images/i_ayuda.png";
 import i_configuracion from "../../../images/i_configuracion.png";
-import Pedidos from "../../Pages/Pedidos";
-import Productos from "../../Pages/Productos";
+import Orders from "../../Pages/Orders";
+import Products from "../../Pages/Products";
 
 const Sidebar = () => {
   const [active, setActive ] = useState("");
@@ -26,13 +26,13 @@ const Sidebar = () => {
       </div>
       <ul className="menu">
         <li>
-            <a href="#" onClick = {() => setActive("Product")}>
+            <a href="#" onClick = {() => setActive("Products")}>
             <img src={i_producto} alt="Producto" className="icono" />{" "}
             <span className="texto-opcion"> PRODUCTOS </span>
           </a>
         </li>
         <li>
-          <a href="#" onClick = {() => setActive("Client")}>
+          <a href="#" onClick = {() => setActive("Clients")}>
             <img src={i_clientes} alt="Clientes" className="icono" />{" "}
             <span className="texto-opcion"> CLIENTES </span>
           </a>
@@ -44,7 +44,7 @@ const Sidebar = () => {
           </a>
         </li>
         <li>
-            <a href="#" onClick={() => setActive("Pedidos")}>
+            <a href="#" onClick={() => setActive("Orders")}>
             <img src={i_pedidos} alt="Pedidos" className="icono" />{" "}
             <span className="texto-opcion">PEDIDOS</span>
           </a>
@@ -93,8 +93,8 @@ const Sidebar = () => {
         </li>
       </ul>
       </div>
-	  {active === "Product" && <Productos/>}
-	  {active === "Pedidos" && <Pedidos/>}
+	  {active === "Products" && <Products/>}
+	  {active === "Orders" && <Orders/>}
 	  
       </>
   );

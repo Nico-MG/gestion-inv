@@ -2,7 +2,7 @@
 import { useState } from "react";
 import "./login.css";
 import logo_plus from "../../../../images/logo_plus.png";
-import { ApiUsers } from "../../../../services/apiService";
+import UserApi from "../../../../services/Api/user.service";
 import Sidebar from '../../Menus/Sidebar';
 
 const T2 = ({handleChange, handleSubmit}) => {
@@ -66,7 +66,7 @@ const Login = () => {
     e.preventDefault();
     try{
         setLogged("Dashboard");
-	const token = await ApiUsers.logUsers(credentials);
+	const token = await UserApi.logUsers(credentials);
 	console.log(token);
       //credentials -> {rut, password}
 
