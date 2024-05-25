@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./orderform.css";
-import { ApiOrders } from "../../../../services/apiService";
+import { OrderApi } from "../../../../services/Api/order.service";
+import { OrderDetailApi } from "../../../../services/Api/order_detail.service";
 
 const OrderForm = (props) => {
   const {
@@ -87,7 +88,7 @@ const OrderForm = (props) => {
 
     try {
       if (mode === "modify") {
-        await ApiOrders.updateOrder(initialData.id_pedido, formData);
+        await OrderApi.updateOrder(initialData.id_pedido, formData);
         await handleSubmitRows();
         await handleDeleteRemovedRows();
       } else {
@@ -107,18 +108,18 @@ const OrderForm = (props) => {
   const handleSubmitRows = async () => {
     const promises = formRows.map(async (row) => {
       try {
-        const response = await ApiOrders.getDetailOrder(
+        const response = await OrderDetailApi.getOrderDetail(
           formData.id_pedido,
           row.id_producto
         );
         if (response) {
-          await ApiOrders.updateDetailOrder(
+          await OrderDetailApi.updateOrderDetail(
             formData.id_pedido,
             row.id_producto,
             row
           );
         } else {
-          await ApiOrders.createDetailOrder(row);
+          await OrderDetailApi.createOrderDetail(row);
         }
       } catch (error) {
         console.error("Error al obtener detalle de pedido:", error);

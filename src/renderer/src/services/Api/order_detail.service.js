@@ -1,6 +1,6 @@
 import axios from "axios";
 
-API_URL = `${import.meta.env.VITE_API_URL}/detalle_pedido`;
+const API_URL = `${import.meta.env.VITE_API_URL}/detalle_pedido`;
 
 const OrderDetailApi = {
   async getAllOrdersDetail() {
@@ -37,7 +37,7 @@ const OrderDetailApi = {
     }
   },
 
-  async updateDetailOrder(orderId, productId, updatedOrderDetailData) {
+  async updateOrderDetail(orderId, productId, updatedOrderDetailData) {
     try {
       const response = await axios.put(
         `${API_URL}/${orderId}/${productId}`,

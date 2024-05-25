@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./table.css";
-import ProductForm from "../Forms/Product/ProductForm";
-import OrderForm from "../Forms/Order/OrderForm";
 import AddButton from "../../Molecules/TableButtons/Add/AddButton";
 import EditButton from "../../Molecules/TableButtons/Edit/EditButton";
 import DeleteButton from "../../Molecules/TableButtons/Delete/DeleteButton";
