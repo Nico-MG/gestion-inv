@@ -7,7 +7,7 @@ import OrderApi from "../../../services/Api/order.service";
 import ProductApi from "../../../services/Api/product.service";
 import ProviderApi from "../../../services/Api/provider.service";
 import RefundApi from "../../../services/Api/refund.service";
-import SalesApi from "../../../services/Api/sales.service";
+import SaleApi from "../../../services/Api/sale.service";
 import UserApi from "../../../services/Api/user.service";
 
 const Switch = {
@@ -39,7 +39,7 @@ const Switch = {
       case "refunds":
         return RefundApi.deleteProvider;
       case "sales":
-        return SalesApi.deleteSales;
+        return SaleApi.deleteSales;
       case "users":
         return UserApi.deleteUser;
       default:
