@@ -39,7 +39,7 @@ const Switch = {
       case "refunds":
         return RefundApi.deleteProvider;
       case "sales":
-        return SaleApi.deleteSales;
+        return SaleApi.deleteSale;
       case "users":
         return UserApi.deleteUser;
       default:

@@ -2,7 +2,7 @@ import axios from "axios";
 
 const API_URL = `${import.meta.env.VITE_API_URL}/venta`;
 
-const SalesApi = {
+const SaleApi = {
   async getAllSales() {
     try { 
       const response = await axios.get(`${API_URL}`);
@@ -13,9 +13,9 @@ const SalesApi = {
     }
   },
 
-  async getSales(salesId) {
+  async getSale(saleId) {
     try {
-      const response = await axios.get(`${API_URL}/${salesId}`);
+      const response = await axios.get(`${API_URL}/${saleId}`);
       return response.data;
     } catch (error) {
       console.error("Error al obtener venta:", error);
@@ -23,9 +23,9 @@ const SalesApi = {
     }
   },
 
-  async createSales(salesData) {
+  async createSale(saleData) {
     try {
-      const response = await axios.post(`${API_URL}`, salesData, {
+      const response = await axios.post(`${API_URL}`, saleData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -37,11 +37,11 @@ const SalesApi = {
     }
   },
 
-  async updateSales(salesId, updatedSalesData) {
+  async updateSale(saleId, updatedSaleData) {
     try {
       const response = await axios.put(
-        `${API_URL}/${salesId}`,
-        updatedSalesData,
+        `${API_URL}/${saleId}`,
+        updatedSaleData,
         {
           headers: {
             "Content-Type": "application/json",
@@ -55,9 +55,9 @@ const SalesApi = {
     }
   },
 
-  async deleteSales(salesId) {
+  async deleteSale(saleId) {
     try {
-      const response = await axios.delete(`${API_URL}/${salesId}`, {
+      const response = await axios.delete(`${API_URL}/${saleId}`, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -70,4 +70,4 @@ const SalesApi = {
   },
 };
 
-export default SalesApi;
+export default SaleApi;
