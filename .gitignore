@@ -4,5 +4,4 @@ dist
 out
 .DS_Store
 *.log*
-App.jsx
 .env
