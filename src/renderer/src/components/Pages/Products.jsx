@@ -6,12 +6,8 @@ const Products = () => {
   const [tableData, setTableData] = useState([]);
 
   const fetchData = async () => {
-    try {
-      const productos = await ProductApi.getAllProducts();
-      setTableData(productos);
-    } catch (error) {
-      console.error("Error al obtener productos:", error);
-    }
+    const productos = await ProductApi.getAllProducts();
+    setTableData(productos);
   };
 
   useEffect(() => {
@@ -20,11 +16,7 @@ const Products = () => {
 
   return (
     <>
-      <Table
-        currentTable="products"
-        data={tableData}
-        fetchData={fetchData}
-      />
+      <Table currentTable="products" data={tableData} fetchData={fetchData} />
     </>
   );
 };

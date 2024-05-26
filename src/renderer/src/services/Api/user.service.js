@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/usuario`;
+const API_URL = `${import.meta.env.VITE_API_URL}/user`;
 
 const UserApi = {
   async getAllUsers() {
