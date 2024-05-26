@@ -1,8 +1,6 @@
 import React from "react";
 
-const TableHeader = (props) => {
-  const { columns } = props;
-
+const TableHeader = ({ columns }) => {
   return (
     <tr>
       {columns.map((column) => (

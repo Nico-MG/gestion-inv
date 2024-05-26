@@ -1,5 +1,5 @@
 import Table from "../Organisms/Tables/Table";
-import AddButton from "../Molecules/TableButtons/Add/AddButton";
+import AddButton from "../Molecules/TableButtons/AddButton";
 
 const MainLayout = ({ currentTable, data, fetchData }) => {
   return (

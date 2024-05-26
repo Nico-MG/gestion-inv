@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./table.css";
-import EditButton from "../../Molecules/TableButtons/Edit/EditButton";
-import DeleteButton from "../../Molecules/TableButtons/Delete/DeleteButton";
+import TableHeader from "../../Molecules/TableHeader/TableHeader";
+import TableRows from "../../Molecules/TableRows/TableRows";
 
 const useTableColumns = ({ data }) => {
   const [columns, setColumns] = useState([]);
@@ -18,53 +18,7 @@ const useTableColumns = ({ data }) => {
   return { columns, columnId };
 };
 
-const TableRows = (props) => {
-  const { currentTable, data, columns, columnId, fetchData } = props;
-  
-  const [hoveredRow, setHoveredRow] = useState(null);
-
-  const handleMouseEnter = (id) => {
-    setHoveredRow(id);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredRow(null);
-  };
-
-  return data.map((item, index) => (
-    <tr
-      key={index}
-      onMouseEnter={() => handleMouseEnter(item[columnId])}
-      onMouseLeave={handleMouseLeave}
-    >
-      {columns.map((column) => (
-        <td key={column}>{item[column]}</td>
-      ))}
-      <td className="boton-celda">
-        {hoveredRow === item[columnId] && (
-          <div className="boton-contenedor">
-            <EditButton
-              currentTable={currentTable}
-              id={item[columnId]}
-              data={data}
-              columnId={columnId}
-              fetchData={fetchData}
-            />
-            <DeleteButton
-              currentTable={currentTable}
-              id={item[columnId]}
-              fetchData={fetchData}
-            />
-          </div>
-        )}
-      </td>
-    </tr>
-  ));
-};
-
-const Table = (props) => {
-  const { data, fetchData, currentTable } = props;
-  
+const Table = ({ data, fetchData, currentTable }) => {
   const { columns, columnId } = useTableColumns({ data });
 
   return (
@@ -72,11 +26,7 @@ const Table = (props) => {
       <div className="tabla-datos">
         <table>
           <thead>
-            <tr>
-              {columns.map((column) => (
-                <th key={column}>{column}</th>
-              ))}
-            </tr>
+            <TableHeader columns={columns} />
           </thead>
           <tbody>
             {data && (

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./addbutton.css";
-import Switch from "../Switch";
+import Switch from "./Switch";
 
 const AddButton = (props) => {
   const [active, setActive] = useState(false);

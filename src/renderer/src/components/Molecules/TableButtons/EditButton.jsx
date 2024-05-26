@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Switch from "../Switch";
-import "../rowbuttons.css";
+import Switch from "./Switch";
+import "./rowbuttons.css";
 
 const EditButton = (props) => {
   const [active, setActive] = useState(false);

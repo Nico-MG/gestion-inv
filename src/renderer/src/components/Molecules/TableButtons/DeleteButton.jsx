@@ -1,6 +1,6 @@
 import React from "react";
-import Switch from "../Switch";
-import "../rowbuttons.css";
+import Switch from "./Switch";
+import "./rowbuttons.css";
 
 const DeleteButton = (props) => {
   const { currentTable, id, fetchData } = props;
