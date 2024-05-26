@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import OrderApi from "../../services/Api/order.service";
-import Table from "../Organisms/Tables/Table";
+import MainLayout from "../Templates/MainLayout";
 
 const Orders = () => {
   const [tableData, setTableData] = useState([]);
@@ -15,9 +15,7 @@ const Orders = () => {
   }, []);
 
   return (
-    <>
-      <Table currentTable="orders" data={tableData} fetchData={fetchData} />
-    </>
+    <MainLayout currentTable="orders" data={tableData} fetchData={fetchData} />
   );
 };
 

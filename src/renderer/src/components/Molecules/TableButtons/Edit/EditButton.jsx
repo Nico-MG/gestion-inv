@@ -5,15 +5,12 @@ import "../rowbuttons.css";
 const EditButton = (props) => {
   const [active, setActive] = useState(false);
   const [initialEditData, setInitialEditData] = useState(null);
-  const [initialDetailEditData, setInitialDetailEditData] = useState(null);
 
   const {
     currentTable,
     id,
     data,
-    detailData,
     columnId,
-    detailColumnId,
     fetchData,
   } = props;
 
@@ -24,13 +21,6 @@ const EditButton = (props) => {
   const prepareModifyData = (id) => {
     const toEditData = data.find((item) => item[columnId] === id);
     setInitialEditData(toEditData);
-    if (detailData) {
-      const toEditDetailData = detailData.filter(
-        (item) => item[detailColumnId] == id
-      );
-      console.log(toEditDetailData);
-      setInitialDetailEditData(toEditDetailData);
-    }
   };
 
   return (
@@ -48,9 +38,7 @@ const EditButton = (props) => {
           closeForm: toggleFormVisibility,
           fetchData: fetchData,
           initialData: initialEditData,
-          initialDetailData: initialDetailEditData,
           setInitialData: setInitialEditData,
-          setInitialDetailData: setInitialDetailEditData,
         })}
     </>
   );

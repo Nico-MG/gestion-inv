@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import "./table.css";
-import AddButton from "../../Molecules/TableButtons/Add/AddButton";
 import EditButton from "../../Molecules/TableButtons/Edit/EditButton";
 import DeleteButton from "../../Molecules/TableButtons/Delete/DeleteButton";
 
@@ -19,34 +18,10 @@ const useTableColumns = ({ data }) => {
   return { columns, columnId };
 };
 
-const useTableDetailColumns = ({ detailData }) => {
-  const [detailColumns, setDetailColumns] = useState([]);
-  const [detailColumnId, setDetailColumnId] = useState(null);
-
-  useEffect(() => {
-    if (detailData && detailData.length > 0) {
-      const keys = Object.keys(detailData[0]);
-      setDetailColumns(keys);
-      setDetailColumnId(Object.keys(detailData[0])[0]);
-      console.log(detailData);
-    }
-  }, [detailData]);
-
-  return { detailColumns, detailColumnId };
-};
-
 const TableRows = (props) => {
+  const { currentTable, data, columns, columnId, fetchData } = props;
+  
   const [hoveredRow, setHoveredRow] = useState(null);
-
-  const {
-    currentTable,
-    data,
-    detailData,
-    columns,
-    columnId,
-    detailColumnId,
-    fetchData,
-  } = props;
 
   const handleMouseEnter = (id) => {
     setHoveredRow(id);
@@ -72,9 +47,7 @@ const TableRows = (props) => {
               currentTable={currentTable}
               id={item[columnId]}
               data={data}
-              detailData={detailData}
               columnId={columnId}
-              detailColumnId={detailColumnId}
               fetchData={fetchData}
             />
             <DeleteButton
@@ -90,12 +63,9 @@ const TableRows = (props) => {
 };
 
 const Table = (props) => {
-  const { data, detailData, fetchData, currentTable } = props;
-
+  const { data, fetchData, currentTable } = props;
+  
   const { columns, columnId } = useTableColumns({ data });
-  const { detailColumns, detailColumnId } = useTableDetailColumns({
-    detailData,
-  });
 
   return (
     <>
@@ -113,17 +83,14 @@ const Table = (props) => {
               <TableRows
                 currentTable={currentTable}
                 data={data}
-                detailData={detailData}
                 columns={columns}
                 columnId={columnId}
-                detailColumnId={detailColumnId}
                 fetchData={fetchData}
               />
             )}
           </tbody>
         </table>
       </div>
-      <AddButton currentTable={currentTable} fetchData={fetchData} />
     </>
   );
 };

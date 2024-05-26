@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ProductApi from "../../services/Api/product.service";
-import Table from "../Organisms/Tables/Table";
+import MainLayout from "../Templates/MainLayout";
 
 const Products = () => {
   const [tableData, setTableData] = useState([]);
 
   const fetchData = async () => {
-    const productos = await ProductApi.getAllProducts();
-    setTableData(productos);
+    const products = await ProductApi.getAllProducts();
+    setTableData(products);
   };
 
   useEffect(() => {
@@ -15,9 +15,11 @@ const Products = () => {
   }, []);
 
   return (
-    <>
-      <Table currentTable="products" data={tableData} fetchData={fetchData} />
-    </>
+    <MainLayout
+      currentTable="products"
+      data={tableData}
+      fetchData={fetchData}
+    />
   );
 };
 

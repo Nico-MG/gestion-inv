@@ -3,15 +3,7 @@ import "./orderform.css";
 import OrderApi from "../../../../services/Api/order.service";
 
 const OrderForm = (props) => {
-  const {
-    initialData,
-    setInitialData,
-    initialDetailData,
-    setInitialDetailData,
-    mode,
-    fetchData,
-    closeForm,
-  } = props;
+  const { initialData, setInitialData, mode, fetchData, closeForm } = props;
 
   const initialRow = {
     id_pedido: "",
@@ -21,31 +13,26 @@ const OrderForm = (props) => {
     precio_total: "",
   };
 
-  const [formData, setFormData] = useState({
-    id_pedido: initialData?.id_pedido || "",
-    rut_proveedor: initialData?.rut_proveedor || "",
-    rut_usuario: initialData?.usuario || "123456789",
-    fecha: initialData?.cantidad || new Date().toISOString(),
-    compra_total: initialData?.compra_total || "",
-  });
-
-  const [formRows, setFormRows] = useState(
-    initialDetailData && initialDetailData.length > 0
-      ? initialDetailData.map((detail) => ({
-          id_pedido: detail.id_pedido || "",
-          id_producto: detail.id_producto || "",
-          cantidad: detail.cantidad || "",
-          precio_unidad: detail.precio_unidad || "",
-          precio_total: detail.precio_total || "",
-        }))
-      : [initialRow]
+  const [formData, setFormData] = useState(
+    initialData
+      ? {
+          ...initialData,
+          fecha: new Date().toISOString(),
+          detalle_pedido: initialData.detalle_pedido.length
+            ? initialData.detalle_pedido
+            : [ initialRow ],
+        }
+      : {
+          id_pedido: "",
+          rut_proveedor: "",
+          rut_usuario: "123456789",
+          fecha: new Date().toISOString(),
+          compra_total: "",
+          detalle_pedido: [ initialRow ],
+        }
   );
 
-  const [originalProductIds, setOriginalProductIds] = useState(
-    initialDetailData
-      ? initialDetailData.map((detail) => detail.id_producto)
-      : []
-  );
+  const [formRows, setFormRows] = useState(formData.detalle_pedido);
 
   const handleChange = (e) => {
     setFormData({
@@ -64,7 +51,7 @@ const OrderForm = (props) => {
 
   const handleClose = () => {
     setInitialData && setInitialData(null);
-    setInitialDetailData && setInitialDetailData(null);
+
     closeForm();
   };
 
