@@ -1,31 +1,21 @@
-import React, { useState } from "react";
+import React from "react";
 import "./addbutton.css";
-import Switch from "./Switch";
 
-const AddButton = (props) => {
-  const [active, setActive] = useState(false);
-  const { currentTable, fetchData } = props;
-
-  const toggleFormVisibility = () => {
-    setActive(!active);
-  };
-
+const AddButton = ({ fetchData, toggleForm, setFormProps }) => {
   return (
-    <>
-      <div
-        id="boton-flotante"
-        className="material-symbols-outlined"
-        onClick={toggleFormVisibility}
-      >
-        +
-      </div>
-      {active &&
-        Switch.renderForm(currentTable, {
+    <div
+      id="boton-flotante"
+      className="material-symbols-outlined"
+      onClick={() => {
+        setFormProps({
           mode: "create",
-          closeForm: toggleFormVisibility,
           fetchData: fetchData,
-        })}
-    </>
+        });
+        toggleForm();
+      }}
+    >
+      +
+    </div>
   );
 };
 

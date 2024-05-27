@@ -2,7 +2,15 @@ import React, { useState } from "react";
 import EditButton from "../TableButtons/EditButton";
 import DeleteButton from "../TableButtons/DeleteButton";
 
-const TableRows = ({ currentTable, data, columns, columnId, fetchData }) => {
+const TableRows = ({
+  currentTable,
+  data,
+  columns,
+  columnId,
+  fetchData,
+  toggleForm,
+  setFormProps,
+}) => {
   const [hoveredRow, setHoveredRow] = useState(null);
 
   const handleMouseEnter = (id) => {
@@ -26,11 +34,12 @@ const TableRows = ({ currentTable, data, columns, columnId, fetchData }) => {
         {hoveredRow === item[columnId] && (
           <div className="boton-contenedor">
             <EditButton
-              currentTable={currentTable}
               id={item[columnId]}
               data={data}
               columnId={columnId}
               fetchData={fetchData}
+              toggleForm={toggleForm}
+              setFormProps={setFormProps}
             />
             <DeleteButton
               currentTable={currentTable}

@@ -18,7 +18,7 @@ const useTableColumns = ({ data }) => {
   return { columns, columnId };
 };
 
-const Table = ({ data, fetchData, currentTable }) => {
+const Table = ({ data, fetchData, currentTable, toggleForm, setFormProps }) => {
   const { columns, columnId } = useTableColumns({ data });
 
   return (
@@ -29,15 +29,15 @@ const Table = ({ data, fetchData, currentTable }) => {
             <TableHeader columns={columns} />
           </thead>
           <tbody>
-            {data && (
-              <TableRows
-                currentTable={currentTable}
-                data={data}
-                columns={columns}
-                columnId={columnId}
-                fetchData={fetchData}
-              />
-            )}
+            <TableRows
+              currentTable={currentTable}
+              data={data}
+              columns={columns}
+              columnId={columnId}
+              fetchData={fetchData}
+              toggleForm={toggleForm}
+              setFormProps={setFormProps}
+            />
           </tbody>
         </table>
       </div>

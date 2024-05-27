@@ -15,11 +15,13 @@ const Products = () => {
   }, []);
 
   return (
-    <MainLayout
-      currentTable="products"
-      data={tableData}
-      fetchData={fetchData}
-    />
+    <>
+      <MainLayout
+        currentTable="products"
+        data={tableData}
+        fetchData={fetchData}
+      />
+    </>
   );
 };
 

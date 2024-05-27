@@ -2,8 +2,14 @@ import React, { useState } from "react";
 import ProductApi from "../../../../services/Api/product.service";
 import "./productform.css";
 
-const ProductForm = (props) => {
-  const { mode, initialData, setInitialData, closeForm, fetchData } = props;
+const ProductForm = ({
+  mode,
+  initialData,
+  setInitialData,
+  closeForm,
+  fetchData,
+}) => {
+  console.log("initialData:", initialData);
 
   const [formData, setFormData] = useState({
     id_producto: initialData?.id_producto || "",
@@ -22,7 +28,7 @@ const ProductForm = (props) => {
   };
 
   const handleClose = () => {
-    setInitialData && setInitialData(null)
+    setInitialData && setInitialData(null);
     closeForm();
   };
 
@@ -110,7 +116,7 @@ const ProductForm = (props) => {
             />
           </div>
           <div className="opciones">
-            <button className="cerrar-btn" onClick={handleClose}>
+            <button className="cerrar-btn" type="button" onClick={handleClose}>
               Cerrar
             </button>
             <button className="guardar-btn" type="submit">
