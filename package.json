@@ -1,38 +1,28 @@
 {
     "name": "gestion-inv",
     "version": "1.0.0",
-    "description": "An Electron application with React",
-    "main": "./out/main/index.js",
+    "main": "./src/main.jsx",
     "author": "Jose Jose",
+    "type": "module",
     "scripts": {
-        "start": "electron-vite preview",
-        "dev": "electron-vite dev",
-        "test": "standard --fix && vitest",
-        "build": "electron-vite build",
-        "postinstall": "electron-builder install-app-deps",
-        "build:unpack": "npm run build && electron-builder --dir",
-        "build:win": "npm run build && electron-builder --win"
+        "dev": "vite",
+        "test": "vitest",
+        "build": "vite build",
+        "tauri": "tauri"
     },
     "dependencies": {
-        "@electron-toolkit/preload": "^3.0.0",
-        "@electron-toolkit/utils": "^3.0.0",
+        "@tauri-apps/api": "^1",
         "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.5",
         "@mui/icons-material": "^5.15.18",
         "@mui/material": "^5.15.18",
         "axios": "^1.7.2",
-        "pg": "^8.11.5",
-        "pg-hstore": "^2.3.4",
-        "sequelize": "^6.37.3"
-    },
-    "devDependencies": {
-        "@vitejs/plugin-react": "^4.2.1",
-        "electron": "^28.2.0",
-        "electron-builder": "^24.9.1",
-        "electron-vite": "^2.2.0",
         "react": "^18.2.0",
-        "react-dom": "^18.2.0",
-        "standard": "^17.1.0",
+        "react-dom": "^18.2.0"
+    },
+    "devDependencies": {    
+        "@tauri-apps/cli": "^1",
+        "@vitejs/plugin-react": "^4.2.1",
         "vite": "^5.0.12",
         "vitest": "^1.5.0"
     }
