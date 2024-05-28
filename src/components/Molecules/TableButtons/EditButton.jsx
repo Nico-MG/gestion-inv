@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./rowbuttons.css";
+import IconButton from '@mui/material/IconButton';
+import EditIcon from '@mui/icons-material/Edit';
 
 const EditButton = ({
   id,
@@ -12,20 +13,27 @@ const EditButton = ({
   const [initialEditData, setInitialEditData] = useState(data.find((item) => item[columnId] === id));
 
   return (
-    <>
-      <button
-        className="boton boton-modificar"
-        onClick={() => {
-          setFormProps({
-            mode: "modify",
-            fetchData: fetchData,
-            initialData: initialEditData,
-            setInitialData: setInitialEditData,
-          });
-          toggleForm();
-        }}
-      ></button>
-    </>
+    <IconButton
+      onClick={() => {
+        setFormProps({
+          mode: "modify",
+          fetchData: fetchData,
+          initialData: initialEditData,
+          setInitialData: setInitialEditData,
+        });
+        toggleForm();
+      }}
+      sx={{
+        width: 32,
+        height: 32,
+        borderRadius: 1,
+        '&:hover': {
+          backgroundColor: '#C3FA7B',
+        },
+      }}
+    >
+      <EditIcon />
+    </IconButton>
   );
 };
 

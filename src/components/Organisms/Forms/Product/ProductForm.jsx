@@ -72,7 +72,7 @@ const ProductForm = ({
         overflow: "hidden",
         bgcolor: "#ffffff",
         border: "1.5px solid #266763",
-        borderRadius: "20px",
+        borderRadius: "15px",
         p: 2,
       }}
     >

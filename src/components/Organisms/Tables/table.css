@@ -1,70 +1,64 @@
-.tabla-datos{
+.tabla-datos {
   display: flex;
   justify-content: center;
   margin-left: 300px; /* Espacio en el lado izquierdo */
   margin-top: 100px;
   max-width: calc(100% - 250px); /* Calcula el ancho máximo menos el espacio izquierdo */
-  overflow-x: auto; /* Agrega desplazamiento horizontal si la tabla es muy ancha */
+  overflow-x: hidden; /* Evitar desplazamiento horizontal */
+  overflow-y: hidden;
 }
 
-.tabla-datos thead th{
+.tabla-datos thead th {
   width: 256.3px;
   height: 42.8px;
   background: #946b38b1;
   border: 1px solid #EBEBEB;
-  border-radius: 7px; 
+  border-radius: 7px;
 }
 
-.tabla-datos tbody td{
+.tabla-datos tbody td {
   width: 256.63px;
   height: 71.61px;
   background: #FFFFFF;
   border: 1px solid #EBEBEB;
   text-align: center;
+  position: relative; /* Necesario para la posición de los botones */
 }
 
-/* Botones eliminar y modificar */
 .boton-contenedor {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   height: 100%; /* Ajusta esto según el alto de tu fila */
-  background: #000;
-  border-radius: 5px; 
+  background: #fff;
+  border-radius: 5px;
+  position: absolute; /* Para superponer en la celda */
+  top: 50%; /* Centrar verticalmente */
+  left: 50%; /* Centrar horizontalmente */
+  transform: translate(-50%, -50%); /* Centrar completamente */
+  visibility: hidden; /* Ocultar inicialmente */
 }
 
 .tabla-datos tbody .boton-celda {
-  width: 32px; 
+  width: 60px; /* Ajusta este valor según el tamaño de tus botones */
   border: none;
+  position: relative; /* Para contener los botones */
+}
+
+.boton-celda:hover .boton-contenedor {
+  visibility: visible; /* Mostrar cuando se hace hover en la celda */
 }
 
 .boton {
   border: none;
   cursor: pointer;
-  width: 32px; 
-  height: 32px; 
-  border-radius: 5px; 
+  width: 32px;
+  height: 32px;
+  border-radius: 5px;
   background-position: center;
   background-size: cover;
   transition: background-color 0.3s ease;
 }
-
-.boton:hover {
-  background-color: #8d470d; /* Cambia el color de fondo a rojo cuando se pasa el cursor sobre el botón */
-}
-
-.boton-eliminar {
-  background: url('/src/images/delete.png') no-repeat;
-  background-position: center;
-  background-size: cover;
-}
-
-.boton-modificar {
-  background: url('/src/images/edit.png') no-repeat;
-  background-size: cover;
-  background-position: center;
-}
-
 
 #boton-flotante {
   font-family: 'Material Symbols Outlined';
@@ -80,7 +74,7 @@
   line-height: 60px;
   font-size: 24px;
   font-weight: bold;
-  /* box-shadow: 2px 2px 3px #999;*//* Sombra*/
+  /* box-shadow: 2px 2px 3px #999; *//* Sombra */
   cursor: pointer;
 }
 
