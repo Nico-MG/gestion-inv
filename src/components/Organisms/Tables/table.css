@@ -1,28 +1,23 @@
 .tabla-datos {
-  display: flex;
-  justify-content: center;
-  margin-left: 300px; /* Espacio en el lado izquierdo */
-  margin-top: 100px;
-  max-width: calc(100% - 250px); /* Calcula el ancho máximo menos el espacio izquierdo */
-  overflow-x: hidden; /* Evitar desplazamiento horizontal */
+  overflow-x: hidden;
   overflow-y: hidden;
 }
 
-.tabla-datos thead th {
+/* .tabla-datos thead th {
   width: 256.3px;
   height: 42.8px;
   background: #946b38b1;
   border: 1px solid #EBEBEB;
   border-radius: 7px;
-}
+} */
 
 .tabla-datos tbody td {
-  width: 256.63px;
+  /* width: 256.63px;
   height: 71.61px;
   background: #FFFFFF;
   border: 1px solid #EBEBEB;
-  text-align: center;
-  position: relative; /* Necesario para la posición de los botones */
+  text-align: center; */
+  position: relative;
 }
 
 .boton-contenedor {
@@ -39,8 +34,8 @@
 }
 
 .tabla-datos tbody .boton-celda {
-  width: 60px; /* Ajusta este valor según el tamaño de tus botones */
-  border: none;
+  /* width: 60px;
+  border: none; */
   position: relative; /* Para contener los botones */
 }
 

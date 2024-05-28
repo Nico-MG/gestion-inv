@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./table.css";
+import TableMUI from "@mui/material/Table";
+import TableContainer from "@mui/material/TableContainer";
+import Paper from "@mui/material/Paper";
 import TableHeader from "../../Molecules/TableHeader/TableHeader";
 import TableRows from "../../Molecules/TableRows/TableRows";
+import "./table.css"
 
 const useTableColumns = ({ data }) => {
   const [columns, setColumns] = useState([]);
@@ -22,26 +25,23 @@ const Table = ({ data, fetchData, currentTable, toggleForm, setFormProps }) => {
   const { columns, columnId } = useTableColumns({ data });
 
   return (
-    <>
-      <div className="tabla-datos">
-        <table>
-          <thead>
-            <TableHeader columns={columns} />
-          </thead>
-          <tbody>
-            <TableRows
-              currentTable={currentTable}
-              data={data}
-              columns={columns}
-              columnId={columnId}
-              fetchData={fetchData}
-              toggleForm={toggleForm}
-              setFormProps={setFormProps}
-            />
-          </tbody>
-        </table>
-      </div>
-    </>
+    <TableContainer
+      sx={{ width: "1100px", marginLeft: "350px", marginTop: "20px" }}
+      component={Paper}
+    >
+      <TableMUI className="tabla-datos" sx={{ minWidth: 800 }} aria-label="customized table">
+        <TableHeader columns={columns} />
+        <TableRows
+          currentTable={currentTable}
+          data={data}
+          columns={columns}
+          columnId={columnId}
+          fetchData={fetchData}
+          toggleForm={toggleForm}
+          setFormProps={setFormProps}
+        />
+      </TableMUI>
+    </TableContainer>
   );
 };
 

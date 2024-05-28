@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import TableBody from "@mui/material/TableBody";
+import { StyledTableCell, StyledTableRow } from "../StylesTable";
 import EditButton from "../TableButtons/EditButton";
 import DeleteButton from "../TableButtons/DeleteButton";
 
@@ -22,34 +24,38 @@ const TableRows = ({
   };
 
   return data.map((item, index) => (
-    <tr
-      key={index}
-      onMouseEnter={() => handleMouseEnter(item[columnId])}
-      onMouseLeave={handleMouseLeave}
-    >
-      {columns.map((column) => (
-        <td key={column}>{Array.isArray(item[column]) ? "" : item[column]}</td>
-      ))}
-      <td className="boton-celda">
-        {hoveredRow === item[columnId] && (
-          <div className="boton-contenedor">
-            <EditButton
-              id={item[columnId]}
-              data={data}
-              columnId={columnId}
-              fetchData={fetchData}
-              toggleForm={toggleForm}
-              setFormProps={setFormProps}
-            />
-            <DeleteButton
-              currentTable={currentTable}
-              id={item[columnId]}
-              fetchData={fetchData}
-            />
-          </div>
-        )}
-      </td>
-    </tr>
+    <TableBody>
+      <StyledTableRow
+        key={index}
+        onMouseEnter={() => handleMouseEnter(item[columnId])}
+        onMouseLeave={handleMouseLeave}
+      >
+        {columns.map((column) => (
+          <StyledTableCell key={column}>
+            {Array.isArray(item[column]) ? "" : item[column]}
+          </StyledTableCell>
+        ))}
+        <td className="boton-celda">
+          {hoveredRow === item[columnId] && (
+            <div className="boton-contenedor">
+              <EditButton
+                id={item[columnId]}
+                data={data}
+                columnId={columnId}
+                fetchData={fetchData}
+                toggleForm={toggleForm}
+                setFormProps={setFormProps}
+              />
+              <DeleteButton
+                currentTable={currentTable}
+                id={item[columnId]}
+                fetchData={fetchData}
+              />
+            </div>
+          )}
+        </td>
+      </StyledTableRow>
+    </TableBody>
   ));
 };
 

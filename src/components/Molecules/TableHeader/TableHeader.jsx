@@ -1,12 +1,17 @@
 import React from "react";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import { StyledTableCell } from "../StylesTable";
 
 const TableHeader = ({ columns }) => {
   return (
-    <tr>
-      {columns.map((column) => (
-        <th key={column}>{column}</th>
-      ))}
-    </tr>
+    <TableHead>
+      <TableRow>
+        {columns.map((column) => (
+          <StyledTableCell key={column}>{column}</StyledTableCell>
+        ))}
+      </TableRow>
+    </TableHead>
   );
 };
 
