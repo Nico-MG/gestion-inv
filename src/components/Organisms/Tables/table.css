@@ -36,17 +36,12 @@
   top: 50%; /* Centrar verticalmente */
   left: 50%; /* Centrar horizontalmente */
   transform: translate(-50%, -50%); /* Centrar completamente */
-  visibility: hidden; /* Ocultar inicialmente */
 }
 
 .tabla-datos tbody .boton-celda {
   width: 60px; /* Ajusta este valor según el tamaño de tus botones */
   border: none;
   position: relative; /* Para contener los botones */
-}
-
-.boton-celda:hover .boton-contenedor {
-  visibility: visible; /* Mostrar cuando se hace hover en la celda */
 }
 
 .boton {
