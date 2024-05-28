@@ -117,18 +117,13 @@ const ProductForm = ({
             fullWidth
           />
           <TextField
-            select
             label="Categoría"
             name="categoria"
             value={formData.categoria}
             onChange={handleChange}
             sx={{ mb: 2 }}
             fullWidth
-          >
-            <MenuItem value={"categoria1"}>Categoría 1</MenuItem>
-            <MenuItem value={"categoria2"}>Categoría 2</MenuItem>
-            <MenuItem value={"categoria3"}>Categoría 3</MenuItem>
-          </TextField>
+          />
           <TextField
             label="Cantidad"
             name="cantidad"
@@ -193,81 +188,3 @@ const ProductForm = ({
 };
 
 export default ProductForm;
-
-/* <div style={{ zIndex: 1 }} id="ventana_flotante">
-<div className="titulo">
-  {mode === "modify" ? "Modificar producto" : "Registrar producto"}
-</div>
-<form onSubmit={handleSubmit}>
-  <div className="contenido">
-    <div className="fila centradao">
-      <div className="etiqueta">ID del producto:</div>
-      <input
-        type="text"
-        className="input"
-        name="id_producto"
-        value={formData.id_producto}
-        onChange={handleChange}
-      />
-    </div>
-    <div className="fila centrado">
-      <div className="etiqueta">Nombre:</div>
-      <input
-        type="text"
-        className="input"
-        name="nombre"
-        value={formData.nombre}
-        onChange={handleChange}
-      />
-    </div>
-    <div className="fila centrado">
-      <div className="etiqueta">Categoría:</div>
-      <input
-        type="text"
-        className="input"
-        name="categoria"
-        value={formData.categoria}
-        onChange={handleChange}
-      />
-    </div>
-    <div className="fila centrado">
-      <div className="etiqueta">Cantidad:</div>
-      <input
-        type="text"
-        className="input"
-        name="cantidad"
-        value={formData.cantidad}
-        onChange={handleChange}
-      />
-    </div>
-    <div className="fila centrado">
-      <div className="etiqueta">Min_Cantidad:</div>
-      <input
-        type="text"
-        className="input"
-        name="min_cantidad"
-        value={formData.min_cantidad}
-        onChange={handleChange}
-      />
-    </div>
-    <div className="fila centrado">
-      <div className="etiqueta">Precio:</div>
-      <input
-        type="text"
-        className="input"
-        name="precio_venta"
-        value={formData.precio_venta}
-        onChange={handleChange}
-      />
-    </div>
-    <div className="opciones">
-      <button className="cerrar-btn" type="button" onClick={handleClose}>
-        Cerrar
-      </button>
-      <button className="guardar-btn" type="submit">
-        {mode === "modify" ? "Modificar" : "Guardar"}
-      </button>
-    </div>
-  </div>
-</form>
-</div> */
