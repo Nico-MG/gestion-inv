@@ -28,7 +28,7 @@ const TableRows = ({
       onMouseLeave={handleMouseLeave}
     >
       {columns.map((column) => (
-        <td key={column}>{item[column]}</td>
+        <td key={column}>{Array.isArray(item[column]) ? "" : item[column]}</td>
       ))}
       <td className="boton-celda">
         {hoveredRow === item[columnId] && (

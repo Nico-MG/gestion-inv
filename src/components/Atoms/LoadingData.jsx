@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import "./loadingdata.css";
 import i_loading from "../../images/i_loading.gif";
 import { Container } from "@mui/material";
 

@@ -4,12 +4,12 @@ import "./rowbuttons.css";
 
 const DeleteButton = (props) => {
   const { currentTable, id, fetchData } = props;
-  const deleteTableRow = AuxDelete({ currentTable });
+  // const deleteTableRow = AuxDelete({ currentTable });
 
   return (
     <button
       className="boton boton-eliminar"
-      onClick={() => deleteTableRow(id).then(() => fetchData())}
+      // onClick={() => deleteTableRow(id).then(() => fetchData())}
     ></button>
   );
 };
