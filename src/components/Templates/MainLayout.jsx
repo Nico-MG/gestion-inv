@@ -17,20 +17,22 @@ const MainLayout = ({ currentTable, data, fetchData }) => {
       {!data || data.length === 0 ? (
         <LoadingData />
       ) : (
-        <Table
-          currentTable={currentTable}
-          data={data}
-          fetchData={fetchData}
-          toggleForm={toggleForm}
-          setFormProps={setFormProps}
-        />
+        <>
+          <Table
+            currentTable={currentTable}
+            data={data}
+            fetchData={fetchData}
+            toggleForm={toggleForm}
+            setFormProps={setFormProps}
+          />
+          <AddButton
+            currentTable={currentTable}
+            fetchData={fetchData}
+            toggleForm={toggleForm}
+            setFormProps={setFormProps}
+          />
+        </>
       )}
-      <AddButton
-        currentTable={currentTable}
-        fetchData={fetchData}
-        toggleForm={toggleForm}
-        setFormProps={setFormProps}
-      />
       {activeForm && (
         <RenderForm
           currentTable={currentTable}

@@ -10,6 +10,16 @@ import {
   FormControl,
   InputLabel,
 } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { styled } from "@mui/material/styles";
+
+const StyledTextField = styled(TextField)({
+  marginBottom: "2vh",
+  width: "75%",
+  '& .MuiInputBase-input': {
+    fontSize: '16px', // Cambiar el tamaño de fuente del TextField
+  },
+});
 
 const ProductForm = ({
   mode,
@@ -74,6 +84,7 @@ const ProductForm = ({
         border: "1.5px solid #266763",
         borderRadius: "15px",
         p: 2,
+        marginLeft: "120px",
       }}
     >
       <Box
@@ -86,7 +97,7 @@ const ProductForm = ({
           p: 1,
         }}
       >
-        <Typography variant="h5" sx={{ color: "#ffffff", textAlign: "center" }}>
+        <Typography variant="h5" sx={{ color: "#ffffff", textAlign: "center", fontWeight: "bold" }}>
           {mode === "modify" ? "Modificar producto" : "Registrar producto"}
         </Typography>
       </Box>
@@ -100,52 +111,52 @@ const ProductForm = ({
             p: 5,
           }}
         >
-          <TextField
+          <StyledTextField
             label="ID del producto"
             name="id_producto"
             value={formData.id_producto}
             onChange={handleChange}
-            sx={{ mb: 2 }}
+            // sx={{ mb: 2 }}
             fullWidth
           />
-          <TextField
+          <StyledTextField
             label="Nombre"
             name="nombre"
             value={formData.nombre}
             onChange={handleChange}
-            sx={{ mb: 2 }}
+            // sx={{ mb: 2 }}
             fullWidth
           />
-          <TextField
+          <StyledTextField
             label="Categoría"
             name="categoria"
             value={formData.categoria}
             onChange={handleChange}
-            sx={{ mb: 2 }}
+            // sx={{ mb: 2 }}
             fullWidth
           />
-          <TextField
+          <StyledTextField
             label="Cantidad"
             name="cantidad"
             value={formData.cantidad}
             onChange={handleChange}
-            sx={{ mb: 2 }}
+            // sx={{ mb: 2 }}
             fullWidth
           />
-          <TextField
+          <StyledTextField
             label="Cantidad mínima"
             name="min_cantidad"
             value={formData.min_cantidad}
             onChange={handleChange}
-            sx={{ mb: 2 }}
+            // sx={{ mb: 2 }}
             fullWidth
           />
-          <TextField
+          <StyledTextField
             label="Precio"
             name="precio_venta"
             value={formData.precio_venta}
             onChange={handleChange}
-            sx={{ mb: 2 }}
+            // sx={{ mb: 2 }}
             fullWidth
           />
           <Box
@@ -160,14 +171,15 @@ const ProductForm = ({
           >
             <Button
               variant="contained"
+              endIcon={<CloseIcon />}
               sx={{
                 backgroundColor: "#266763",
                 color: "#ffffff",
                 fontSize: "0.8rem",
-                '&:hover': {
+                "&:hover": {
                   backgroundColor: "#c3fa7b",
                   color: "#7e7e7e",
-                }
+                },
               }}
               onClick={handleClose}
             >
@@ -179,10 +191,10 @@ const ProductForm = ({
                 backgroundColor: "#266763",
                 color: "#ffffff",
                 fontSize: "0.8rem",
-                '&:hover': {
+                "&:hover": {
                   backgroundColor: "#c3fa7b",
                   color: "#7e7e7e",
-                }
+                },
               }}
               type="submit"
             >
