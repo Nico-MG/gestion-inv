@@ -10,21 +10,21 @@ import UserApi from "../../../services/Api/user.service";
 const AuxDelete = ({ currentTable }) => {
   switch (currentTable) {
     case 'clients':
-      return ClientApi.deleteClient();
+      return ClientApi.deleteClient;
     case 'notifications':
-      return NotificationApi.deleteNotification();
+      return NotificationApi.deleteNotification;
     case 'orders':
-      return OrderApi.deleteOrder();
+      return OrderApi.deleteOrder;
     case 'products':
-      return ProductApi.deleteProduct();
+      return ProductApi.deleteProduct;
     case 'providers':
-      return ProviderApi.deleteProvider();
+      return ProviderApi.deleteProvider;
     case 'refunds':
-      return RefundApi.deleteRefund();
+      return RefundApi.deleteRefund;
     case 'sales':
-      return SaleApi.deleteSale();
+      return SaleApi.deleteSale;
     case 'users':
-      return UserApi.deleteUser();
+      return UserApi.deleteUser;
     default:
       return null;
   }
