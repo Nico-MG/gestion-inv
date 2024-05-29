@@ -3,73 +3,25 @@
   overflow-y: hidden;
 }
 
-/* .tabla-datos thead th {
-  width: 256.3px;
-  height: 42.8px;
-  background: #946b38b1;
-  border: 1px solid #EBEBEB;
-  border-radius: 7px;
-} */
-
 .tabla-datos tbody td {
-  /* width: 256.63px;
-  height: 71.61px;
-  background: #FFFFFF;
-  border: 1px solid #EBEBEB;
-  text-align: center; */
   position: relative;
 }
 
 .boton-contenedor {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   height: 100%; /* Ajusta esto según el alto de tu fila */
   background: #fff;
   border-radius: 5px;
-  position: absolute; /* Para superponer en la celda */
+  position: absolute;
   top: 50%; /* Centrar verticalmente */
   left: 50%; /* Centrar horizontalmente */
   transform: translate(-50%, -50%); /* Centrar completamente */
 }
 
 .tabla-datos tbody .boton-celda {
-  /* width: 60px;
-  border: none; */
-  position: relative; /* Para contener los botones */
-}
-
-.boton {
+  width: 32px; /* Ajusta este valor según el tamaño de tus botones */
   border: none;
-  cursor: pointer;
-  width: 32px;
-  height: 32px;
-  border-radius: 5px;
-  background-position: center;
-  background-size: cover;
-  transition: background-color 0.3s ease;
-}
-
-#boton-flotante {
-  font-family: 'Material Symbols Outlined';
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  width: 60px;
-  height: 60px;
-  background-color: #292929;
-  color: #fff;
-  border-radius: 50%;
-  text-align: center;
-  line-height: 60px;
-  font-size: 24px;
-  font-weight: bold;
-  /* box-shadow: 2px 2px 3px #999; *//* Sombra */
-  cursor: pointer;
-}
-
-#boton-flotante:hover {
-  background-color: #F9B872;
-  color: #000;
-  font-weight: bold;
+  position: relative; /* Para contener los botones */
 }
