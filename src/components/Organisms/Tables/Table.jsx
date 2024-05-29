@@ -4,7 +4,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import TableHeader from "../../Molecules/TableHeader/TableHeader";
 import TableRows from "../../Molecules/TableRows/TableRows";
-import "./table.css"
+import "./table.css";
 
 const useTableColumns = ({ data }) => {
   const [columns, setColumns] = useState([]);
@@ -29,7 +29,11 @@ const Table = ({ data, fetchData, currentTable, toggleForm, setFormProps }) => {
       sx={{ width: "1100px", marginLeft: "350px", marginTop: "20px" }}
       component={Paper}
     >
-      <TableMUI className="tabla-datos" sx={{ minWidth: 800 }} aria-label="customized table">
+      <TableMUI
+        className="tabla-datos"
+        sx={{ minWidth: 800 }}
+        aria-label="customized table"
+      >
         <TableHeader columns={columns} />
         <TableRows
           currentTable={currentTable}
