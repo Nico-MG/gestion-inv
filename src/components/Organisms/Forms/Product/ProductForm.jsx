@@ -164,6 +164,10 @@ const ProductForm = ({
                 backgroundColor: "#266763",
                 color: "#ffffff",
                 fontSize: "0.8rem",
+                '&:hover': {
+                  backgroundColor: "#c3fa7b",
+                  color: "#7e7e7e",
+                }
               }}
               onClick={handleClose}
             >
@@ -175,6 +179,10 @@ const ProductForm = ({
                 backgroundColor: "#266763",
                 color: "#ffffff",
                 fontSize: "0.8rem",
+                '&:hover': {
+                  backgroundColor: "#c3fa7b",
+                  color: "#7e7e7e",
+                }
               }}
               type="submit"
             >
