@@ -16,88 +16,91 @@ import Orders from "../../Pages/Orders";
 import Products from "../../Pages/Products";
 
 const Sidebar = () => {
-  const [active, setActive ] = useState("");
-  return (
-      <>
-      <div className="barra-lateral">
-      <img src={logo_plus} alt="logo_plus" className="logo" />
-      <div className="encabezado-barra-lateral">
-        <i className="fas fa-bars"></i> <span>MENÚ</span>
-      </div>
-      <ul className="menu">
-        <li>
-            <a href="#" onClick = {() => setActive("Products")}>
-            <img src={i_producto} alt="Producto" className="icono" />{" "}
-            <span className="texto-opcion"> PRODUCTOS </span>
-          </a>
-        </li>
-        <li>
-          <a href="#" onClick = {() => setActive("Clients")}>
-            <img src={i_clientes} alt="Clientes" className="icono" />{" "}
-            <span className="texto-opcion"> CLIENTES </span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_proveedores} alt="Proveedores" className="icono" />{" "}
-            <span className="texto-opcion"> PROVEEDORES </span>
-          </a>
-        </li>
-        <li>
-            <a href="#" onClick={() => setActive("Orders")}>
-            <img src={i_pedidos} alt="Pedidos" className="icono" />{" "}
-            <span className="texto-opcion">PEDIDOS</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_historial} alt="Historial" className="icono" />{" "}
-            <span className="texto-opcion">HISTORIAL</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_analitica} alt="Analista" className="icono" />{" "}
-            <span className="texto-opcion">ANALITÍCA</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_alerta} alt="Alertas" className="icono" />{" "}
-            <span className="texto-opcion">ALERTAS</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_devolucion} alt="Devolución" className="icono" />{" "}
-            <span className="texto-opcion">DEVOLUCIÓN</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_informes} alt="Informes" className="icono" />{" "}
-            <span className="texto-opcion">INFORMES</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_ayuda} alt="Ayuda" className="icono" />{" "}
-            <span className="texto-opcion">AYUDA Y SOPORTE</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_configuracion} alt="Configuracion" className="icono" />{" "}
-            <span className="texto-opcion">CONFIGURACIÓN</span>
-          </a>
-        </li>
-      </ul>
-      </div>
-	  {active === "Products" && <Products/>}
-	  {active === "Orders" && <Orders/>}
-	  
-      </>
-  );
+	const [active, setActive] = useState("");
+	return (
+		<>
+			<div className="barra-lateral">
+				<img src={logo_plus} alt="logo_plus" className="logo" />
+				<div className="encabezado-barra-lateral">
+					<i className="fas fa-bars"></i> <span>MENÚ</span>
+				</div>
+				<ul className="menu">
+					<li>
+						<a href="#" onClick={() => setActive("Products")}>
+							<img src={i_producto} alt="Producto" className="icono" />{" "}
+							<span className="texto-opcion"> PRODUCTOS </span>
+						</a>
+					</li>
+					<li>
+						<a href="#" onClick={() => setActive("Clients")}>
+							<img src={i_clientes} alt="Clientes" className="icono" />{" "}
+							<span className="texto-opcion"> CLIENTES </span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src={i_proveedores} alt="Proveedores" className="icono" />{" "}
+							<span className="texto-opcion"> PROVEEDORES </span>
+						</a>
+					</li>
+					<li>
+						<a href="#" onClick={() => setActive("Orders")}>
+							<img src={i_pedidos} alt="Pedidos" className="icono" />{" "}
+							<span className="texto-opcion">PEDIDOS</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src={i_historial} alt="Historial" className="icono" />{" "}
+							<span className="texto-opcion">HISTORIAL</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src={i_analitica} alt="Analista" className="icono" />{" "}
+							<span className="texto-opcion">ANALITÍCA</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src={i_alerta} alt="Alertas" className="icono" />{" "}
+							<span className="texto-opcion">ALERTAS</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src={i_devolucion} alt="Devolución" className="icono" />{" "}
+							<span className="texto-opcion">DEVOLUCIÓN</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src={i_informes} alt="Informes" className="icono" />{" "}
+							<span className="texto-opcion">INFORMES</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src={i_ayuda} alt="Ayuda" className="icono" />{" "}
+							<span className="texto-opcion">AYUDA Y SOPORTE</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img
+								src={i_configuracion}
+								alt="Configuracion"
+								className="icono"
+							/>{" "}
+							<span className="texto-opcion">CONFIGURACIÓN</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+			{active === "Products" && <Products />}
+			{active === "Orders" && <Orders />}
+		</>
+	);
 };
 
 export default Sidebar;

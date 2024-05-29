@@ -3,26 +3,26 @@ import ProductApi from "../../services/Api/product.service";
 import MainLayout from "../Templates/MainLayout";
 
 const Products = () => {
-  const [tableData, setTableData] = useState([]);
+	const [tableData, setTableData] = useState([]);
 
-  const fetchData = async () => {
-    const products = await ProductApi.getAllProducts();
-    setTableData(products);
-  };
+	const fetchData = async () => {
+		const products = await ProductApi.getAllProducts();
+		setTableData(products);
+	};
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+	useEffect(() => {
+		fetchData();
+	}, []);
 
-  return (
-    <>
-      <MainLayout
-        currentTable="products"
-        data={tableData}
-        fetchData={fetchData}
-      />
-    </>
-  );
+	return (
+		<>
+			<MainLayout
+				currentTable="products"
+				data={tableData}
+				fetchData={fetchData}
+			/>
+		</>
+	);
 };
 
 export default Products;
