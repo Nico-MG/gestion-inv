@@ -3,8 +3,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AuxDelete from "./AuxDelete";
 
-const DeleteButton = (props) => {
-  const { currentTable, id, fetchData } = props;
+const DeleteButton = ({ currentTable, id, fetchData }) => {
   const deleteTableRow = AuxDelete({ currentTable });
 
   return (

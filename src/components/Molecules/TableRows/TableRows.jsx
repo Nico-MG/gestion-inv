@@ -3,6 +3,15 @@ import TableBody from "@mui/material/TableBody";
 import { StyledTableCell, StyledTableRow } from "../StylesTable";
 import EditButton from "../TableButtons/EditButton";
 import DeleteButton from "../TableButtons/DeleteButton";
+import DetailButton from "../TableButtons/DetailButton";
+
+const isDetailTable = ({ currentTable }) => {
+  return (
+    currentTable === "sales" ||
+    currentTable === "refunds" ||
+    currentTable === "orders"
+  );
+};
 
 const TableRows = ({
   currentTable,
@@ -13,19 +22,27 @@ const TableRows = ({
   toggleForm,
   setFormProps,
 }) => {
+  let detailField = null;
+
   return (
     <TableBody>
       {data.map((item, index) => (
-        <StyledTableRow
-          key={index}
-        >
-          {columns.map((column) => (
-            <StyledTableCell key={column}>
-              {Array.isArray(item[column]) ? "" : item[column]}
-            </StyledTableCell>
-          ))}
+        <StyledTableRow key={index}>
+          {columns.map((column) =>
+            !Array.isArray(item[column]) ? (
+              <StyledTableCell key={column}>{item[column]}</StyledTableCell>
+            ) : (
+              ((detailField = column),
+              null)
+            )
+          )}
           <StyledTableCell key="actions">
-            <div className="boton-contenedor">
+            <div>
+              {(isDetailTable({ currentTable }) && detailField) &&
+                <DetailButton 
+                  data={item[detailField]}
+                />
+              }
               <EditButton
                 id={item[columnId]}
                 data={data}

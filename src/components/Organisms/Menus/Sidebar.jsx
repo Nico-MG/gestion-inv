@@ -44,7 +44,7 @@ const Sidebar = () => {
       <Box
         sx={{
           margin: 2,
-          height: "100vh",
+          minHeight: "100vh",
           width: "300px",
           bgcolor: "#266763",
           borderRadius: "24px",

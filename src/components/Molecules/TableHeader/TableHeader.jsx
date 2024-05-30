@@ -6,11 +6,11 @@ import { StyledTableCell } from "../StylesTable";
 const tableColumns = ({ currentTable }) => {
   switch (currentTable) {
     case "products":
-      return ["ID", "Nombre", "Categoria", "Cantidad", "Cantidad Mínima", "Precio"];
+      return ["ID", "Nombre", "Categoria", "Cantidad", "Cantidad mínima", "Precio"];
     case "orders":
-      return ["ID", "RUT del Proveedor", "RUT del Usuario", "Fecha", "Total de Compra", "Detalles"];
+      return ["ID", "RUT del proveedor", "RUT del usuario", "Fecha", "Compra total"];
     case "sales":
-      return ["ID", "RUT del Cliente", "RUT del Usuario", "Fecha", "Total de Venta", "Detalles"];
+      return ["ID", "RUT del cliente", "RUT del usuario", "Fecha", "Venta total"];
     default:
       return console.error("El tipo de tabla no coincide con ninguno especificado");
   }
