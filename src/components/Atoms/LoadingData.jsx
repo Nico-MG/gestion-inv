@@ -17,12 +17,15 @@ const LoadingData = () => {
     <Container
       maxWidth="sm" // Establece el ancho máximo del Container
       sx={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        height: "80vh", // Ajusta la altura según tu diseño
-        marginLeft: "600px", // Corrige la propiedad marginLeft
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '80vh', // Ajusta la altura según tu diseño
+        position: 'absolute', // Establece el posicionamiento absoluto
+        top: '30%', // Coloca el Container en la mitad de la pantalla verticalmente
+        left: '60%', // Coloca el Container en la mitad de la pantalla horizontalmente
+        transform: 'translate(-50%, -50%)', // Centra el Container en relación con su posición absoluta
       }}
     >
       <img

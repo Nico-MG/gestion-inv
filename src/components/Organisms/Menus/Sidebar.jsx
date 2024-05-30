@@ -1,102 +1,144 @@
-import React, { useState } from "react";
-import "./sidebar.css";
-import logo_plus from "../../../images/logo_plus.png";
-import i_producto from "../../../images/i_producto.png";
-import i_clientes from "../../../images/i_clientes.png";
-import i_proveedores from "../../../images/i_proveedores.png";
-import i_pedidos from "../../../images/i_pedidos.png";
-import i_historial from "../../../images/i_historial.png";
-import i_analitica from "../../../images/i_analitica.png";
-import i_alerta from "../../../images/i_alerta.png";
-import i_devolucion from "../../../images/i_devolucion.png";
-import i_informes from "../../../images/i_informes.png";
-import i_ayuda from "../../../images/i_ayuda.png";
-import i_configuracion from "../../../images/i_configuracion.png";
+import * as React from "react";
+import Tabs from "@mui/joy/Tabs";
+import TabList from "@mui/joy/TabList";
+import Tab, { tabClasses } from "@mui/joy/Tab";
+import { Box, CardMedia, Typography } from "@mui/material";
+import {
+  AttachMoney,
+  Groups,
+  Contacts,
+  Notifications,
+  Inventory,
+  Leaderboard,
+  LocalShipping,
+  Loop,
+  Help,
+  Settings,
+} from "@mui/icons-material";
+import { styled } from "@mui/material/styles";
 import Orders from "../../Pages/Orders";
 import Products from "../../Pages/Products";
 
+const StyledTab = styled(Tab)({
+  fontSize: "18px",
+  color: "#fff",
+  height: "43px",
+  "&:hover": {
+    backgroundColor: "#348d87",
+  },
+  marginBottom: "5px",
+  [`&.Mui-selected::after`]: {
+    display: "none",
+  },
+});
+
 const Sidebar = () => {
-  const [active, setActive ] = useState("");
+  const [value, setValue] = React.useState("analytics");
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
   return (
-      <>
-      <div className="barra-lateral">
-      <img src={logo_plus} alt="logo_plus" className="logo" />
-      <div className="encabezado-barra-lateral">
-        <i className="fas fa-bars"></i> <span>MENÚ</span>
-      </div>
-      <ul className="menu">
-        <li>
-            <a href="#" onClick = {() => setActive("Products")}>
-            <img src={i_producto} alt="Producto" className="icono" />{" "}
-            <span className="texto-opcion"> PRODUCTOS </span>
-          </a>
-        </li>
-        <li>
-          <a href="#" onClick = {() => setActive("Clients")}>
-            <img src={i_clientes} alt="Clientes" className="icono" />{" "}
-            <span className="texto-opcion"> CLIENTES </span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_proveedores} alt="Proveedores" className="icono" />{" "}
-            <span className="texto-opcion"> PROVEEDORES </span>
-          </a>
-        </li>
-        <li>
-            <a href="#" onClick={() => setActive("Orders")}>
-            <img src={i_pedidos} alt="Pedidos" className="icono" />{" "}
-            <span className="texto-opcion">PEDIDOS</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_historial} alt="Historial" className="icono" />{" "}
-            <span className="texto-opcion">HISTORIAL</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_analitica} alt="Analista" className="icono" />{" "}
-            <span className="texto-opcion">ANALITÍCA</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_alerta} alt="Alertas" className="icono" />{" "}
-            <span className="texto-opcion">ALERTAS</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_devolucion} alt="Devolución" className="icono" />{" "}
-            <span className="texto-opcion">DEVOLUCIÓN</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_informes} alt="Informes" className="icono" />{" "}
-            <span className="texto-opcion">INFORMES</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_ayuda} alt="Ayuda" className="icono" />{" "}
-            <span className="texto-opcion">AYUDA Y SOPORTE</span>
-          </a>
-        </li>
-        <li>
-          <a href="#">
-            <img src={i_configuracion} alt="Configuracion" className="icono" />{" "}
-            <span className="texto-opcion">CONFIGURACIÓN</span>
-          </a>
-        </li>
-      </ul>
-      </div>
-	  {active === "Products" && <Products/>}
-	  {active === "Orders" && <Orders/>}
-	  
-      </>
+    <>
+      <Box
+        sx={{
+          margin: 2,
+          height: "100vh",
+          width: "300px",
+          bgcolor: "#266763",
+          borderRadius: "24px",
+        }}
+      >
+        <Box marginLeft="15px">
+          <Box display="flex" alignItems="center" gap={2}>
+            <CardMedia
+              component="img"
+              alt="StockBox"
+              image="/src/images/logo_2.png"
+              style={{ height: "65px", width: "65px", borderRadius: "50%" }}
+            />
+            <Typography variant="h5" sx={{ color: "#fff" }}>
+              StockBox
+            </Typography>
+          </Box>
+
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="Vertical tabs"
+            orientation="vertical"
+            sx={{
+              marginTop: 5,
+              width: "100%",
+              height: "100%",
+              bgcolor: "#266763",
+              borderRadius: "24px",
+            }}
+          >
+            <TabList
+              disableUnderline
+              sx={{
+                p: 0.5,
+                gap: 0.5,
+                borderRadius: "xl",
+                [`& .${tabClasses.root}[aria-selected="true"]`]: {
+                  boxShadow: "sm",
+                  bgcolor: "#c3fa7b",
+                  color: "#266763",
+                  borderRadius: "32px",
+                },
+                [`& .${tabClasses.root}[aria-selected="false"]`]: {
+                  "&:hover": {
+                    bgcolor: "#348d87",
+                    color: "#fff",
+                    borderRadius: "32px",
+                  },
+                },
+              }}
+            >
+              <Box>
+                <StyledTab value="analytics" label="Analiticas">
+                  <Leaderboard /> Analíticas
+                </StyledTab>
+                <StyledTab value="sales" label="Ventas">
+                  <AttachMoney /> Ventas
+                </StyledTab>
+                <StyledTab value="refunds" label="Devoluciones">
+                  <Loop /> Devoluciones
+                </StyledTab>
+                <StyledTab value="orders" label="Pedidos">
+                  <LocalShipping /> Pedidos
+                </StyledTab>
+                <StyledTab value="products" label="Productos">
+                  <Inventory /> Productos
+                </StyledTab>
+                <StyledTab value="clients" label="Clientes">
+                  <Groups /> Clientes
+                </StyledTab>
+                <StyledTab value="providers" label="Proveedores">
+                  <Contacts /> Proveedores
+                </StyledTab>
+                <StyledTab value="notifications" label="Notificaciones">
+                  <Notifications /> Alertas
+                </StyledTab>
+              </Box>
+
+              <Box sx={{ position: "fixed", bottom: "20px" }}>
+                <StyledTab value="help" label="Ayuda">
+                  <Help /> Ayuda y Soporte
+                </StyledTab>
+                <StyledTab value="settings" label="Configuracion">
+                  <Settings /> Configuración
+                </StyledTab>
+              </Box>
+            </TabList>
+          </Tabs>
+        </Box>
+      </Box>
+      {value === "products" && <Products />}
+      {value === "orders" && <Orders />}
+    </>
   );
 };
 

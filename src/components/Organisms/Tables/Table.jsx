@@ -26,7 +26,7 @@ const Table = ({ data, fetchData, currentTable, toggleForm, setFormProps }) => {
 
   return (
     <TableContainer
-      sx={{ width: "1100px", marginLeft: "350px", marginTop: "20px" }}
+      sx={{ width: "1130px", left: "23%", top: "20px", position: "absolute" }}
       component={Paper}
     >
       <TableMUI
