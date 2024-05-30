@@ -1,28 +1,24 @@
 import React, { useState } from "react";
 import ProductApi from "../../../../services/Api/product.service";
-import {
-  Button,
-  TextField,
-  Box,
-  Typography,
-} from "@mui/material";
+import { Button, TextField, Box, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { styled } from "@mui/material/styles";
 
 const StyledTextField = styled(TextField)({
   marginBottom: "2vh",
   width: "75%",
-  '& .MuiInputBase-input': {
-    fontSize: '16px',
+  "& .MuiInputBase-input": {
+    fontSize: "16px",
+  },
+  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#9bc661",
+  },
+  "& .MuiInputLabel-outlined.Mui-focused": {
+    color: "#9bc661",
   },
 });
 
-const ProductForm = ({
-  mode,
-  initialData,
-  closeForm,
-  fetchData,
-}) => {
+const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
   const [formData, setFormData] = useState({
     id_producto: initialData?.id_producto || "",
     nombre: initialData?.nombre || "",
@@ -62,7 +58,7 @@ const ProductForm = ({
         justifyContent: "center",
         position: "fixed",
         top: "50%",
-        left: "50%",
+        left: "60%",
         transform: "translate(-50%, -50%)",
         width: "80vw",
         maxWidth: "600px",
@@ -72,7 +68,6 @@ const ProductForm = ({
         border: "1.5px solid #266763",
         borderRadius: "15px",
         p: 2,
-        marginLeft: "120px",
       }}
     >
       <Box
@@ -85,7 +80,10 @@ const ProductForm = ({
           p: 1,
         }}
       >
-        <Typography variant="h5" sx={{ color: "#ffffff", textAlign: "center", fontWeight: "bold" }}>
+        <Typography
+          variant="h5"
+          sx={{ color: "#ffffff", textAlign: "center", fontWeight: "bold" }}
+        >
           {mode === "modify" ? "Modificar producto" : "Registrar producto"}
         </Typography>
       </Box>
