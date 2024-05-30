@@ -11,16 +11,18 @@
         "tauri": "tauri"
     },
     "dependencies": {
-        "@tauri-apps/api": "^1",
         "@emotion/react": "^11.11.4",
         "@emotion/styled": "^11.11.5",
         "@mui/icons-material": "^5.15.18",
+        "@mui/joy": "^5.0.0-beta.36",
+        "@mui/lab": "^5.0.0-alpha.170",
         "@mui/material": "^5.15.18",
+        "@tauri-apps/api": "^1",
         "axios": "^1.7.2",
         "react": "^18.2.0",
         "react-dom": "^18.2.0"
     },
-    "devDependencies": {    
+    "devDependencies": {
         "@tauri-apps/cli": "^1",
         "@vitejs/plugin-react": "^4.2.1",
         "vite": "^5.0.12",
