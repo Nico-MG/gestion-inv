@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import IconButton from '@mui/material/IconButton';
 import EditIcon from '@mui/icons-material/Edit';
 
@@ -10,19 +10,24 @@ const EditButton = ({
   toggleForm,
   setFormProps,
 }) => {
-  const [initialEditData, setInitialEditData] = useState(data.find((item) => item[columnId] === id));
+  const [initData, setInitData] = useState(data.find((item) => item[columnId] === id));
+
+  useEffect(() => {
+    setInitData(data.find((item) => item[columnId] === id));
+  }, [data, columnId, id]);
+
+  const handleClick = () => {
+    setFormProps({
+      mode: "modify",
+      fetchData: fetchData,
+      initialData: initData,
+    });
+    toggleForm();
+  };
 
   return (
     <IconButton
-      onClick={() => {
-        setFormProps({
-          mode: "modify",
-          fetchData: fetchData,
-          initialData: initialEditData,
-          setInitialData: setInitialEditData,
-        });
-        toggleForm();
-      }}
+      onClick={handleClick}
       sx={{
         width: 32,
         height: 32,

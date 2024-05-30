@@ -17,19 +17,16 @@ const StyledTextField = styled(TextField)({
   marginBottom: "2vh",
   width: "75%",
   '& .MuiInputBase-input': {
-    fontSize: '16px', // Cambiar el tamaño de fuente del TextField
+    fontSize: '16px',
   },
 });
 
 const ProductForm = ({
   mode,
   initialData,
-  setInitialData,
   closeForm,
   fetchData,
 }) => {
-  // console.log("initialData:", initialData);
-
   const [formData, setFormData] = useState({
     id_producto: initialData?.id_producto || "",
     nombre: initialData?.nombre || "",
@@ -111,7 +108,6 @@ const ProductForm = ({
             name="id_producto"
             value={formData.id_producto}
             onChange={handleChange}
-            // sx={{ mb: 2 }}
             fullWidth
           />
           <StyledTextField
@@ -119,7 +115,6 @@ const ProductForm = ({
             name="nombre"
             value={formData.nombre}
             onChange={handleChange}
-            // sx={{ mb: 2 }}
             fullWidth
           />
           <StyledTextField
@@ -127,7 +122,6 @@ const ProductForm = ({
             name="categoria"
             value={formData.categoria}
             onChange={handleChange}
-            // sx={{ mb: 2 }}
             fullWidth
           />
           <StyledTextField
@@ -135,7 +129,6 @@ const ProductForm = ({
             name="cantidad"
             value={formData.cantidad}
             onChange={handleChange}
-            // sx={{ mb: 2 }}
             fullWidth
           />
           <StyledTextField
@@ -143,7 +136,6 @@ const ProductForm = ({
             name="min_cantidad"
             value={formData.min_cantidad}
             onChange={handleChange}
-            // sx={{ mb: 2 }}
             fullWidth
           />
           <StyledTextField
@@ -151,7 +143,6 @@ const ProductForm = ({
             name="precio_venta"
             value={formData.precio_venta}
             onChange={handleChange}
-            // sx={{ mb: 2 }}
             fullWidth
           />
           <Box
