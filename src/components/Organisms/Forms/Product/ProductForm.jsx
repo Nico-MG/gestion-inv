@@ -28,7 +28,7 @@ const ProductForm = ({
   closeForm,
   fetchData,
 }) => {
-  console.log("initialData:", initialData);
+  // console.log("initialData:", initialData);
 
   const [formData, setFormData] = useState({
     id_producto: initialData?.id_producto || "",
@@ -46,11 +46,6 @@ const ProductForm = ({
     });
   };
 
-  const handleClose = () => {
-    setInitialData && setInitialData(null);
-    closeForm();
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -62,7 +57,7 @@ const ProductForm = ({
       ProductApi.createProduct(formData).then(() => fetchData());
     }
 
-    handleClose();
+    closeForm();
   };
 
   return (
@@ -181,7 +176,7 @@ const ProductForm = ({
                   color: "#7e7e7e",
                 },
               }}
-              onClick={handleClose}
+              onClick={closeForm}
             >
               Cerrar
             </Button>

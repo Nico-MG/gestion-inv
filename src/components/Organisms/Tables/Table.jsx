@@ -34,7 +34,7 @@ const Table = ({ data, fetchData, currentTable, toggleForm, setFormProps }) => {
         sx={{ minWidth: 800 }}
         aria-label="customized table"
       >
-        <TableHeader columns={columns} />
+        <TableHeader currentTable={currentTable} />
         <TableRows
           currentTable={currentTable}
           data={data}

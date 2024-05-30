@@ -13,30 +13,18 @@ const TableRows = ({
   toggleForm,
   setFormProps,
 }) => {
-  const [hoveredRow, setHoveredRow] = useState(null);
-
-  const handleMouseEnter = (id) => {
-    setHoveredRow(id);
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredRow(null);
-  };
-
-  return data.map((item, index) => (
+  return (
     <TableBody>
-      <StyledTableRow
-        key={index}
-        onMouseEnter={() => handleMouseEnter(item[columnId])}
-        onMouseLeave={handleMouseLeave}
-      >
-        {columns.map((column) => (
-          <StyledTableCell key={column}>
-            {Array.isArray(item[column]) ? "" : item[column]}
-          </StyledTableCell>
-        ))}
-        <td className="boton-celda">
-          {hoveredRow === item[columnId] && (
+      {data.map((item, index) => (
+        <StyledTableRow
+          key={index}
+        >
+          {columns.map((column) => (
+            <StyledTableCell key={column}>
+              {Array.isArray(item[column]) ? "" : item[column]}
+            </StyledTableCell>
+          ))}
+          <StyledTableCell key="actions">
             <div className="boton-contenedor">
               <EditButton
                 id={item[columnId]}
@@ -52,11 +40,11 @@ const TableRows = ({
                 fetchData={fetchData}
               />
             </div>
-          )}
-        </td>
-      </StyledTableRow>
+          </StyledTableCell>
+        </StyledTableRow>
+      ))}
     </TableBody>
-  ));
+  );
 };
 
 export default TableRows;
