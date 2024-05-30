@@ -1,5 +1,6 @@
 import { useState } from "react";
 import UserApi from "../../../../services/Api/user.service";
+import Sidebar from '../../Menus/Sidebar';
 import {
   Box,
   Button,
@@ -11,7 +12,6 @@ import {
   Checkbox,
 } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import Sidebar from '../../Menus/Sidebar';
 
 const StyledTextField = styled(TextField)({
   marginBottom: "2vh",
