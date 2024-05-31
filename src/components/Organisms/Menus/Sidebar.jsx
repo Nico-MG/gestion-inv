@@ -7,7 +7,6 @@ import {
   AttachMoney,
   Groups,
   Contacts,
-  Notifications,
   Inventory,
   Leaderboard,
   LocalShipping,
@@ -119,9 +118,6 @@ const Sidebar = () => {
                 </StyledTab>
                 <StyledTab value="providers" label="Proveedores">
                   <Contacts /> Proveedores
-                </StyledTab>
-                <StyledTab value="notifications" label="Notificaciones">
-                  <Notifications /> Alertas
                 </StyledTab>
               </Box>
 
