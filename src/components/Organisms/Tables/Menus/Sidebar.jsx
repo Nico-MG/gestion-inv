@@ -12,8 +12,8 @@ import i_devolucion from "../../../images/i_devolucion.png";
 import i_informes from "../../../images/i_informes.png";
 import i_ayuda from "../../../images/i_ayuda.png";
 import i_configuracion from "../../../images/i_configuracion.png";
-import Orders from "../../Pages/Orders";
-import Products from "../../Pages/Products";
+import Orders from "../../../Pages/Orders";
+import Products from "../../../Pages/Products";
 
 const Sidebar = () => {
 	const [active, setActive] = useState("");
@@ -22,7 +22,7 @@ const Sidebar = () => {
 			<div className="barra-lateral">
 				<img src={logo_plus} alt="logo_plus" className="logo" />
 				<div className="encabezado-barra-lateral">
-					<i className="fas fa-bars"></i> <span>MENÚ</span>
+					<i className="fas fa-bars"/> <span>MENÚ</span>
 				</div>
 				<ul className="menu">
 					<li>
