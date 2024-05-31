@@ -70,19 +70,19 @@ const T2 = ({handleChange, handleSubmit}) => {
       >
         <Card
           sx={{
-            width: "65%",
+            width: "60%",
             borderRadius: "24px",
             boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
           }}
         >
           <Box sx={{ padding: "50px", margin: 2 }}>
             <Typography
-              variant="h3"
+              variant="h4"
               sx={{ fontWeight: "bold", textAlign: "center" }}
             >
               ¡BIENVENIDO!
             </Typography>
-            <Typography variant="h4" sx={{ textAlign: "center" }}>
+            <Typography variant="h5" sx={{ textAlign: "center" }}>
               ACCEDE A TU CUENTA
             </Typography>
           </Box>
@@ -121,6 +121,7 @@ const T2 = ({handleChange, handleSubmit}) => {
                   backgroundColor: "#266763",
                   color: "#ffffff",
                   fontSize: "1rem",
+                  width: "200px",
                   borderRadius: "12px",
                   "&:hover": {
                     backgroundColor: "#c3fa7b",

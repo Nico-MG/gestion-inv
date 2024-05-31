@@ -91,6 +91,8 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       <form onSubmit={handleSubmit}>
         <Box
           sx={{
+            marginTop: 4,
+            minWidth: "400px",
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
@@ -102,42 +104,36 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             name="id_producto"
             value={formData.id_producto}
             onChange={handleChange}
-            fullWidth
           />
           <StyledTextField
             label="Nombre"
             name="nombre"
             value={formData.nombre}
             onChange={handleChange}
-            fullWidth
           />
           <StyledTextField
             label="Categoría"
             name="categoria"
             value={formData.categoria}
             onChange={handleChange}
-            fullWidth
           />
           <StyledTextField
             label="Cantidad"
             name="cantidad"
             value={formData.cantidad}
             onChange={handleChange}
-            fullWidth
           />
           <StyledTextField
             label="Cantidad mínima"
             name="min_cantidad"
             value={formData.min_cantidad}
             onChange={handleChange}
-            fullWidth
           />
           <StyledTextField
             label="Precio"
             name="precio_venta"
             value={formData.precio_venta}
             onChange={handleChange}
-            fullWidth
           />
           <Box
             sx={{
@@ -156,6 +152,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
                 backgroundColor: "#266763",
                 color: "#ffffff",
                 fontSize: "0.8rem",
+                width: "150px",
                 "&:hover": {
                   backgroundColor: "#c3fa7b",
                   color: "#7e7e7e",
@@ -171,6 +168,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
                 backgroundColor: "#266763",
                 color: "#ffffff",
                 fontSize: "0.8rem",
+                width: "150px",
                 "&:hover": {
                   backgroundColor: "#c3fa7b",
                   color: "#7e7e7e",

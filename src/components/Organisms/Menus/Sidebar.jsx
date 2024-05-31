@@ -23,6 +23,7 @@ const StyledTab = styled(Tab)({
   fontSize: "18px",
   color: "#fff",
   height: "43px",
+  width: "220px",
   "&:hover": {
     backgroundColor: "#348d87",
   },
@@ -51,7 +52,7 @@ const Sidebar = () => {
         }}
       >
         <Box marginLeft="15px">
-          <Box display="flex" alignItems="center" gap={2}>
+          <Box display="flex" alignItems="center" gap={2} padding="10px">
             <CardMedia
               component="img"
               alt="StockBox"
