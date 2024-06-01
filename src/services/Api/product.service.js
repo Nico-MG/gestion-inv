@@ -25,6 +25,20 @@ const ProductApi = {
 
   async createProduct(productData) {
     console.log("Data:", productData)
+    const {id_producto, nombre, categoria, cantidad, min_cantidad, precio_venta} = productData
+    if (typeof id_producto !== "string" || typeof nombre !== "string" || typeof categoria !== "string" || Number.isNaN(cantidad) || Number.isNaN(min_cantidad) || Number.isNaN(precio_venta)) {
+      alert("valores incorrectos")
+      throw new Error('Los datos no son validos')
+    }
+
+    const cantidadNumero = Number(cantidad)
+    const min_cantidadNumero = Number(min_cantidad)
+    const precio_ventaNumero = Number(precio_venta)
+
+    productData.cantidad = cantidadNumero
+    productData.min_cantidad = min_cantidadNumero
+    productData.precio_venta = precio_ventaNumero
+
     try {
       const response = await axios.post(`${API_URL}`, productData, {
         headers: {
@@ -39,6 +53,21 @@ const ProductApi = {
   },
 
   async updateProduct(productId, updatedProductData) {
+
+    const {id_producto, nombre, categoria, cantidad, min_cantidad, precio_venta} = updatedProductData
+    if (typeof id_producto !== "string" || typeof nombre !== "string" || typeof categoria !== "string" || Number.isNaN(cantidad) || Number.isNaN(min_cantidad) || Number.isNaN(precio_venta)) {
+      alert("valores incorrectos")
+      throw new Error('Los datos no son validos')
+    }
+
+    const cantidadNumero = Number(cantidad)
+    const min_cantidadNumero = Number(min_cantidad)
+    const precio_ventaNumero = Number(precio_venta)
+
+    updatedProductData.cantidad = cantidadNumero
+    updatedProductData.min_cantidad = min_cantidadNumero
+    updatedProductData.precio_venta = precio_ventaNumero
+
     try {
       const response = await axios.put(
         `${API_URL}/${productId}`,
