@@ -1,7 +1,7 @@
 import OrderForm from "../components/Organisms/Forms/OrderForm";
 import ProductForm from "../components/Organisms/Forms/ProductForm";
 
-export const renderForm = ({ currentTable, formProps }) => {
+const RenderForm = ({ currentTable, formProps }) => {
   switch (currentTable) {
     case "products":
       return <ProductForm {...formProps} />;
@@ -11,3 +11,5 @@ export const renderForm = ({ currentTable, formProps }) => {
       return null;
   }
 };
+
+export default RenderForm;
