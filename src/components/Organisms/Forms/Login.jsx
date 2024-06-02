@@ -1,6 +1,6 @@
 import { useState } from "react";
-import UserApi from "../../../../services/Api/user.service";
-import Sidebar from '../../Menus/Sidebar';
+import UserApi from "../../../services/Api/user.service";
+import Sidebar from '../Menus/Sidebar';
 import {
   Box,
   Button,

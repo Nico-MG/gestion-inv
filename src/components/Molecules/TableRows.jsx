@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import TableBody from "@mui/material/TableBody";
-import { StyledTableCell, StyledTableRow } from "../StylesTable";
-import EditButton from "../TableButtons/EditButton";
-import DeleteButton from "../TableButtons/DeleteButton";
-import DetailButton from "../TableButtons/DetailButton";
+import { StyledTableCell, StyledTableRow } from "./StylesTable";
+import EditButton from "./TableButtons/EditButton";
+import DeleteButton from "./TableButtons/DeleteButton";
+import DetailButton from "./TableButtons/DetailButton";
 
 const isDetailTable = ({ currentTable }) => {
   return (

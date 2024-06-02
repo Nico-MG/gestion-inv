@@ -1,6 +1,5 @@
-import OrderForm from "./Order/OrderForm";
-import ProductForm from "./Product/ProductForm";
-import SalesForm from "./Sales/SalesForm";
+import OrderForm from "../components/Organisms/Forms/OrderForm";
+import ProductForm from "../components/Organisms/Forms/ProductForm";
 
 const RenderForm = ({ currentTable, formProps }) => {
   switch (currentTable) {
@@ -8,8 +7,6 @@ const RenderForm = ({ currentTable, formProps }) => {
       return <ProductForm {...formProps} />;
     case "orders":
       return <OrderForm {...formProps} />;
-    case "sales":
-      return <SalesForm {...formProps} />;
     default:
       return null;
   }

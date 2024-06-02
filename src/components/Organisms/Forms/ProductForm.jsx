@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProductApi from "../../../../services/Api/product.service";
+import ProductApi from "../../../services/Api/product.service";
 import { Button, TextField, Box, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { styled } from "@mui/material/styles";
@@ -42,13 +42,13 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
     event.preventDefault();
     const newErrors = {};
 
-    formData.cantidad = Number(formData.cantidad)
-    formData.min_cantidad = Number(formData.min_cantidad)
-    formData.precio_venta = Number(formData.precio_venta)
+    formData.cantidad = Number(formData.cantidad);
+    formData.min_cantidad = Number(formData.min_cantidad);
+    formData.precio_venta = Number(formData.precio_venta);
 
-    console.log(formData)
+    console.log(formData);
     if (!formData.id_producto || typeof formData.id_producto !== "string") {
-      newErrors.id_producto = 'Username is required';
+      newErrors.id_producto = "ID del producto es requerido";
     }
     if (!formData.nombre || typeof formData.nombre !== "string") {
       newErrors.nombre = "Nombre es requerido";
@@ -56,16 +56,29 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
     if (!formData.categoria || typeof formData.categoria !== "string") {
       newErrors.categoria = "Categoría es requerida";
     }
-    if (Number.isNaN(formData.cantidad) || !formData.cantidad || formData.cantidad < 0) {
-      formData.cantidad = ''
+    if (
+      Number.isNaN(formData.cantidad) ||
+      !formData.cantidad ||
+      formData.cantidad < 0
+    ) {
+      formData.cantidad = "";
       newErrors.cantidad = "Cantidad debe ser un número válido";
     }
-    if (Number.isNaN(formData.min_cantidad) || !formData.min_cantidad || formData.min_cantidad < 0 || formData.cantidad < formData.min_cantidad) {
-      formData.min_cantidad = ''
+    if (
+      Number.isNaN(formData.min_cantidad) ||
+      !formData.min_cantidad ||
+      formData.min_cantidad < 0 ||
+      formData.cantidad < formData.min_cantidad
+    ) {
+      formData.min_cantidad = "";
       newErrors.min_cantidad = "Cantidad mínima debe ser un número válido";
     }
-    if (Number.isNaN(formData.precio_venta) || !formData.precio_venta || formData.precio_venta < 0) {
-      formData.precio_venta = ''
+    if (
+      Number.isNaN(formData.precio_venta) ||
+      !formData.precio_venta ||
+      formData.precio_venta < 0
+    ) {
+      formData.precio_venta = "";
       newErrors.precio_venta = "Precio de venta debe ser un número válido";
     }
 
@@ -76,11 +89,23 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
     }
 
     if (mode === "modify") {
-      ProductApi.updateProduct(initialData.id_producto, formData).then(() =>
-        fetchData()
-      );
+      try {
+        await ProductApi.updateProduct(initialData.id_producto, formData);
+        await fetchData();
+
+        alert(`Modificado producto con ID: ${initialData.id_producto}`);
+      } catch (error) {
+        alert(`Error al modificar producto: ${error}`);
+      }
     } else {
-      ProductApi.createProduct(formData).then(() => fetchData());
+      try {
+        await ProductApi.createProduct(formData);
+        await fetchData();
+
+        alert(`Creado producto con ID: ${formData.id_producto}`);
+      } catch (error) {
+        alert(`Error al crear producto: ${error}`);
+      }
     }
 
     closeForm();
@@ -142,7 +167,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             value={formData.id_producto}
             onChange={handleChange}
             error={!!errors.id_producto}
-        helperText={errors.id_producto}
+            helperText={errors.id_producto}
           />
           <StyledTextField
             label="Nombre"
@@ -150,7 +175,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             value={formData.nombre}
             onChange={handleChange}
             error={!!errors.nombre}
-        helperText={errors.nombre}
+            helperText={errors.nombre}
           />
           <StyledTextField
             label="Categoría"
@@ -158,7 +183,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             value={formData.categoria}
             onChange={handleChange}
             error={!!errors.categoria}
-        helperText={errors.categoria}
+            helperText={errors.categoria}
           />
           <StyledTextField
             label="Cantidad"
@@ -166,7 +191,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             value={formData.cantidad}
             onChange={handleChange}
             error={!!errors.cantidad}
-        helperText={errors.cantidad}
+            helperText={errors.cantidad}
           />
           <StyledTextField
             label="Cantidad mínima"
@@ -174,7 +199,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             value={formData.min_cantidad}
             onChange={handleChange}
             error={!!errors.min_cantidad}
-        helperText={errors.min_cantidad}
+            helperText={errors.min_cantidad}
           />
           <StyledTextField
             label="Precio"
@@ -182,7 +207,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             value={formData.precio_venta}
             onChange={handleChange}
             error={!!errors.precio_venta}
-        helperText={errors.precio_venta}
+            helperText={errors.precio_venta}
           />
           <Box
             sx={{
