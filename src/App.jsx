@@ -1,5 +1,5 @@
 import React from "react";
-import Login from "./components/Organisms/Forms/Login/Login";
+import Login from "./components/Organisms/Forms/Login";
 
 const App = () => {
   return (

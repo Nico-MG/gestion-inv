@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Table from "../Organisms/Tables/Table";
 import AddButton from "../Molecules/TableButtons/AddButton";
 import LoadingData from "../Atoms/LoadingData";
-import RenderForm from "../Organisms/Forms/RenderForm";
+import { renderForm } from "../../functions/renderForm";
 
 const MainLayout = ({ currentTable, data, fetchData }) => {
   const [activeForm, setActiveForm] = useState(false);
@@ -34,7 +34,7 @@ const MainLayout = ({ currentTable, data, fetchData }) => {
         </>
       )}
       {activeForm && (
-        <RenderForm
+        <renderForm
           currentTable={currentTable}
           formProps={{ ...formProps, closeForm: toggleForm }}
         />
