@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Table from "../Organisms/Tables/Table";
 import AddButton from "../Molecules/TableButtons/AddButton";
 import LoadingData from "../Atoms/LoadingData";
-import { renderForm } from "../../functions/renderForm";
 
 const MainLayout = ({ currentTable, data, fetchData }) => {
   const [activeForm, setActiveForm] = useState(false);
