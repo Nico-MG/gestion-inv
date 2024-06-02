@@ -42,45 +42,35 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
     event.preventDefault();
     const newErrors = {};
 
-    formData.cantidad = Number(formData.cantidad);
-    formData.min_cantidad = Number(formData.min_cantidad);
-    formData.precio_venta = Number(formData.precio_venta);
-
     console.log(formData);
-    if (!formData.id_producto || typeof formData.id_producto !== "string") {
-      newErrors.id_producto = "ID del producto es requerido";
-    }
-    if (!formData.nombre || typeof formData.nombre !== "string") {
-      newErrors.nombre = "Nombre es requerido";
-    }
-    if (!formData.categoria || typeof formData.categoria !== "string") {
-      newErrors.categoria = "Categoría es requerida";
-    }
-    if (
-      Number.isNaN(formData.cantidad) ||
-      !formData.cantidad ||
-      formData.cantidad < 0
-    ) {
-      formData.cantidad = "";
-      newErrors.cantidad = "Cantidad debe ser un número válido";
-    }
-    if (
-      Number.isNaN(formData.min_cantidad) ||
-      !formData.min_cantidad ||
-      formData.min_cantidad < 0 ||
-      formData.cantidad < formData.min_cantidad
-    ) {
-      formData.min_cantidad = "";
-      newErrors.min_cantidad = "Cantidad mínima debe ser un número válido";
-    }
-    if (
-      Number.isNaN(formData.precio_venta) ||
-      !formData.precio_venta ||
-      formData.precio_venta < 0
-    ) {
-      formData.precio_venta = "";
-      newErrors.precio_venta = "Precio de venta debe ser un número válido";
-    }
+
+    formData.id_producto.trim() === "" &&
+      (newErrors.id_producto = "ID del producto es requerido");
+
+    formData.nombre.trim() === "" && (newErrors.nombre = "Nombre es requerido");
+
+    formData.categoria.trim() === "" &&
+      (newErrors.categoria = "Categoría es requerida");
+
+    formData.cantidad.trim() === ""
+      ? (newErrors.cantidad = "Cantidad es requerida")
+      : (!Number.isInteger(parseFloat(formData.cantidad.trim())) ||
+          Number(formData.cantidad <= 0)) &&
+        (newErrors.cantidad = "Cantidad debe ser un número entero válido");
+
+    formData.min_cantidad.trim() === ""
+      ? (newErrors.min_cantidad = "Cantidad mínima es requerida")
+      : (!Number.isInteger(parseFloat(formData.min_cantidad.trim())) ||
+          Number(formData.cantidad <= 0)) &&
+        (newErrors.min_cantidad =
+          "Cantidad mínima debe ser un número entero válido");
+
+    formData.precio_venta.trim() === ""
+      ? (newErrors.precio_venta = "Precio de venta es requerido")
+      : (!Number.isInteger(parseFloat(formData.precio_venta.trim())) ||
+          Number(formData.cantidad <= 0)) &&
+        (newErrors.precio_venta =
+          "Precio de venta debe ser un número entero válido");
 
     // Verificar si hay errores
     if (Object.keys(newErrors).length > 0) {
@@ -88,27 +78,43 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       return;
     }
 
+    Object.keys(formData).forEach((key) => {
+      key === "cantidad" || key === "min_cantidad" || key === "precio_venta"
+        ? (formData[key] = parseInt(formData[key].trim()))
+        : (formData[key] = formData[key].trim());
+    });
+
     if (mode === "modify") {
       try {
         await ProductApi.updateProduct(initialData.id_producto, formData);
         await fetchData();
 
         alert(`Modificado producto con ID: ${initialData.id_producto}`);
+
+        closeForm();
       } catch (error) {
-        alert(`Error al modificar producto: ${error}`);
+        // alert(`Error al modificar producto: ${error}`);
+        alert(
+          `Hubo un error, asegurate de no ingresar caracteres especiales y no repetir ID`
+        );
       }
     } else {
       try {
         await ProductApi.createProduct(formData);
         await fetchData();
 
+        console.log("Data enviada:", formData);
+
         alert(`Creado producto con ID: ${formData.id_producto}`);
+
+        closeForm();
       } catch (error) {
-        alert(`Error al crear producto: ${error}`);
+        // alert(`Error al crear producto: ${error}`);
+        alert(
+          `Hubo un error, asegurate de no ingresar caracteres especiales y no repetir ID`
+        );
       }
     }
-
-    closeForm();
   };
 
   return (

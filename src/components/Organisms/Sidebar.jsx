@@ -15,8 +15,8 @@ import {
   Settings,
 } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
-import Orders from "../../Pages/Orders";
-import Products from "../../Pages/Products";
+import Orders from "../Pages/Orders";
+import Products from "../Pages/Products";
 
 const StyledTab = styled(Tab)(({ theme }) => ({
   fontSize: "18px",
