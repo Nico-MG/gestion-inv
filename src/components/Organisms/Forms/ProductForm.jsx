@@ -3,6 +3,7 @@ import ProductApi from "../../../services/Api/product.service";
 import { Button, TextField, Box, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { styled } from "@mui/material/styles";
+import { sendNotification } from "@tauri-apps/api/notification";
 
 const StyledTextField = styled(TextField)({
   marginBottom: "2vh",
@@ -111,12 +112,12 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
         await ProductApi.updateProduct(initialData.id_producto, formData);
         await fetchData();
 
-        alert(`Modificado producto con ID: ${initialData.id_producto}`);
+        sendNotification(`Modificado producto con ID: ${initialData.id_producto}`);
 
         closeForm();
       } catch (error) {
         // alert(`Error al modificar producto: ${error}`);
-        alert(
+        sendNotification(
           `Hubo un error, asegurate de no ingresar caracteres especiales y no repetir ID`
         );
       }
@@ -127,12 +128,12 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
 
         console.log("Data enviada:", formData);
 
-        alert(`Creado producto con ID: ${formData.id_producto}`);
+        sendNotification(`Creado producto con ID: ${formData.id_producto}`);
 
         closeForm();
       } catch (error) {
         // alert(`Error al crear producto: ${error}`);
-        alert(
+        sendNotification(
           `Hubo un error, asegurate de no ingresar caracteres especiales y no repetir ID`
         );
       }
