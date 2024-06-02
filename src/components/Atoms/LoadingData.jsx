@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import i_loading from "../../images/i_loading.gif";
+import loading from "../../images/loading.gif";
 import { Container } from "@mui/material";
 
 const LoadingData = () => {
@@ -29,7 +29,7 @@ const LoadingData = () => {
       }}
     >
       <img
-        src={i_loading}
+        src={loading}
         alt="Loading animation"
         style={{ width: "100px", height: "100px" }} // Ajusta el tamaño de la imagen
       />

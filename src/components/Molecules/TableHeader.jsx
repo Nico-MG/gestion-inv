@@ -1,7 +1,7 @@
 import React from "react";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import { StyledTableCell } from "../StylesTable";
+import { StyledTableCell } from "./StylesTable";
 
 const tableColumns = ({ currentTable }) => {
   switch (currentTable) {
