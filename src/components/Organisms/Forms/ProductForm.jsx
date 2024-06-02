@@ -93,8 +93,11 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
         await fetchData();
 
         alert(`Modificado producto con ID: ${initialData.id_producto}`);
+
+        closeForm();
       } catch (error) {
-        alert(`Error al modificar producto: ${error}`);
+        // alert(`Error al modificar producto: ${error}`);
+        alert(`Hubo un error, asegurate de no ingresar caracteres especiales y no repetir ID`);
       }
     } else {
       try {
@@ -102,12 +105,13 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
         await fetchData();
 
         alert(`Creado producto con ID: ${formData.id_producto}`);
+
+        closeForm();
       } catch (error) {
-        alert(`Error al crear producto: ${error}`);
+        // alert(`Error al crear producto: ${error}`);
+        alert(`Hubo un error, asegurate de no ingresar caracteres especiales y no repetir ID`);
       }
     }
-
-    closeForm();
   };
 
   return (
