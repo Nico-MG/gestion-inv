@@ -13,7 +13,7 @@ import {
   Loop,
   Help,
   Settings,
-} from "@mui/icons-material";
+} from "@mui/icons-material"; 
 import { styled } from "@mui/material/styles";
 import Orders from "../Pages/Orders";
 import Products from "../Pages/Products";
@@ -52,7 +52,7 @@ const Sidebar = () => {
           height: "100%",
           width: "20%",
           minHeight: "80vh",
-          minWidth: "70px",
+          minWidth: "60px",
           bgcolor: "#266763",
           borderRadius: "24px",
           display: "flex",
@@ -89,7 +89,7 @@ const Sidebar = () => {
             orientation="vertical"
             sx={{
               width: "80%",
-              height: "100%",
+              height: "80%",
               bgcolor: "#266763",
               borderRadius: "24px",
             }}
