@@ -47,7 +47,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
 
     console.log(formData);
     if (!formData.id_producto || typeof formData.id_producto !== "string") {
-      newErrors.id_producto = "Username is required";
+      newErrors.id_producto = "ID del producto es requerido";
     }
     if (!formData.nombre || typeof formData.nombre !== "string") {
       newErrors.nombre = "Nombre es requerido";
