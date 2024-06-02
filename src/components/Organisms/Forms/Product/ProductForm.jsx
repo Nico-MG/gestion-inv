@@ -57,14 +57,15 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       newErrors.categoria = "Categoría es requerida";
     }
     if (Number.isNaN(formData.cantidad) || !formData.cantidad || formData.cantidad < 0) {
+      formData.cantidad = ''
       newErrors.cantidad = "Cantidad debe ser un número válido";
-    } else {
-      formData.cantidad = Number(formData.cantidad);
     }
     if (Number.isNaN(formData.min_cantidad) || !formData.min_cantidad || formData.min_cantidad < 0 || formData.cantidad < formData.min_cantidad) {
+      formData.min_cantidad = ''
       newErrors.min_cantidad = "Cantidad mínima debe ser un número válido";
     }
     if (Number.isNaN(formData.precio_venta) || !formData.precio_venta || formData.precio_venta < 0) {
+      formData.precio_venta = ''
       newErrors.precio_venta = "Precio de venta debe ser un número válido";
     }
 
