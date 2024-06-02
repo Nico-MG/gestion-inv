@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Tabs from "@mui/joy/Tabs";
 import TabList from "@mui/joy/TabList";
 import Tab, { tabClasses } from "@mui/joy/Tab";
@@ -18,11 +18,11 @@ import { styled } from "@mui/material/styles";
 import Orders from "../../Pages/Orders";
 import Products from "../../Pages/Products";
 
-const StyledTab = styled(Tab)({
+const StyledTab = styled(Tab)(({ theme }) => ({
   fontSize: "18px",
   color: "#fff",
-  height: "43px",
-  width: "220px",
+  height: "15px",
+  width: "130%",
   "&:hover": {
     backgroundColor: "#348d87",
   },
@@ -30,10 +30,15 @@ const StyledTab = styled(Tab)({
   [`&.Mui-selected::after`]: {
     display: "none",
   },
-});
+  [theme.breakpoints.down("sm")]: {
+    ".menu-text": {
+      display: "none", // Ocultar el texto cuando el ancho de pantalla es menor que el breakpoint sm (600px por defecto)
+    },
+  },
+}));
 
 const Sidebar = () => {
-  const [value, setValue] = React.useState("analytics");
+  const [value, setValue] = useState("analytics");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -43,20 +48,34 @@ const Sidebar = () => {
     <>
       <Box
         sx={{
-          margin: 2,
-          minHeight: "100vh",
-          width: "300px",
+          position: "absolute",
+          height: "100%",
+          width: "20%",
+          minHeight: "80vh",
+          minWidth: "70px",
           bgcolor: "#266763",
           borderRadius: "24px",
+          display: "flex",
         }}
       >
-        <Box marginLeft="15px">
-          <Box display="flex" alignItems="center" gap={2} padding="10px">
+        <Box width="80%" height="100%">
+          <Box 
+            display="flex" 
+            alignItems="center" 
+            gap="5%" 
+            padding="5%"
+          >
             <CardMedia
               component="img"
               alt="StockBox"
               image="/src/images/logo_2.png"
-              style={{ height: "65px", width: "65px", borderRadius: "50%" }}
+              style={{
+                minHeight: "55px",
+                minWidth: "55px",
+                borderRadius: "50%",
+                height: "35%",
+                width: "35%",
+              }}
             />
             <Typography variant="h5" sx={{ color: "#fff" }}>
               StockBox
@@ -69,8 +88,7 @@ const Sidebar = () => {
             aria-label="Vertical tabs"
             orientation="vertical"
             sx={{
-              marginTop: 5,
-              width: "100%",
+              width: "80%",
               height: "100%",
               bgcolor: "#266763",
               borderRadius: "24px",
@@ -79,8 +97,8 @@ const Sidebar = () => {
             <TabList
               disableUnderline
               sx={{
-                p: 0.5,
-                gap: 0.5,
+                height: "100%",
+                gap: "0.5%",
                 borderRadius: "xl",
                 [`& .${tabClasses.root}[aria-selected="true"]`]: {
                   boxShadow: "sm",
@@ -121,7 +139,7 @@ const Sidebar = () => {
                 </StyledTab>
               </Box>
 
-              <Box sx={{ position: "fixed", bottom: "20px" }}>
+              <Box sx={{ bottom: "2%" }}>
                 <StyledTab value="help" label="Ayuda">
                   <Help /> Ayuda y Soporte
                 </StyledTab>
