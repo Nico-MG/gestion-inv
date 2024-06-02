@@ -4,8 +4,7 @@ import Login from "./components/Organisms/Forms/Login";
 const App = () => {
   return (
     <>
-      <Sidebar />
-      
+      <Login />
     </>
   );
 };
