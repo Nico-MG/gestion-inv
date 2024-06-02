@@ -118,7 +118,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       } catch (error) {
         // alert(`Error al modificar producto: ${error}`);
         sendNotification(
-          `Hubo un error, asegurate de no ingresar caracteres especiales y no repetir ID`
+          `Hubo un error, asegúrate de no ingresar caracteres especiales y no repetir ID`
         );
       }
     } else {
@@ -134,7 +134,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       } catch (error) {
         // alert(`Error al crear producto: ${error}`);
         sendNotification(
-          `Hubo un error, asegurate de no ingresar caracteres especiales y no repetir ID`
+          `Hubo un error, asegúrate de no ingresar caracteres especiales y no repetir ID`
         );
       }
     }

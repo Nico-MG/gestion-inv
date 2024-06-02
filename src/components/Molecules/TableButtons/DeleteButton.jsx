@@ -2,6 +2,7 @@ import React from "react";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { auxDelete } from "../../../functions/auxDelete";
+import { sendNotification } from "@tauri-apps/api/notification";
 
 const DeleteButton = ({ currentTable, id, fetchData }) => {
   const deleteTableRow = auxDelete({ currentTable });
@@ -10,10 +11,11 @@ const DeleteButton = ({ currentTable, id, fetchData }) => {
     try {
       await deleteTableRow(id);
       await fetchData();
-      alert(`Eliminado producto con ID: ${id}`);
+
+      sendNotification(`Eliminado producto con ID: ${id}`);
     }
     catch (error) {
-      alert(`Error al eliminar producto: ${error}`)
+      sendNotification(`Error al eliminar producto: ${error}`)
     }
   }
 
