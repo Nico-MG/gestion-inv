@@ -4,7 +4,6 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import TableHeader from "../../Molecules/TableHeader";
 import TableRows from "../../Molecules/TableRows";
-import "./table.css";
 
 const useTableColumns = ({ data }) => {
   const [columns, setColumns] = useState([]);
