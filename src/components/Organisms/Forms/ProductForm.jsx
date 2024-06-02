@@ -41,35 +41,58 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
     event.preventDefault();
     const newErrors = {};
 
-    console.log(formData);
+    console.log("formData:", formData);
 
-    formData.id_producto.trim() === "" &&
-      (newErrors.id_producto = "ID del producto es requerido");
+    if (formData.id_producto.trim() === "") {
+      newErrors.id_producto = "ID del producto es requerido";
+    }
 
-    formData.nombre.trim() === "" && (newErrors.nombre = "Nombre es requerido");
+    if (formData.nombre.trim() === "") {
+      newErrors.nombre = "Nombre es requerido";
+    }
 
-    formData.categoria.trim() === "" &&
-      (newErrors.categoria = "Categoría es requerida");
+    if (formData.categoria.trim() === "") {
+      newErrors.categoria = "Categoría es requerida";
+    }
 
-    formData.cantidad.trim() === ""
-      ? (newErrors.cantidad = "Cantidad es requerida")
-      : (!Number.isInteger(parseFloat(formData.cantidad.trim())) ||
-          Number(formData.cantidad <= 0)) &&
-        (newErrors.cantidad = "Cantidad debe ser un número entero válido");
+    if (typeof formData.cantidad === "string") {
+      if (formData.cantidad.trim() === "") {
+        newErrors.cantidad = "Cantidad es requerida";
+      } else {
+        if (
+          !Number.isInteger(parseFloat(formData.cantidad.trim())) ||
+          Number(formData.cantidad <= 0)
+        ) {
+          newErrors.cantidad = "Cantidad debe ser un número entero válido";
+        }
+      }
+    }
 
-    formData.min_cantidad.trim() === ""
-      ? (newErrors.min_cantidad = "Cantidad mínima es requerida")
-      : (!Number.isInteger(parseFloat(formData.min_cantidad.trim())) ||
-          Number(formData.cantidad <= 0)) &&
-        (newErrors.min_cantidad =
-          "Cantidad mínima debe ser un número entero válido");
+    if (typeof formData.min_cantidad === "string") {
+      if (formData.min_cantidad.trim() === "") {
+        newErrors.min_cantidad = "Cantidad mínima es requerida"
+      }
+      else {
+        if (!Number.isInteger(parseFloat(formData.min_cantidad.trim())) ||
+        Number(formData.cantidad <= 0)) {
+          newErrors.min_cantidad =
+          "Cantidad mínima debe ser un número entero válido"
+        }
+      }
+    }
 
-    formData.precio_venta.trim() === ""
-      ? (newErrors.precio_venta = "Precio de venta es requerido")
-      : (!Number.isInteger(parseFloat(formData.precio_venta.trim())) ||
-          Number(formData.cantidad <= 0)) &&
-        (newErrors.precio_venta =
-          "Precio de venta debe ser un número entero válido");
+    if (typeof formData.precio_venta === "string") {
+      if (formData.precio_venta.trim() === "") {
+        newErrors.precio_venta = "Precio de venta es requerido"
+      }
+      else {
+        if (!Number.isInteger(parseFloat(formData.precio_venta.trim())) ||
+        Number(formData.precio_venta <= 0)) {
+          newErrors.precio_venta =
+          "Precio de venta debe ser un número entero válido"
+        }
+      }
+    }
 
     // Verificar si hay errores
     if (Object.keys(newErrors).length > 0) {
@@ -79,7 +102,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
 
     Object.keys(formData).forEach((key) => {
       key === "cantidad" || key === "min_cantidad" || key === "precio_venta"
-        ? (formData[key] = parseInt(formData[key].trim()))
+        ? (formData[key] = parseInt(formData[key]))
         : (formData[key] = formData[key].trim());
     });
 
