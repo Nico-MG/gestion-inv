@@ -28,42 +28,44 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
     precio_venta: initialData?.precio_venta || "",
   });
   
-  const [errors, setErrors] = useState({});
-
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
-
-
+  
+  const [errors, setErrors] = useState({});
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
     const newErrors = {};
-    if (formData.id_producto === '' && typeof formData.id_producto !== "string") {
+
+    formData.cantidad = Number(formData.cantidad)
+    formData.min_cantidad = Number(formData.min_cantidad)
+    formData.precio_venta = Number(formData.precio_venta)
+
+    console.log(formData)
+    if (!formData.id_producto || typeof formData.id_producto !== "string") {
       newErrors.id_producto = 'Username is required';
     }
-    if (!formData.nombre && typeof formData.nombre !== "string") {
+    if (!formData.nombre || typeof formData.nombre !== "string") {
       newErrors.nombre = "Nombre es requerido";
     }
-    if (!formData.categoria && typeof formData.categoria !== "string") {
+    if (!formData.categoria || typeof formData.categoria !== "string") {
       newErrors.categoria = "Categoría es requerida";
     }
-    if (typeof formData.cantidad === "string" || formData.cantidad === "" || Number(formData.cantidad) < 0) {
+    if (Number.isNaN(formData.cantidad) || !formData.cantidad || formData.cantidad < 0) {
       newErrors.cantidad = "Cantidad debe ser un número válido";
     } else {
       formData.cantidad = Number(formData.cantidad);
     }
-    if (typeof formData.min_cantidad === "string" || formData.min_cantidad === "" || Number(formData.min_cantidad) < 0 || formData.cantidad < formData.min_cantidad) {
+    if (Number.isNaN(formData.min_cantidad) || !formData.min_cantidad || formData.min_cantidad < 0 || formData.cantidad < formData.min_cantidad) {
       newErrors.min_cantidad = "Cantidad mínima debe ser un número válido";
-    } else {
-      formData.min_cantidad = Number(formData.min_cantidad);
     }
-    if (typeof formData.precio_venta === "string" || formData.precio_venta === "" || Number(formData.precio_venta) < 0) {
+    if (Number.isNaN(formData.precio_venta) || !formData.precio_venta || formData.precio_venta < 0) {
       newErrors.precio_venta = "Precio de venta debe ser un número válido";
-    } else {
-      formData.precio_venta = Number(formData.precio_venta);
     }
 
     // Verificar si hay errores

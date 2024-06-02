@@ -6,15 +6,10 @@ import Sidebar from "./components/Organisms/Menus/Sidebar";
 
 const App = () => {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        minHeight: "80vh",
-      }}
-    >
-      {/* <Login /> */}
+    <>
       <Sidebar />
-    </Box>
+      
+    </>
   );
 };
 
