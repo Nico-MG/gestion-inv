@@ -27,16 +27,52 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
     min_cantidad: initialData?.min_cantidad || "",
     precio_venta: initialData?.precio_venta || "",
   });
-
+  
+  
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
-
+  
+  const [errors, setErrors] = useState({});
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const newErrors = {};
+
+    formData.cantidad = Number(formData.cantidad)
+    formData.min_cantidad = Number(formData.min_cantidad)
+    formData.precio_venta = Number(formData.precio_venta)
+
+    console.log(formData)
+    if (!formData.id_producto || typeof formData.id_producto !== "string") {
+      newErrors.id_producto = 'Username is required';
+    }
+    if (!formData.nombre || typeof formData.nombre !== "string") {
+      newErrors.nombre = "Nombre es requerido";
+    }
+    if (!formData.categoria || typeof formData.categoria !== "string") {
+      newErrors.categoria = "Categoría es requerida";
+    }
+    if (Number.isNaN(formData.cantidad) || !formData.cantidad || formData.cantidad < 0) {
+      newErrors.cantidad = "Cantidad debe ser un número válido";
+    } else {
+      formData.cantidad = Number(formData.cantidad);
+    }
+    if (Number.isNaN(formData.min_cantidad) || !formData.min_cantidad || formData.min_cantidad < 0 || formData.cantidad < formData.min_cantidad) {
+      newErrors.min_cantidad = "Cantidad mínima debe ser un número válido";
+    }
+    if (Number.isNaN(formData.precio_venta) || !formData.precio_venta || formData.precio_venta < 0) {
+      newErrors.precio_venta = "Precio de venta debe ser un número válido";
+    }
+
+    // Verificar si hay errores
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
 
     if (mode === "modify") {
       ProductApi.updateProduct(initialData.id_producto, formData).then(() =>
@@ -104,36 +140,48 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             name="id_producto"
             value={formData.id_producto}
             onChange={handleChange}
+            error={!!errors.id_producto}
+        helperText={errors.id_producto}
           />
           <StyledTextField
             label="Nombre"
             name="nombre"
             value={formData.nombre}
             onChange={handleChange}
+            error={!!errors.nombre}
+        helperText={errors.nombre}
           />
           <StyledTextField
             label="Categoría"
             name="categoria"
             value={formData.categoria}
             onChange={handleChange}
+            error={!!errors.categoria}
+        helperText={errors.categoria}
           />
           <StyledTextField
             label="Cantidad"
             name="cantidad"
             value={formData.cantidad}
             onChange={handleChange}
+            error={!!errors.cantidad}
+        helperText={errors.cantidad}
           />
           <StyledTextField
             label="Cantidad mínima"
             name="min_cantidad"
             value={formData.min_cantidad}
             onChange={handleChange}
+            error={!!errors.min_cantidad}
+        helperText={errors.min_cantidad}
           />
           <StyledTextField
             label="Precio"
             name="precio_venta"
             value={formData.precio_venta}
             onChange={handleChange}
+            error={!!errors.precio_venta}
+        helperText={errors.precio_venta}
           />
           <Box
             sx={{
