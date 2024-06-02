@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Tabs from "@mui/joy/Tabs";
 import TabList from "@mui/joy/TabList";
 import Tab, { tabClasses } from "@mui/joy/Tab";
@@ -15,8 +15,8 @@ import {
   Settings,
 } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
-import Orders from "../../Pages/Orders";
-import Products from "../../Pages/Products";
+import Orders from "../Pages/Orders";
+import Products from "../Pages/Products";
 
 const StyledTab = styled(Tab)({
   fontSize: "18px",
@@ -33,7 +33,7 @@ const StyledTab = styled(Tab)({
 });
 
 const Sidebar = () => {
-  const [value, setValue] = React.useState("analytics");
+  const [value, setValue] = useState("analytics");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

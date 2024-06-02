@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Table from "../Organisms/Tables/Table";
+import Table from "../Organisms/Table";
 import AddButton from "../Molecules/TableButtons/AddButton";
 import LoadingData from "../Atoms/LoadingData"
 import RenderForm from "../../functions/RenderForm";
