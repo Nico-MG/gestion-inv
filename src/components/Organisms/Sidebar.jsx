@@ -123,7 +123,7 @@ const Sidebar = () => {
 
               <Box sx={{ position: "fixed", bottom: "20px" }}>
                 <StyledTab value="help" label="Ayuda">
-                  <Help /> Ayuda y Soporte
+                  <Help /> Ayuda y soporte
                 </StyledTab>
                 <StyledTab value="settings" label="Configuracion">
                   <Settings /> Configuración
