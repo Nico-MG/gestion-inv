@@ -81,7 +81,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       } else {
         if (
           !Number.isInteger(parseFloat(formData.min_cantidad.trim())) ||
-          Number(formData.min_cantidad < 0) || !Number.isInteger(Number(formData.min_cantidad.trim())) || Number(formData.cantidad) < Number(formData.min_cantidad)
+          Number(formData.min_cantidad < 0) || !Number.isInteger(Number(formData.min_cantidad.trim()))
         ) {
           newErrors.min_cantidad =
             "Cantidad mínima debe ser un número entero válido";
