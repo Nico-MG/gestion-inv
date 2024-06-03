@@ -216,7 +216,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             error={!!errors.id_producto}
             helperText={errors.id_producto}
             inputProps={{
-              maxLength: 50,
+              maxLength: 20,
             }}
           />
           <StyledTextField
@@ -227,7 +227,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             error={!!errors.nombre}
             helperText={errors.nombre}
             inputProps={{
-              maxLength: 50,
+              maxLength: 20,
             }}
           />
           <StyledTextField
@@ -238,7 +238,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             error={!!errors.categoria}
             helperText={errors.categoria}
             inputProps={{
-              maxLength: 50,
+              maxLength: 20,
             }}
           />
           <StyledTextField
@@ -249,7 +249,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             error={!!errors.cantidad}
             helperText={errors.cantidad}
             inputProps={{
-              maxLength: 50,
+              maxLength: 20,
             }}
           />
           <StyledTextField
@@ -260,7 +260,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             error={!!errors.min_cantidad}
             helperText={errors.min_cantidad}
             inputProps={{
-              maxLength: 50,
+              maxLength: 20,
             }}
           />
           <StyledTextField
@@ -271,7 +271,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             error={!!errors.precio_venta}
             helperText={errors.precio_venta}
             inputProps={{
-              maxLength: 50,
+              maxLength: 20,
             }}
           />
           <Box
