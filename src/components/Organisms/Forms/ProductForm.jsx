@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ProductApi from "../../../services/Api/product.service";
 import { Button, TextField, Box, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import LoadingButton from "@mui/lab/LoadingButton";
 import { styled } from "@mui/material/styles";
 import { sendNotification } from "@tauri-apps/api/notification";
 
@@ -28,19 +29,23 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
     min_cantidad: initialData?.min_cantidad || "",
     precio_venta: initialData?.precio_venta || "",
   });
-  
-  
+
+  const [loading, setLoading] = useState(false);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
-  
+
   const [errors, setErrors] = useState({});
-  
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    setLoading(true);
+
     const newErrors = {};
 
     console.log("formData:", formData);
@@ -72,26 +77,28 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
 
     if (typeof formData.min_cantidad === "string") {
       if (formData.min_cantidad.trim() === "") {
-        newErrors.min_cantidad = "Cantidad mínima es requerida"
-      }
-      else {
-        if (!Number.isInteger(parseFloat(formData.min_cantidad.trim())) ||
-        Number(formData.cantidad <= 0)) {
+        newErrors.min_cantidad = "Cantidad mínima es requerida";
+      } else {
+        if (
+          !Number.isInteger(parseFloat(formData.min_cantidad.trim())) ||
+          Number(formData.cantidad <= 0)
+        ) {
           newErrors.min_cantidad =
-          "Cantidad mínima debe ser un número entero válido"
+            "Cantidad mínima debe ser un número entero válido";
         }
       }
     }
 
     if (typeof formData.precio_venta === "string") {
       if (formData.precio_venta.trim() === "") {
-        newErrors.precio_venta = "Precio de venta es requerido"
-      }
-      else {
-        if (!Number.isInteger(parseFloat(formData.precio_venta.trim())) ||
-        Number(formData.precio_venta <= 0)) {
+        newErrors.precio_venta = "Precio de venta es requerido";
+      } else {
+        if (
+          !Number.isInteger(parseFloat(formData.precio_venta.trim())) ||
+          Number(formData.precio_venta <= 0)
+        ) {
           newErrors.precio_venta =
-          "Precio de venta debe ser un número entero válido"
+            "Precio de venta debe ser un número entero válido";
         }
       }
     }
@@ -99,6 +106,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
     // Verificar si hay errores
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      setLoading(false);
       return;
     }
 
@@ -113,10 +121,15 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
         await ProductApi.updateProduct(initialData.id_producto, formData);
         await fetchData();
 
-        sendNotification(`Modificado producto con ID: ${initialData.id_producto}`);
+        sendNotification(
+          `Modificado producto con ID: ${initialData.id_producto}`
+        );
+
+        setLoading(false);
 
         closeForm();
       } catch (error) {
+        setLoading(false);
         // alert(`Error al modificar producto: ${error}`);
         sendNotification(
           `Hubo un error, asegúrate de no ingresar caracteres especiales y no repetir ID`
@@ -131,12 +144,16 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
 
         sendNotification(`Creado producto con ID: ${formData.id_producto}`);
 
+        setLoading(false);
+
         closeForm();
       } catch (error) {
         // alert(`Error al crear producto: ${error}`);
         sendNotification(
           `Hubo un error, asegúrate de no ingresar caracteres especiales y no repetir ID`
         );
+
+        setLoading(false);
       }
     }
   };
@@ -266,8 +283,10 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             >
               Cerrar
             </Button>
-            <Button
+            <LoadingButton
               variant="contained"
+              loading={loading}
+              loadingPosition="end"
               sx={{
                 backgroundColor: "#266763",
                 color: "#ffffff",
@@ -281,7 +300,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
               type="submit"
             >
               {mode === "modify" ? "Modificar" : "Guardar"}
-            </Button>
+            </LoadingButton>
           </Box>
         </Box>
       </form>
