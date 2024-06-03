@@ -67,7 +67,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
         newErrors.cantidad = "Cantidad es requerida";
       } else {
         if (
-          !Number.isInteger(parseFloat(formData.cantidad.trim())) ||
+          (!Number.isInteger(parseFloat(formData.cantidad.trim())) || !Number.isInteger(Number(formData.cantidad.trim()))) ||
           Number(formData.cantidad <= 0)
         ) {
           newErrors.cantidad = "Cantidad debe ser un número entero válido";
@@ -81,7 +81,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       } else {
         if (
           !Number.isInteger(parseFloat(formData.min_cantidad.trim())) ||
-          Number(formData.cantidad <= 0)
+          Number(formData.min_cantidad <= 0) || !Number.isInteger(Number(formData.min_cantidad.trim()))
         ) {
           newErrors.min_cantidad =
             "Cantidad mínima debe ser un número entero válido";
@@ -95,7 +95,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       } else {
         if (
           !Number.isInteger(parseFloat(formData.precio_venta.trim())) ||
-          Number(formData.precio_venta <= 0)
+          Number(formData.precio_venta <= 0) || !Number.isInteger(Number(formData.precio_venta.trim()))
         ) {
           newErrors.precio_venta =
             "Precio de venta debe ser un número entero válido";
