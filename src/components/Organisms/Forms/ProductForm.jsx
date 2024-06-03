@@ -215,6 +215,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.id_producto}
             helperText={errors.id_producto}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <StyledTextField
             label="Nombre"
@@ -223,6 +226,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.nombre}
             helperText={errors.nombre}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <StyledTextField
             label="Categoría"
@@ -231,6 +237,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.categoria}
             helperText={errors.categoria}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <StyledTextField
             label="Cantidad"
@@ -239,6 +248,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.cantidad}
             helperText={errors.cantidad}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <StyledTextField
             label="Cantidad mínima"
@@ -247,6 +259,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.min_cantidad}
             helperText={errors.min_cantidad}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <StyledTextField
             label="Precio"
@@ -255,6 +270,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.precio_venta}
             helperText={errors.precio_venta}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <Box
             sx={{
