@@ -3,7 +3,7 @@ import ProductApi from "../../services/Api/product.service";
 import MainLayout from "../Templates/MainLayout";
 
 const Products = () => {
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState(null);
 
   const fetchData = async () => {
     const products = await ProductApi.getAllProducts();

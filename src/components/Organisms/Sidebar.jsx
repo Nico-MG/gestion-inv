@@ -152,7 +152,7 @@ const Sidebar = () => {
         </Box>
       </Box>
       {value === "products" && <Products />}
-      {value === "orders" && <Orders />}
+      {/* {value === "orders" && <Orders />} */}
     </>
   );
 };

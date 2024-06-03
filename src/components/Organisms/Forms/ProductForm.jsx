@@ -67,8 +67,8 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
         newErrors.cantidad = "Cantidad es requerida";
       } else {
         if (
-          !Number.isInteger(parseFloat(formData.cantidad.trim())) ||
-          Number(formData.cantidad <= 0)
+          (!Number.isInteger(parseFloat(formData.cantidad.trim())) || !Number.isInteger(Number(formData.cantidad.trim()))) ||
+          Number(formData.cantidad < 0)
         ) {
           newErrors.cantidad = "Cantidad debe ser un número entero válido";
         }
@@ -81,7 +81,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       } else {
         if (
           !Number.isInteger(parseFloat(formData.min_cantidad.trim())) ||
-          Number(formData.cantidad <= 0)
+          Number(formData.min_cantidad < 0) || !Number.isInteger(Number(formData.min_cantidad.trim()))
         ) {
           newErrors.min_cantidad =
             "Cantidad mínima debe ser un número entero válido";
@@ -95,7 +95,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       } else {
         if (
           !Number.isInteger(parseFloat(formData.precio_venta.trim())) ||
-          Number(formData.precio_venta <= 0)
+          Number(formData.precio_venta < 0) || !Number.isInteger(Number(formData.precio_venta.trim()))
         ) {
           newErrors.precio_venta =
             "Precio de venta debe ser un número entero válido";
@@ -215,6 +215,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.id_producto}
             helperText={errors.id_producto}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <StyledTextField
             label="Nombre"
@@ -223,6 +226,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.nombre}
             helperText={errors.nombre}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <StyledTextField
             label="Categoría"
@@ -231,6 +237,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.categoria}
             helperText={errors.categoria}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <StyledTextField
             label="Cantidad"
@@ -239,6 +248,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.cantidad}
             helperText={errors.cantidad}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <StyledTextField
             label="Cantidad mínima"
@@ -247,6 +259,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.min_cantidad}
             helperText={errors.min_cantidad}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <StyledTextField
             label="Precio"
@@ -255,6 +270,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             onChange={handleChange}
             error={!!errors.precio_venta}
             helperText={errors.precio_venta}
+            inputProps={{
+              maxLength: 50,
+            }}
           />
           <Box
             sx={{

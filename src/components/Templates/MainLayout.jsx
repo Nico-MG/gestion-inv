@@ -14,7 +14,7 @@ const MainLayout = ({ currentTable, data, fetchData }) => {
 
   return (
     <>
-      {!data || data.length === 0 ? (
+      {!data ? (
         <LoadingData />
       ) : (
         <>
