@@ -15,7 +15,7 @@ const DeleteButton = ({ currentTable, id, fetchData }) => {
       sendNotification(`Eliminado producto con ID: ${id}`);
     }
     catch (error) {
-      sendNotification(`Error al eliminar producto: ${error}`)
+      sendNotification(`Error al eliminar producto: Problemas de conexión al servidor`)
     }
   }
 

@@ -3,7 +3,7 @@ import OrderApi from "../../services/Api/order.service";
 import MainLayout from "../Templates/MainLayout";
 
 const Orders = () => {
-  const [tableData, setTableData] = useState([]);
+  const [tableData, setTableData] = useState(null);
 
   const fetchData = async () => {
     const orders = await OrderApi.getAllOrders();
