@@ -36,7 +36,7 @@ const TableRows = ({
               null)
             )
           )}
-          <StyledTableCell key="actions">
+          <StyledTableCell>
             <div>
               {(isDetailTable({ currentTable }) && detailField) &&
                 <DetailButton 

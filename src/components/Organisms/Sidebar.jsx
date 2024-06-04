@@ -141,7 +141,7 @@ const Sidebar = () => {
 
               <Box sx={{ bottom: "2%" }}>
                 <StyledTab value="help" label="Ayuda">
-                  <Help /> Ayuda y Soporte
+                  <Help /> Ayuda y soporte
                 </StyledTab>
                 <StyledTab value="settings" label="Configuracion">
                   <Settings /> Configuración
