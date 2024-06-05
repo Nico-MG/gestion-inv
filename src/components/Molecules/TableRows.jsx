@@ -5,10 +5,10 @@ import { StyledTableCell, StyledTableRow } from "./StylesTable";
 import { sendNotification } from "@tauri-apps/api/notification";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import DetailButton from "./TableButtons/DetailButton";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import { auxDelete } from "../../functions/auxDelete";
 
-const isDetailTable = ({ currentTable }) => {
+const isDetailTable = (currentTable) => {
   return (
     currentTable === "sales" ||
     currentTable === "refunds" ||
@@ -24,7 +24,13 @@ const TableRows = ({
   toggleForm,
   setFormProps,
 }) => {
-  let detailField = null;
+  // index key which would contain the array of details if it exists
+  const dIndexKey = isDetailTable(currentTable) ? Object.keys(data[0]).length - 1 : null;
+
+  const handleDetails = (details) => {
+    console.log(details);
+    // TODO: render the modal and pass to it the details data to be shown
+  };
 
   const handleEdit = (obj) => {
     setFormProps({
@@ -52,17 +58,30 @@ const TableRows = ({
     <TableBody>
       {data.map((obj, index) => (
         <StyledTableRow key={index}>
-          {columns.map((column) =>
-            !Array.isArray(obj[column]) ? (
-              <StyledTableCell key={obj[column]}>{obj[column]}</StyledTableCell>
-            ) : (
-              ((detailField = column), null)
-            )
+          {columns.map(
+            (column) =>
+              !Array.isArray(obj[column]) && (
+                <StyledTableCell key={obj[column]}>
+                  {obj[column]}
+                </StyledTableCell>
+              )
           )}
           <StyledTableCell key="actions">
             <div>
-              {isDetailTable({ currentTable }) && detailField && (
-                <DetailButton data={obj[detailField]} />
+              {dIndexKey && (
+                <IconButton
+                  onClick={() => handleDetails(obj[columns[dIndexKey]])}
+                  sx={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: 1,
+                    "&:hover": {
+                      backgroundColor: "#C3FA7B",
+                    },
+                  }}
+                >
+                  <VisibilityIcon />
+                </IconButton>
               )}
               <IconButton
                 onClick={() => handleEdit(obj)}
