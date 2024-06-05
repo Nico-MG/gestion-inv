@@ -7,24 +7,24 @@ import RefundApi from "../services/Api/refund.service";
 import SaleApi from "../services/Api/sale.service";
 import UserApi from "../services/Api/user.service";
 
-export const auxDelete = ({ currentTable }) => {
+export const auxDelete = async ({ currentTable, id }) => {
   switch (currentTable) {
     case 'clients':
-      return ClientApi.deleteClient;
+      await ClientApi.deleteClient(id);
     case 'notifications':
-      return NotificationApi.deleteNotification;
+      await NotificationApi.deleteNotification(id);
     case 'orders':
-      return OrderApi.deleteOrder;
+      await OrderApi.deleteOrder(id);
     case 'products':
-      return ProductApi.deleteProduct;
+      await ProductApi.deleteProduct(id);
     case 'providers':
-      return ProviderApi.deleteProvider;
+      await ProviderApi.deleteProvider(id);
     case 'refunds':
-      return RefundApi.deleteRefund;
+      await RefundApi.deleteRefund(id);
     case 'sales':
-      return SaleApi.deleteSale;
+      await SaleApi.deleteSale(id);
     case 'users':
-      return UserApi.deleteUser;
+      await UserApi.deleteUser(id);
     default:
       return null;
   }

@@ -7,21 +7,18 @@ import TableRows from "../Molecules/TableRows";
 
 const useTableColumns = ({ data }) => {
   const [columns, setColumns] = useState([]);
-  const [columnId, setColumnId] = useState(null);
 
   useEffect(() => {
     if (data && data.length > 0) {
-      const keys = Object.keys(data[0]);
-      setColumns(keys);
-      setColumnId(Object.keys(data[0])[0]);
+      setColumns(Object.keys(data[0]));
     }
   }, [data]);
 
-  return { columns, columnId };
+  return columns;
 };
 
 const Table = ({ data, fetchData, currentTable, toggleForm, setFormProps }) => {
-  const { columns, columnId } = useTableColumns({ data });
+  const columns = useTableColumns({ data });
 
   return (
     <TableContainer
@@ -33,12 +30,13 @@ const Table = ({ data, fetchData, currentTable, toggleForm, setFormProps }) => {
         sx={{ minWidth: 800 }}
         aria-label="customized table"
       >
-        <TableHeader currentTable={currentTable} />
+        <TableHeader 
+          currentTable={currentTable}
+        />
         <TableRows
           currentTable={currentTable}
           data={data}
           columns={columns}
-          columnId={columnId}
           fetchData={fetchData}
           toggleForm={toggleForm}
           setFormProps={setFormProps}
