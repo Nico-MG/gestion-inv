@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import IconButton from "@mui/material/IconButton";
 import TableBody from "@mui/material/TableBody";
 import { StyledTableCell, StyledTableRow } from "./StylesTable";
-import EditButton from "./TableButtons/EditButton";
-import DeleteButton from "./TableButtons/DeleteButton";
-import DetailButton from "./TableButtons/DetailButton";
+import { sendNotification } from "@tauri-apps/api/notification";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import { auxDelete } from "../../functions/auxDelete";
 
-const isDetailTable = ({ currentTable }) => {
+const isDetailTable = (currentTable) => {
   return (
     currentTable === "sales" ||
     currentTable === "refunds" ||
@@ -17,45 +20,95 @@ const TableRows = ({
   currentTable,
   data,
   columns,
-  columnId,
   fetchData,
   toggleForm,
   setFormProps,
 }) => {
-  let detailField = null;
+  // index key which would contain the array of details if it exists
+  const dIndexKey = isDetailTable(currentTable) ? Object.keys(data[0]).length - 1 : null;
+
+  const handleDetails = (details) => {
+    console.log(details);
+    // TODO: render the modal and pass to it the details data to be shown
+  };
+
+  const handleEdit = (obj) => {
+    setFormProps({
+      mode: "modify",
+      fetchData: fetchData,
+      initialData: obj,
+    });
+    toggleForm();
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await auxDelete({ currentTable, id });
+      await fetchData();
+
+      sendNotification(`Eliminado producto con ID: ${id}`);
+    } catch (error) {
+      sendNotification(
+        `Error al eliminar producto: Problemas de conexión al servidor`
+      );
+    }
+  };
 
   return (
     <TableBody>
-      {data.map((item, index) => (
+      {data.map((obj, index) => (
         <StyledTableRow key={index}>
-          {columns.map((column) =>
-            !Array.isArray(item[column]) ? (
-              <StyledTableCell key={column}>{item[column]}</StyledTableCell>
-            ) : (
-              ((detailField = column),
-              null)
-            )
+          {columns.map(
+            (column) =>
+              !Array.isArray(obj[column]) && (
+                <StyledTableCell key={obj[column]}>
+                  {obj[column]}
+                </StyledTableCell>
+              )
           )}
-          <StyledTableCell>
+          <StyledTableCell key="actions">
             <div>
-              {(isDetailTable({ currentTable }) && detailField) &&
-                <DetailButton 
-                  data={item[detailField]}
-                />
-              }
-              <EditButton
-                id={item[columnId]}
-                data={data}
-                columnId={columnId}
-                fetchData={fetchData}
-                toggleForm={toggleForm}
-                setFormProps={setFormProps}
-              />
-              <DeleteButton
-                currentTable={currentTable}
-                id={item[columnId]}
-                fetchData={fetchData}
-              />
+              {dIndexKey && (
+                <IconButton
+                  onClick={() => handleDetails(obj[columns[dIndexKey]])}
+                  sx={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: 1,
+                    "&:hover": {
+                      backgroundColor: "#C3FA7B",
+                    },
+                  }}
+                >
+                  <VisibilityIcon />
+                </IconButton>
+              )}
+              <IconButton
+                onClick={() => handleEdit(obj)}
+                sx={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 1,
+                  "&:hover": {
+                    backgroundColor: "#C3FA7B",
+                  },
+                }}
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton
+                onClick={() => handleDelete(obj[columns[0]])}
+                sx={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 1,
+                  "&:hover": {
+                    backgroundColor: "#C3FA7B",
+                  },
+                }}
+              >
+                <DeleteIcon />
+              </IconButton>
             </div>
           </StyledTableCell>
         </StyledTableRow>

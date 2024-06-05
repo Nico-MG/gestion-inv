@@ -44,6 +44,10 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    if (JSON.stringify(formData) === JSON.stringify(initialData)) {
+      return;
+    }
+
     setLoading(true);
 
     const newErrors = {};
