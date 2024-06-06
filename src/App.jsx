@@ -1,15 +1,18 @@
 import React from "react";
+// import { ThemeProvider } from "@mui/material/styles";
+// import { lightTheme, darkTheme } from "./theme/theme";
 import { Box } from "@mui/material";
 import Login from "./components/Organisms/Forms/Login";
-import Sidebar from "./components/Organisms/Sidebar"
+import Products from "./components/Pages/Products";
 
 const App = () => {
   return (
-    <Box
-      
-    >
+    <>
+      {/* <ThemeProvider theme={lightTheme}> */}
       <Login />
-    </Box>
+      {/* <Products /> */}
+      {/* </ThemeProvider> */}
+    </>
   );
 };
 
