@@ -7,6 +7,7 @@ import {
   Button,
 } from "@mui/material";
 import CatchingPokeonIcon from "@mui/icons-material/CatchingPokemon";
+import logo from "../../images/logo_2.png"
 
 const SideNavbar = () => {
   return (
@@ -16,11 +17,11 @@ const SideNavbar = () => {
           <CatchingPokeonIcon />
         </IconButton>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-          POKEMONAPP
+          Menú
         </Typography>
       </Toolbar>
-      <Stack>
-        
+      <Stack >
+        {logo}
       </Stack>
     </AppBar>
   );

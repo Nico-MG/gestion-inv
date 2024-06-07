@@ -4,16 +4,16 @@ import { Box } from "@mui/material";
 // import { ThemeProvider } from "@mui/material/styles";
 // import { lightTheme, darkTheme } from "./theme/theme";
 import Login from "./components/Organisms/Forms/Login";
-// import SideNavbar from "./components/Organisms/SideNavbar";
+import SideNavbar from "./components/Organisms/SideNavbar";
 
 const App = () => {
   return (
     <>
       {/* <ThemeProvider theme={lightTheme}> */}
-      <Login />
+      {/* <Login /> */}
       {/* <Products /> */}
       {/* </ThemeProvider> */}
-      {/* <SideNavbar /> */}
+      <SideNavbar />
     </>
   );
 };
