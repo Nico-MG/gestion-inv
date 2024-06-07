@@ -4,7 +4,7 @@ const API_URL = `${import.meta.env.VITE_API_URL}/sales`;
 
 const SaleApi = {
   async getAllSales() {
-    try { 
+    try {
       const response = await axios.get(`${API_URL}`);
       return response.data;
     } catch (error) {
@@ -25,7 +25,7 @@ const SaleApi = {
 
   async createSale(saleData) {
     try {
-      const response = await axios.post(`${API_URL}`, saleData, {
+      const response = await axios.post(`${API_URL}/create`, saleData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -40,7 +40,7 @@ const SaleApi = {
   async updateSale(saleId, updatedSaleData) {
     try {
       const response = await axios.put(
-        `${API_URL}/${saleId}`,
+        `${API_URL}/${saleId}/edit`,
         updatedSaleData,
         {
           headers: {
@@ -57,7 +57,7 @@ const SaleApi = {
 
   async deleteSale(saleId) {
     try {
-      const response = await axios.delete(`${API_URL}/${saleId}`, {
+      const response = await axios.delete(`${API_URL}/${saleId}/delete`, {
         headers: {
           "Content-Type": "application/json",
         },

@@ -25,7 +25,7 @@ const OrderApi = {
 
   async createOrder(orderData) {
     try {
-      const response = await axios.post(`${API_URL}`, orderData, {
+      const response = await axios.post(`${API_URL}/create`, orderData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -40,7 +40,7 @@ const OrderApi = {
   async updateOrder(orderId, updatedOrderData) {
     try {
       const response = await axios.put(
-        `${API_URL}/${orderId}`,
+        `${API_URL}/${orderId}/edit`,
         updatedOrderData,
         {
           headers: {
@@ -57,7 +57,7 @@ const OrderApi = {
 
   async deleteOrder(orderId) {
     try {
-      const response = await axios.delete(`${API_URL}/${orderId}`, {
+      const response = await axios.delete(`${API_URL}/${orderId}/delete`, {
         headers: {
           "Content-Type": "application/json",
         },
