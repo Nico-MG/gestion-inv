@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/refund`;
+const API_URL = `${import.meta.env.VITE_API_URL}/refunds`;
 
 const RefundApi = {
   async getAllRefunds() {

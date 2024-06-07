@@ -20,7 +20,7 @@ const MainLayout = ({ currentTable, data, fetchData }) => {
         <>
           <Table
             currentTable={currentTable}
-            data={data}
+            data={data.data}
             fetchData={fetchData}
             toggleForm={toggleForm}
             setFormProps={setFormProps}

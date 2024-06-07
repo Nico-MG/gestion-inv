@@ -1,11 +1,12 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/product`;
+const API_URL = `${import.meta.env.VITE_API_URL}/products`;
 
 const ProductApi = {
   async getAllProducts() {
     try {
       const response = await axios.get(`${API_URL}`);
+      console.log(response)
       return response.data;
     } catch (error) {
       console.error("Error al obtener productos:", error);
@@ -26,7 +27,7 @@ const ProductApi = {
   async createProduct(productData) {
     console.log("Data:", productData)
     try {
-      const response = await axios.post(`${API_URL}`, productData, {
+      const response = await axios.post(`${API_URL}/create`, productData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -41,7 +42,7 @@ const ProductApi = {
   async updateProduct(productId, updatedProductData) {
     try {
       const response = await axios.put(
-        `${API_URL}/${productId}`,
+        `${API_URL}/${productId}/edit`,
         updatedProductData,
         {
           headers: {
@@ -58,7 +59,7 @@ const ProductApi = {
 
   async deleteProduct(productId) {
     try {
-      const response = await axios.delete(`${API_URL}/${productId}`, {
+      const response = await axios.delete(`${API_URL}/${productId}/delete`, {
         headers: {
           "Content-Type": "application/json",
         },

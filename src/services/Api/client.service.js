@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/client`;
+const API_URL = `${import.meta.env.VITE_API_URL}/clients`;
 
 export const ClientApi = {
   async getAllProducts() {

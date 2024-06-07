@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/notification`;
+const API_URL = `${import.meta.env.VITE_API_URL}/notifications`;
 
 const NotificationApi = {
   async getAllNotifications() {
