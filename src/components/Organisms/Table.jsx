@@ -29,6 +29,7 @@ const Table = ({ data, fetchData, currentTable, toggleForm, setFormProps }) => {
         className="tabla-datos"
         sx={{ minWidth: 800 }}
         aria-label="customized table"
+        stickyHeader
       >
         <TableHeader 
           currentTable={currentTable}
