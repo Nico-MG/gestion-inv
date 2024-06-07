@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import IconButton from "@mui/material/IconButton";
+import { IconButton, Tooltip } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import { StyledTableCell, StyledTableRow } from "./StylesTable";
 import { sendNotification } from "@tauri-apps/api/notification";
@@ -25,7 +25,9 @@ const TableRows = ({
   setFormProps,
 }) => {
   // index key which would contain the array of details if it exists
-  const dIndexKey = isDetailTable(currentTable) ? Object.keys(data[0]).length - 1 : null;
+  const dIndexKey = isDetailTable(currentTable)
+    ? Object.keys(data[0]).length - 1
+    : null;
 
   const handleDetails = (details) => {
     console.log(details);
@@ -80,7 +82,9 @@ const TableRows = ({
                     },
                   }}
                 >
-                  <VisibilityIcon />
+                  <Tooltip title="Ver detalles" placement="bottom" arrow enterDelay={500} >
+                    <VisibilityIcon />
+                  </Tooltip>
                 </IconButton>
               )}
               <IconButton
@@ -94,7 +98,9 @@ const TableRows = ({
                   },
                 }}
               >
-                <EditIcon />
+                <Tooltip title="Editar" placement="bottom" arrow enterDelay={500} >
+                  <EditIcon />
+                </Tooltip>
               </IconButton>
               <IconButton
                 onClick={() => handleDelete(obj[columns[0]])}
@@ -107,7 +113,9 @@ const TableRows = ({
                   },
                 }}
               >
-                <DeleteIcon />
+                <Tooltip title="Borrar" placement="bottom" arrow enterDelay={500} >
+                  <DeleteIcon />
+                </Tooltip>
               </IconButton>
             </div>
           </StyledTableCell>
