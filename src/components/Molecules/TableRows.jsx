@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { IconButton, Tooltip } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
-import { StyledTableCell, StyledTableRow } from "./StylesTable";
+import { StyledTableCell, StyledTableRow } from "../../styles/StylesTable";
 import { sendNotification } from "@tauri-apps/api/notification";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";

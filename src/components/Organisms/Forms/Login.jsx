@@ -39,6 +39,7 @@ const T2 = ({ handleChange, handleSubmit }) => {
               height: "100%",
             },
             width: "100%",
+            minWidth: "540px",
             backgroundColor: "#266763",
             display: "flex",
             alignItems: "center",
@@ -61,6 +62,7 @@ const T2 = ({ handleChange, handleSubmit }) => {
       <Grid item xs={12} md={6}>
         <Box
           sx={{
+            minWidth: "540px",
             backgroundColor: "#fff",
             display: "flex",
             flexDirection: "column",
