@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
+import { IconButton, Tooltip } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
-import { StyledTableCell, StyledTableRow, StyledTableIcon } from "../../styles/StylesTable";
+import { StyledTableCell, StyledTableRow } from "./StylesTable";
 import { sendNotification } from "@tauri-apps/api/notification";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -24,7 +25,9 @@ const TableRows = ({
   setFormProps,
 }) => {
   // index key which would contain the array of details if it exists
-  const dIndexKey = isDetailTable(currentTable) ? columns.length - 1 : null;
+  const dIndexKey = isDetailTable(currentTable)
+    ? Object.keys(data[0]).length - 1
+    : null;
 
   const handleDetails = (details) => {
     console.log(details);
@@ -68,22 +71,52 @@ const TableRows = ({
           <StyledTableCell key="actions">
             <div>
               {dIndexKey && (
-                <StyledTableIcon
+                <IconButton
                   onClick={() => handleDetails(obj[columns[dIndexKey]])}
+                  sx={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: 1,
+                    "&:hover": {
+                      backgroundColor: "#C3FA7B",
+                    },
+                  }}
                 >
-                  <VisibilityIcon />
-                </StyledTableIcon>
+                  <Tooltip title="Ver detalles" placement="bottom" arrow enterDelay={500} >
+                    <VisibilityIcon />
+                  </Tooltip>
+                </IconButton>
               )}
-              <StyledTableIcon
+              <IconButton
                 onClick={() => handleEdit(obj)}
+                sx={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 1,
+                  "&:hover": {
+                    backgroundColor: "#C3FA7B",
+                  },
+                }}
               >
-                <EditIcon />
-              </StyledTableIcon>
-              <StyledTableIcon
+                <Tooltip title="Editar" placement="bottom" arrow enterDelay={500} >
+                  <EditIcon />
+                </Tooltip>
+              </IconButton>
+              <IconButton
                 onClick={() => handleDelete(obj[columns[0]])}
+                sx={{
+                  width: 32,
+                  height: 32,
+                  borderRadius: 1,
+                  "&:hover": {
+                    backgroundColor: "#C3FA7B",
+                  },
+                }}
               >
-                <DeleteIcon />
-              </StyledTableIcon>
+                <Tooltip title="Borrar" placement="bottom" arrow enterDelay={500} >
+                  <DeleteIcon />
+                </Tooltip>
+              </IconButton>
             </div>
           </StyledTableCell>
         </StyledTableRow>
