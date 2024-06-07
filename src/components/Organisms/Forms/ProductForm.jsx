@@ -22,12 +22,12 @@ const StyledTextField = styled(TextField)({
 
 const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
   const [formData, setFormData] = useState({
-    id_producto: initialData?.id_producto || "",
+    idp: initialData?.idp || "",
     nombre: initialData?.nombre || "",
-    categoria: initialData?.categoria || "",
-    cantidad: initialData?.cantidad || "",
-    min_cantidad: initialData?.min_cantidad || "",
-    precio_venta: initialData?.precio_venta || "",
+    cat: initialData?.cat || "",
+    cit: initialData?.cit || "",
+    mCit: initialData?.mCit || "",
+    precio: initialData?.precio || "",
   });
 
   const [loading, setLoading] = useState(false);
@@ -54,54 +54,54 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
 
     console.log("formData:", formData);
 
-    if (formData.id_producto.trim() === "") {
-      newErrors.id_producto = "ID del producto es requerido";
+    if (formData.idp.trim() === "") {
+      newErrors.idp = "ID del producto es requerido";
     }
 
     if (formData.nombre.trim() === "") {
       newErrors.nombre = "Nombre es requerido";
     }
 
-    if (formData.categoria.trim() === "") {
-      newErrors.categoria = "Categoría es requerida";
+    if (formData.cat.trim() === "") {
+      newErrors.cat = "Categoría es requerida";
     }
 
-    if (typeof formData.cantidad === "string") {
-      if (formData.cantidad.trim() === "") {
-        newErrors.cantidad = "Cantidad es requerida";
+    if (typeof formData.cit === "string") {
+      if (formData.cit.trim() === "") {
+        newErrors.cit = "Cantidad es requerida";
       } else {
         if (
-          (!Number.isInteger(parseFloat(formData.cantidad.trim())) || !Number.isInteger(Number(formData.cantidad.trim()))) ||
-          Number(formData.cantidad < 0)
+          (!Number.isInteger(parseFloat(formData.cit.trim())) || !Number.isInteger(Number(formData.cit.trim()))) ||
+          Number(formData.cit < 0)
         ) {
-          newErrors.cantidad = "Cantidad debe ser un número entero válido";
+          newErrors.cit = "Cantidad debe ser un número entero válido";
         }
       }
     }
 
-    if (typeof formData.min_cantidad === "string") {
-      if (formData.min_cantidad.trim() === "") {
-        newErrors.min_cantidad = "Cantidad mínima es requerida";
+    if (typeof formData.mCit === "string") {
+      if (formData.mCit.trim() === "") {
+        newErrors.mCit = "Cantidad mínima es requerida";
       } else {
         if (
-          !Number.isInteger(parseFloat(formData.min_cantidad.trim())) ||
-          Number(formData.min_cantidad < 0) || !Number.isInteger(Number(formData.min_cantidad.trim()))
+          !Number.isInteger(parseFloat(formData.mCit.trim())) ||
+          Number(formData.mCit < 0) || !Number.isInteger(Number(formData.mCit.trim()))
         ) {
-          newErrors.min_cantidad =
+          newErrors.mCit =
             "Cantidad mínima debe ser un número entero válido";
         }
       }
     }
 
-    if (typeof formData.precio_venta === "string") {
-      if (formData.precio_venta.trim() === "") {
-        newErrors.precio_venta = "Precio de venta es requerido";
+    if (typeof formData.precio === "string") {
+      if (formData.precio.trim() === "") {
+        newErrors.precio = "Precio de venta es requerido";
       } else {
         if (
-          !Number.isInteger(parseFloat(formData.precio_venta.trim())) ||
-          Number(formData.precio_venta < 0) || !Number.isInteger(Number(formData.precio_venta.trim()))
+          !Number.isInteger(parseFloat(formData.precio.trim())) ||
+          Number(formData.precio < 0) || !Number.isInteger(Number(formData.precio.trim()))
         ) {
-          newErrors.precio_venta =
+          newErrors.precio =
             "Precio de venta debe ser un número entero válido";
         }
       }
@@ -115,18 +115,18 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
     }
 
     Object.keys(formData).forEach((key) => {
-      key === "cantidad" || key === "min_cantidad" || key === "precio_venta"
+      key === "cit" || key === "mCit" || key === "precio"
         ? (formData[key] = parseInt(formData[key]))
         : (formData[key] = formData[key].trim());
     });
 
     if (mode === "modify") {
       try {
-        await ProductApi.updateProduct(initialData.id_producto, formData);
+        await ProductApi.updateProduct(initialData.idp, formData);
         await fetchData();
 
         sendNotification(
-          `Modificado producto con ID: ${initialData.id_producto}`
+          `Modificado producto con ID: ${initialData.idp}`
         );
 
         setLoading(false);
@@ -146,7 +146,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
 
         console.log("Data enviada:", formData);
 
-        sendNotification(`Creado producto con ID: ${formData.id_producto}`);
+        sendNotification(`Creado producto con ID: ${formData.idp}`);
 
         setLoading(false);
 
@@ -214,11 +214,11 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
         >
           <StyledTextField
             label="ID del producto"
-            name="id_producto"
-            value={formData.id_producto}
+            name="idp"
+            value={formData.idp}
             onChange={handleChange}
-            error={!!errors.id_producto}
-            helperText={errors.id_producto}
+            error={!!errors.idp}
+            helperText={errors.idp}
             inputProps={{
               maxLength: 20,
             }}
@@ -236,44 +236,44 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
           />
           <StyledTextField
             label="Categoría"
-            name="categoria"
-            value={formData.categoria}
+            name="cat"
+            value={formData.cat}
             onChange={handleChange}
-            error={!!errors.categoria}
-            helperText={errors.categoria}
+            error={!!errors.cat}
+            helperText={errors.cat}
             inputProps={{
               maxLength: 20,
             }}
           />
           <StyledTextField
             label="Cantidad"
-            name="cantidad"
-            value={formData.cantidad}
+            name="cit"
+            value={formData.cit}
             onChange={handleChange}
-            error={!!errors.cantidad}
-            helperText={errors.cantidad}
+            error={!!errors.cit}
+            helperText={errors.cit}
             inputProps={{
               maxLength: 20,
             }}
           />
           <StyledTextField
             label="Cantidad mínima"
-            name="min_cantidad"
-            value={formData.min_cantidad}
+            name="mCit"
+            value={formData.mCit}
             onChange={handleChange}
-            error={!!errors.min_cantidad}
-            helperText={errors.min_cantidad}
+            error={!!errors.mCit}
+            helperText={errors.mCit}
             inputProps={{
               maxLength: 20,
             }}
           />
           <StyledTextField
             label="Precio"
-            name="precio_venta"
-            value={formData.precio_venta}
+            name="precio"
+            value={formData.precio}
             onChange={handleChange}
-            error={!!errors.precio_venta}
-            helperText={errors.precio_venta}
+            error={!!errors.precio}
+            helperText={errors.precio}
             inputProps={{
               maxLength: 20,
             }}

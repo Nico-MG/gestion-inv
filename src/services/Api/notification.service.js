@@ -1,10 +1,10 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/notification`;
+const API_URL = `${import.meta.env.VITE_API_URL}/notifications`;
 
 const NotificationApi = {
   async getAllNotifications() {
-    try { 
+    try {
       const response = await axios.get(`${API_URL}`);
       return response.data;
     } catch (error) {
@@ -25,7 +25,7 @@ const NotificationApi = {
 
   async createNotification(notificationData) {
     try {
-      const response = await axios.post(`${API_URL}`, notificationData, {
+      const response = await axios.post(`${API_URL}/create`, notificationData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -40,7 +40,7 @@ const NotificationApi = {
   async updateNotification(notificationId, updatedNotificationData) {
     try {
       const response = await axios.put(
-        `${API_URL}/${notificationId}`,
+        `${API_URL}/${notificationId}/edit`,
         updatedNotificationData,
         {
           headers: {
@@ -57,11 +57,14 @@ const NotificationApi = {
 
   async deleteNotification(notificationId) {
     try {
-      const response = await axios.delete(`${API_URL}/${notificationId}`, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await axios.delete(
+        `${API_URL}/${notificationId}/delete`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       return response.data;
     } catch (error) {
       console.error("Error al eliminar notificacion:", error);

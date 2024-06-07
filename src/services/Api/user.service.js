@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/user`;
+const API_URL = `${import.meta.env.VITE_API_URL}/users`;
 
 const UserApi = {
   async getAllUsers() {
@@ -25,7 +25,7 @@ const UserApi = {
 
   async createUser(userData) {
     try {
-      const response = await axios.post(`${API_URL}`, userData, {
+      const response = await axios.post(`${API_URL}/create`, userData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -40,7 +40,7 @@ const UserApi = {
   async updateUser(userId, updatedUserData) {
     try {
       const response = await axios.put(
-        `${API_URL}/${userId}`,
+        `${API_URL}/${userId}/edit`,
         updatedUserData,
         {
           headers: {
@@ -57,7 +57,7 @@ const UserApi = {
 
   async deleteUser(userId) {
     try {
-      const response = await axios.delete(`${API_URL}/${userId}`, {
+      const response = await axios.delete(`${API_URL}/${userId}/delete`, {
         headers: {
           "Content-Type": "application/json",
         },

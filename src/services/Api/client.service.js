@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/client`;
+const API_URL = `${import.meta.env.VITE_API_URL}/clients`;
 
 export const ClientApi = {
   async getAllProducts() {
@@ -25,7 +25,7 @@ export const ClientApi = {
 
   async createClient(clientData) {
     try {
-      const response = await axios.post(`${API_URL}`, clientData, {
+      const response = await axios.post(`${API_URL}/create`, clientData, {
         headers: {
           "Content-Type": "application/json",
         },
@@ -40,7 +40,7 @@ export const ClientApi = {
   async updateClient(clientId, updatedClientData) {
     try {
       const response = await axios.put(
-        `${API_URL}/${productId}`,
+        `${API_URL}/${productId}/edit`,
         updatedClientData,
         {
           headers: {
@@ -57,7 +57,7 @@ export const ClientApi = {
 
   async deleteClient(clientId) {
     try {
-      const response = await axios.delete(`${API_URL}/${clientId}`, {
+      const response = await axios.delete(`${API_URL}/${clientId}/delete`, {
         headers: {
           "Content-Type": "application/json",
         },

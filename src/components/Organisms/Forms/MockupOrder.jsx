@@ -1,246 +1,304 @@
-import React, { useState, useEffect } from "react";
-import {
-  Button,
-  TextField,
-  Box,
-  Typography,
-  AppBar,
-  Toolbar,
-  Grid,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  IconButton,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-} from "@mui/material";
-import { Delete as DeleteIcon } from "@mui/icons-material";
+import React, { useState } from "react";
+import { Button, TextField, Box, Typography, IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { styled } from "@mui/material/styles";
+import { sendNotification } from "@tauri-apps/api/notification";
 
-const MockupOrder = () => {
-  const [companyRut, setCompanyRut] = useState("");
-  const [productId, setProductId] = useState("");
-  const [quantity, setQuantity] = useState("");
-  const [price, setPrice] = useState("");
-  const [totalItem, setTotalItem] = useState(0);
-  const [items, setItems] = useState([]);
-  const [error, setError] = useState("");
-  const [open, setOpen] = useState(false);
-  const [itemToDelete, setItemToDelete] = useState(null);
+const StyledTextField = styled(TextField)({
+  marginBottom: "2vh",
+  width: "75%",
+  "& .MuiInputBase-input": {
+    fontSize: "16px",
+  },
+  "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+    borderColor: "#9bc661",
+  },
+  "& .MuiInputLabel-outlined.Mui-focused": {
+    color: "#9bc661",
+  },
+});
 
-  useEffect(() => {
-    setTotalItem(
-      quantity && price ? parseInt(quantity) * parseFloat(price) : 0
-    );
-  }, [quantity, price]);
+const Mockup_OrderForm = ({ closeForm, fetchData }) => {
+  const [formData, setFormData] = useState({
+    rut_empresa: "",
+    id_producto: "",
+    cantidad: "",
+    precio: "",
+  });
 
-  const handleAddItem = () => {
-    if (!productId || !quantity || !price) {
-      setError("Todos los campos del producto son obligatorios.");
+  const [orderItems, setOrderItems] = useState([]);
+  const [errors, setErrors] = useState({});
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const addItem = () => {
+    const newErrors = {};
+
+    if (formData.id_producto.trim() === "") {
+      newErrors.id_producto = "ID del producto es requerido";
+    }
+
+    if (formData.cantidad.trim() === "" || isNaN(parseInt(formData.cantidad)) || parseInt(formData.cantidad) <= 0) {
+      newErrors.cantidad = "Cantidad debe ser un número entero válido";
+    }
+
+    if (formData.precio.trim() === "" || isNaN(parseFloat(formData.precio)) || parseFloat(formData.precio) <= 0) {
+      newErrors.precio = "Precio debe ser un número válido";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
-    if (isNaN(quantity) || isNaN(price)) {
-      setError("Cantidad y Precio deben ser números.");
+
+    setOrderItems([...orderItems, { ...formData }]);
+    setFormData({ ...formData, id_producto: "", cantidad: "", precio: "" });
+    setErrors({});
+  };
+
+  const removeItem = (index) => {
+    setOrderItems(orderItems.filter((_, i) => i !== index));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const newErrors = {};
+
+    if (formData.rut_empresa.trim() === "") {
+      newErrors.rut_empresa = "RUT de la empresa es requerido";
+    }
+
+    if (orderItems.length === 0) {
+      sendNotification("Debe agregar al menos un producto al pedido");
       return;
     }
-    setItems([
-      ...items,
-      { productId, quantity: parseInt(quantity), price: parseFloat(price) },
-    ]);
-    setProductId("");
-    setQuantity("");
-    setPrice("");
-    setError("");
-  };
 
-  const handleRemoveItem = (index) => {
-    setItemToDelete(index);
-    setOpen(true);
-  };
-
-  const confirmRemoveItem = () => {
-    const newItems = items.filter((_, i) => i !== itemToDelete);
-    setItems(newItems);
-    setOpen(false);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (!companyRut) {
-      setError("El RUT de la empresa es obligatorio.");
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
-    console.log("Datos del formulario:", { companyRut, items });
+
+    try {
+      await fetchData();
+      sendNotification(`Pedido registrado correctamente`);
+      closeForm();
+    } catch (error) {
+      sendNotification(`Error al registrar pedido: ${error.message}`);
+    }
   };
 
-  const totalAmount = items.reduce(
-    (total, item) => total + item.quantity * item.price,
-    0
-  );
+  const total = orderItems.reduce((acc, item) => acc + item.cantidad * item.precio, 0);
 
   return (
-    <Box sx={{ padding: 2 }}>
-      <AppBar position="static" sx={{ backgroundColor: "#00695c" }}>
-        <Toolbar sx={{ justifyContent: "center" }}>
-          <Typography variant="h6" sx={{ textAlign: "center" }}>
-            REGISTRO DE PEDIDO
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Paper sx={{ padding: 2, marginTop: 2 }}>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h6">Rut de Empresa:</Typography>
-            <TextField
-              variant="outlined"
-              value={companyRut}
-              onChange={(e) => setCompanyRut(e.target.value)}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TableContainer component={Paper}>
-              <Table>
-                <TableHead sx={{ backgroundColor: "#e0e0e0" }}>
-                  <TableRow>
-                    <TableCell>ID del Producto</TableCell>
-                    <TableCell>Cantidad</TableCell>
-                    <TableCell>Precio Unitario</TableCell>
-                    <TableCell>Total</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {items.map((item, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{item.productId}</TableCell>
-                      <TableCell>{item.quantity}</TableCell>
-                      <TableCell>${item.price.toFixed(2)}</TableCell>
-                      <TableCell>
-                        ${(item.quantity * item.price).toFixed(2)}
-                      </TableCell>
-                      <TableCell>
-                        <IconButton onClick={() => handleRemoveItem(index)}>
-                          <DeleteIcon />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="ID del Producto"
-              variant="outlined"
-              value={productId}
-              onChange={(e) => setProductId(e.target.value)}
-              fullWidth
-              required
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <TextField
-              label="Cantidad"
-              variant="outlined"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              fullWidth
-              required
-              type="number"
-            />
-          </Grid>
-          <Grid item xs={3}>
-            <TextField
-              label="Precio Unitario"
-              variant="outlined"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              fullWidth
-              required
-              type="number"
-            />
-          </Grid>
-          <Grid item xs={2}>
-            <TextField
-              label="Total"
-              variant="filled"
-              value={totalItem.toFixed(2)}
-              InputProps={{
-                readOnly: true,
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        position: "fixed",
+        top: "50%",
+        left: "50%",
+        transform: "translate(-50%, -50%)",
+        width: "80vw",
+        maxWidth: "600px",
+        maxHeight: "90vh",
+        overflow: "hidden",
+        bgcolor: "#ffffff",
+        border: "1.5px solid #266763",
+        borderRadius: "15px",
+        p: 2,
+      }}
+    >
+      <Box
+        sx={{
+          bgcolor: "#266763",
+          borderRadius: "10px",
+          width: "100%",
+          p: 1,
+          mb: 2,
+          textAlign: "center",
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{ color: "#ffffff", fontWeight: "bold" }}
+        >
+          REGISTRO DE PEDIDO
+        </Typography>
+      </Box>
+
+      <form onSubmit={handleSubmit} style={{ width: "100%" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-start", // Alineación a la izquierda
+            p: 2,
+          }}
+        >
+          <StyledTextField
+            label="Rut de Empresa"
+            name="rut_empresa"
+            value={formData.rut_empresa}
+            onChange={handleChange}
+            error={!!errors.rut_empresa}
+            helperText={errors.rut_empresa}
+            style={{ width: "50%" }} // Ancho del campo Rut de Empresa
+          />
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "flex-start", // Alineación a la izquierda
+              gap: 2,
+              width: "100%",
+              marginBottom: "2vh",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 2,
+                width: "100%",
               }}
-              fullWidth
-            />
-          </Grid>
-          <Grid item xs={2}>
+            >
+              <StyledTextField
+                label="ID del producto"
+                name="id_producto"
+                value={formData.id_producto}
+                onChange={handleChange}
+                error={!!errors.id_producto}
+                helperText={errors.id_producto}
+                style={{ width: "30%" }}
+              />
+              <StyledTextField
+                label="Cantidad"
+                name="cantidad"
+                value={formData.cantidad}
+                onChange={handleChange}
+                error={!!errors.cantidad}
+                helperText={errors.cantidad}
+                style={{ width: "30%" }}
+              />
+              <StyledTextField
+                label="Precio"
+                name="precio"
+                value={formData.precio}
+                onChange={handleChange}
+                error={!!errors.precio}
+                helperText={errors.precio}
+                style={{ width: "30%" }}
+              />
+            </Box>
             <Button
               variant="contained"
-              sx={{ backgroundColor: "#00695c", color: "white" }}
-              onClick={handleAddItem}
+              onClick={addItem}
+              sx={{
+                backgroundColor: "#266763",
+                color: "#ffffff",
+                fontSize: "0.8rem",
+                "&:hover": {
+                  backgroundColor: "#c3fa7b",
+                  color: "#7e7e7e",
+                },
+                alignSelf: "flex-start", // Alineación del botón a la izquierda
+              }}
             >
               Añadir
             </Button>
-          </Grid>
-          {error && (
-            <Grid item xs={12}>
-              <Typography color="error">{error}</Typography>
-            </Grid>
-          )}
-          <Grid item xs={12}>
-            <Typography variant="h6" align="right">
-              Total: ${totalAmount.toFixed(2)}
-            </Typography>
-          </Grid>
-          <Grid item xs={6}>
+          </Box>
+
+          <Box sx={{ width: "100%", mb: 2 }}>
+            {orderItems.map((item, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  mb: 1,
+                }}
+              >
+                <Typography>{item.id_producto}</Typography>
+                <Typography>{item.cantidad}</Typography>
+                <Typography>{`$${item.precio}`}</Typography>
+                <Typography>{`$${item.cantidad * item.precio}`}</Typography>
+                <IconButton onClick={() => removeItem(index)}>
+                  <DeleteIcon />
+                </IconButton>
+              </Box>
+            ))}
+          </Box>
+
+          <Typography
+            variant="h6"
+            sx={{
+              mb: 2,
+              textAlign: "center", // Centrar el total
+              width: "100%",
+            }}
+          >
+            {`Total: $${total}`}
+          </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 2,
+              justifyContent: "center", // Centrar los botones
+              width: "100%",
+              mt: 3,
+            }}
+          >
             <Button
               variant="contained"
-              sx={{ backgroundColor: "#757575", color: "white" }}
-              fullWidth
+              endIcon={<CloseIcon />}
+              sx={{
+                backgroundColor: "#266763",
+                color: "#ffffff",
+                fontSize: "0.8rem",
+                width: "150px",
+                "&:hover": {
+                  backgroundColor: "#c3fa7b",
+                  color: "#7e7e7e",
+                },
+              }}
+              onClick={closeForm}
             >
               Cerrar
             </Button>
-          </Grid>
-          <Grid item xs={6}>
             <Button
               variant="contained"
-              sx={{ backgroundColor: "#00695c", color: "white" }}
-              fullWidth
-              onClick={handleSubmit}
+              sx={{
+                backgroundColor: "#266763",
+                color: "#ffffff",
+                fontSize: "0.8rem",
+                width: "150px",
+                "&:hover": {
+                  backgroundColor: "#c3fa7b",
+                  color: "#7e7e7e",
+                },
+              }}
+              type="submit"
             >
               Guardar
             </Button>
-          </Grid>
-        </Grid>
-      </Paper>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{"Confirmar eliminación"}</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            ¿Estás seguro de que deseas eliminar este pedido?
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancelar
-          </Button>
-          <Button onClick={confirmRemoveItem} color="primary" autoFocus>
-            Eliminar
-          </Button>
-        </DialogActions>
-      </Dialog>
+          </Box>
+        </Box>
+      </form>
     </Box>
   );
 };
 
-export default MockupOrder;
+export default Mockup_OrderForm;
+
