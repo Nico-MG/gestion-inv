@@ -77,6 +77,7 @@ const TableRows = ({
                     width: 32,
                     height: 32,
                     borderRadius: 1,
+                    color: "secondary.contrastText",
                     "&:hover": {
                       backgroundColor: "#C3FA7B",
                     },
@@ -93,6 +94,7 @@ const TableRows = ({
                   width: 32,
                   height: 32,
                   borderRadius: 1,
+                  color: "secondary.contrastText",
                   "&:hover": {
                     backgroundColor: "#C3FA7B",
                   },
@@ -108,6 +110,7 @@ const TableRows = ({
                   width: 32,
                   height: 32,
                   borderRadius: 1,
+                  color: "secondary.contrastText",
                   "&:hover": {
                     backgroundColor: "#C3FA7B",
                   },

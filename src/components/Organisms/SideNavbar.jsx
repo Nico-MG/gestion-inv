@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import { TabContext, TabList } from "@mui/lab";
-import { Box, CardMedia, Typography, Tab, Grid, Tooltip } from "@mui/material";
+import { Box, CardMedia, Typography, Tab, Grid } from "@mui/material";
 import {
   AttachMoney,
   Groups,
@@ -19,7 +19,7 @@ import Products from "../Pages/Products";
 
 const StyledTab = styled(Tab)(({ theme }) => ({
   height: "100%",
-  maxWidth: "90%",
+  maxWidth: "230px",
   fontSize: "18px",
   color: theme.palette.primary.contrastText,
   textTransform: "none",
@@ -47,7 +47,7 @@ const Sidebar = () => {
   };
 
   return (
-    <Grid item xs={2} md={3}>
+    <Grid item xs={2} md={2.75}>
       <Box
         sx={{
           margin: 2,

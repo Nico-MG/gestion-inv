@@ -22,16 +22,14 @@ const Table = ({ data, fetchData, currentTable, toggleForm, setFormProps }) => {
   const columns = useTableColumns({ data });
 
   return (
-    <Grid item xs={10} md={9}>
+    <Grid item xs={10} md={9.25}>
     <TableContainer
-      // sx={{ height: "50%" }}
+      sx={{ marginTop: "2%" }}
       component={Paper}
     >
       <TableMUI
         className="tabla-datos"
-        // sx={{ minWidth: 800 }}
-        aria-label="customized table"
-        // stickyHeader
+        aria-label="content table"
       >
         <TableHeader 
           currentTable={currentTable}

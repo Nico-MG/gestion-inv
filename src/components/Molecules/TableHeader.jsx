@@ -26,7 +26,7 @@ const TableHeader = ({ currentTable }) => {
         {columns.map((column) => (
           <StyledTableCell key={column}>{column}</StyledTableCell>
         ))}
-        <StyledTableCell>Opciones</StyledTableCell>
+        <StyledTableCell>Acciones</StyledTableCell>
       </TableRow>
     </TableHead>
   );

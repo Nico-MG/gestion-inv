@@ -13,7 +13,7 @@ const lightTheme = createTheme({
       main: "#c3fa7b",
       light: "#CFFB95",
       dark: "#88AF56",
-      contrastText: "#266763",
+      contrastText: "#8c8c8c",
     },
     error: {
       main: "#f44336",
@@ -83,9 +83,21 @@ const lightTheme = createTheme({
       xl: 1536,
     },
   },
-  zIndex: {
-    tooltip: 1000
-  }
+  // components: {
+  //   MuiSvgIcon: {
+  //     styleOverrides: {
+  //       root: {
+  //         color: "#000000", // Color predeterminado para todos los íconos
+  //         '&.MuiSvgIcon-colorPrimary': {
+  //           color: "#000000", // Color para íconos con colorPrimary
+  //         },
+  //         '&.MuiSvgIcon-colorSecondary': {
+  //           color: "#000000", // Color para íconos con colorSecondary
+  //         },
+  //       },
+  //     },
+  //   },
+  // },
 });
 
 // Dark theme
