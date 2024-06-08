@@ -18,10 +18,10 @@ import Orders from "../Pages/Orders";
 import Products from "../Pages/Products";
 
 const StyledTab = styled(Tab)(({ theme }) => ({
+  height: "100%",
+  maxWidth: "90%",
   fontSize: "18px",
   color: theme.palette.primary.contrastText,
-  height: "100%",
-  
   textTransform: "none",
   marginBottom: "1.5%",
 }));
@@ -33,12 +33,12 @@ const Sidebar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= theme.breakpoints.values.md);
+      setIsSmallScreen(window.innerWidth <= 1000);
     };
     window.addEventListener("resize", handleResize);
     // Limpia el evento de cambio de tamaño al desmontar el componente
     return () => {
-      setIsSmallScreen(window.innerWidth <= theme.breakpoints.values.md);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -181,7 +181,7 @@ const Sidebar = () => {
                 />
                 <StyledTab
                   value="settings"
-                  label={!isSmallScreen && "Configuracion"}
+                  label={!isSmallScreen && "Configuración"}
                   icon={<Settings />}
                   iconPosition="start"
                 />

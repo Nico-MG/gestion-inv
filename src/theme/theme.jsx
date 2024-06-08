@@ -1,4 +1,4 @@
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 
 const lightTheme = createTheme({
   palette: {
@@ -40,7 +40,7 @@ const lightTheme = createTheme({
       contrastText: "#000000",
     },
     text: {
-      icon: '#000000',
+      icon: "#000000",
       primary: "#000000",
       secondary: "#757575",
     },
@@ -58,23 +58,23 @@ const lightTheme = createTheme({
   variants: {
     button: {
       contained: {
-        color: '#ffffff',
-        backgroundColor: '#266763', // Green
-        '&:hover': {
-          backgroundColor: '#757de8', // Lighter shade of primary color
+        color: "#ffffff",
+        backgroundColor: "#266763", // Green
+        "&:hover": {
+          backgroundColor: "#c3fa7b", // Lighter shade of primary color
+          color: "#266763",
         },
       },
       outlined: {
-        color: '#266763', // Green
-        borderColor: '#266763', // Green
-        '&:hover': {
-          backgroundColor: '#f5f5f5', // Light background on hover
+        color: "#266763", // Green
+        borderColor: "#266763", // Green
+        "&:hover": {
+          backgroundColor: "#f5f5f5", // Light background on hover
         },
       },
     },
-    // Define más variantes según tus necesidades
   },
-    breakpoints: {
+  breakpoints: {
     values: {
       xs: 0,
       sm: 600,
@@ -83,6 +83,9 @@ const lightTheme = createTheme({
       xl: 1536,
     },
   },
+  zIndex: {
+    tooltip: 1000
+  }
 });
 
 // Dark theme
