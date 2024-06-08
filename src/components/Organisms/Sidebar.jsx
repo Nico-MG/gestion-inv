@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import Tabs from "@mui/joy/Tabs";
-import TabList from "@mui/joy/TabList";
-import Tab, { tabClasses } from "@mui/joy/Tab";
-import { Box, CardMedia, Typography } from "@mui/material";
+import React, { useState, useEffect } from "react";
+import { useTheme } from "@mui/material/styles";
+import { TabContext, TabList } from "@mui/lab";
+import { Box, CardMedia, Typography, Tab, Grid } from "@mui/material";
 import {
   AttachMoney,
   Groups,
@@ -15,25 +14,33 @@ import {
   Settings,
 } from "@mui/icons-material";
 import { styled } from "@mui/material/styles";
-import Orders from "../Pages/Orders";
-import Products from "../Pages/Products";
+import Orders from "../pages/Orders";
+import Products from "../pages/Products";
 
-const StyledTab = styled(Tab)({
+const StyledTab = styled(Tab)(({ theme }) => ({
+  height: "100%",
+  maxWidth: "230px",
   fontSize: "18px",
-  color: "#fff",
-  height: "43px",
-  width: "220px",
-  "&:hover": {
-    backgroundColor: "#348d87",
-  },
-  marginBottom: "5px",
-  [`&.Mui-selected::after`]: {
-    display: "none",
-  },
-});
+  color: theme.palette.primary.contrastText,
+  textTransform: "none",
+  marginBottom: "1.5%",
+}));
 
 const Sidebar = () => {
+  const theme = useTheme();
   const [value, setValue] = useState("analytics");
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth <= 1000);
+    };
+    window.addEventListener("resize", handleResize);
+    // Limpia el evento de cambio de tamaño al desmontar el componente
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -41,98 +48,150 @@ const Sidebar = () => {
 
   return (
     <>
-      <Box
-        sx={{
-          margin: 2,
-          minHeight: "100vh",
-          width: "300px",
-          bgcolor: "#266763",
-          borderRadius: "24px",
-        }}
-      >
-        <Box marginLeft="15px">
-          <Box display="flex" alignItems="center" gap={2} padding="10px">
-            <CardMedia
-              component="img"
-              alt="StockBox"
-              image="/src/images/logo_2.png"
-              style={{ height: "65px", width: "65px", borderRadius: "50%" }}
-            />
-            <Typography variant="h5" sx={{ color: "#fff" }}>
-              StockBox
-            </Typography>
-          </Box>
-
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="Vertical tabs"
-            orientation="vertical"
-            sx={{
-              marginTop: 5,
-              width: "100%",
-              height: "100%",
-              bgcolor: "#266763",
-              borderRadius: "24px",
-            }}
-          >
-            <TabList
-              disableUnderline
-              sx={{
-                p: 0.5,
-                gap: 0.5,
-                borderRadius: "xl",
-                [`& .${tabClasses.root}[aria-selected="true"]`]: {
-                  boxShadow: "sm",
-                  bgcolor: "#c3fa7b",
-                  color: "#266763",
-                  borderRadius: "32px",
-                },
-                [`& .${tabClasses.root}[aria-selected="false"]`]: {
-                  "&:hover": {
-                    bgcolor: "#348d87",
-                    color: "#fff",
-                    borderRadius: "32px",
-                  },
-                },
-              }}
+      <Grid item xs={2} md={2.75}>
+        <Box
+          sx={{
+            margin: 2,
+            height: "100%",
+            minHeight: "100vh",
+            bgcolor: theme.palette.primary.main,
+            borderRadius: "24px",
+          }}
+        >
+          <Box>
+            <Box
+              display="flex"
+              alignItems="center"
+              justifyContent={isSmallScreen ? "center" : "left"}
             >
-              <Box>
-                <StyledTab value="analytics" label="Analiticas">
-                  <Leaderboard /> Analíticas
-                </StyledTab>
-                <StyledTab value="sales" label="Ventas">
-                  <AttachMoney /> Ventas
-                </StyledTab>
-                <StyledTab value="refunds" label="Devoluciones">
-                  <Loop /> Devoluciones
-                </StyledTab>
-                <StyledTab value="orders" label="Pedidos">
-                  <LocalShipping /> Pedidos
-                </StyledTab>
-                <StyledTab value="products" label="Productos">
-                  <Inventory /> Productos
-                </StyledTab>
-                <StyledTab value="clients" label="Clientes">
-                  <Groups /> Clientes
-                </StyledTab>
-                <StyledTab value="providers" label="Proveedores">
-                  <Contacts /> Proveedores
-                </StyledTab>
-              </Box>
+              <CardMedia
+                component="img"
+                alt="StockBox"
+                image="/src/images/logo_2.png"
+                style={{
+                  padding: "5%",
+                  width: isSmallScreen ? "60px" : "75px",
+                  height: "auto",
+                  borderRadius: "50%",
+                }}
+              />
+              {!isSmallScreen && (
+                <Box display="flex" alignItems="center" flexDirection="column">
+                  <Typography variant="h5" color="primary.contrastText">
+                    StockBox
+                  </Typography>
+                  <Typography variant="h6" color="primary.contrastText">
+                    Menú
+                  </Typography>
+                </Box>
+              )}
+            </Box>
 
-              <Box sx={{ position: "fixed", bottom: "20px" }}>
-                <StyledTab value="help" label="Ayuda">
-                  <Help /> Ayuda y soporte
-                </StyledTab>
-                <StyledTab value="settings" label="Configuracion">
-                  <Settings /> Configuración
-                </StyledTab>
+            <TabContext value={value}>
+              <Box
+                p="4%"
+                sx={{
+                  width: "auto",
+                  height: "100%",
+                  bgcolor: "#266763",
+                  borderRadius: "24px",
+                }}
+              >
+                <TabList
+                  disableUnderline
+                  orientation="vertical"
+                  onChange={handleChange}
+                  sx={{
+                    "& .MuiTabs-flexContainer": {
+                      alignItems: isSmallScreen ? "center" : "left",
+                    },
+                    "& .MuiTab-root": {
+                      minWidth: 0,
+                      width: isSmallScreen ? "50px" : "auto",
+                      "&:not(.Mui-selected)": {
+                        "&:hover": {
+                          backgroundColor: theme.palette.primary.light,
+                          borderRadius: "32px",
+                        },
+                      },
+                    },
+                    "& .Mui-selected": {
+                      color: theme.palette.primary.main,
+                      boxShadow: "sm",
+                      bgcolor: "#c3fa7b",
+                      borderRadius: "32px",
+                    },
+                    button: {
+                      minHeight: 50,
+                      alignItems: isSmallScreen ? "center" : "left",
+                      justifyContent: isSmallScreen ? "center" : "left",
+                      "@media (max-width: 899px)": {
+                        width: "57px",
+                      },
+                    },
+                  }}
+                >
+                  <StyledTab
+                    value="analytics"
+                    label={!isSmallScreen && "Analíticas"}
+                    icon={<Leaderboard />}
+                    iconPosition="start"
+                  />
+                  <StyledTab
+                    value="sales"
+                    label={!isSmallScreen && "Ventas"}
+                    icon={<AttachMoney />}
+                    iconPosition="start"
+                  />
+                  <StyledTab
+                    value="refunds"
+                    label={!isSmallScreen && "Devoluciones"}
+                    icon={<Loop />}
+                    iconPosition="start"
+                  />
+                  <StyledTab
+                    value="orders"
+                    label={!isSmallScreen && "Pedidos"}
+                    icon={<LocalShipping />}
+                    iconPosition="start"
+                  />
+                  <StyledTab
+                    value="products"
+                    label={!isSmallScreen && "Productos"}
+                    icon={<Inventory />}
+                    iconPosition="start"
+                  />
+
+                  <StyledTab
+                    value="clients"
+                    label={!isSmallScreen && "Clientes"}
+                    icon={<Groups />}
+                    iconPosition="start"
+                  />
+                  <StyledTab
+                    value="providers"
+                    label={!isSmallScreen && "Proveedores"}
+                    icon={<Contacts />}
+                    iconPosition="start"
+                  />
+                  <StyledTab
+                    value="help"
+                    label={!isSmallScreen && "Ayuda"}
+                    icon={<Help />}
+                    iconPosition="start"
+                  />
+                  <StyledTab
+                    value="settings"
+                    label={!isSmallScreen && "Configuración"}
+                    icon={<Settings />}
+                    iconPosition="start"
+                  />
+                </TabList>
               </Box>
-            </TabList>
-          </Tabs>
+            </TabContext>
+          </Box>
         </Box>
-      </Box>
+      </Grid>
       {value === "products" && <Products />}
       {/* {value === "orders" && <Orders />} */}
     </>

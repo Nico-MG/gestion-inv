@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import TableMUI from "@mui/material/Table";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
-import TableHeader from "../Molecules/TableHeader";
-import TableRows from "../Molecules/TableRows";
+import TableHeader from "../molecules/TableHeader";
+import TableRows from "../molecules/TableRows";
 import { Grid } from "@mui/material";
 
 const useTableColumns = ({ data }) => {

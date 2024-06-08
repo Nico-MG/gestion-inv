@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import OrderApi from "../../services/Api/order.service";
-import MainLayout from "../Templates/MainLayout";
+import OrderApi from "../../services/api/order.service";
+import MainLayout from "../templates/MainLayout";
 
 const Orders = () => {
   const [tableData, setTableData] = useState(null);

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ProductApi from "../../services/Api/product.service";
-import MainLayout from "../Templates/MainLayout";
+import MainLayout from "../templates/MainLayout";
 
 const Products = () => {
   const [tableData, setTableData] = useState(null);

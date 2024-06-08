@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Table from "../Organisms/Table";
-import AddButton from "../Molecules/AddButton";
-import LoadingData from "../Atoms/LoadingData"
+import Table from "../organisms/Table";
+import AddButton from "../molecules/AddButton";
+import LoadingData from "../atoms/LoadingData"
 import RenderForm from "../../functions/RenderForm";
 
 const MainLayout = ({ currentTable, data, fetchData }) => {
