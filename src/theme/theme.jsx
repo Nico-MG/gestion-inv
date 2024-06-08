@@ -4,53 +4,53 @@ const lightTheme = createTheme({
   palette: {
     type: "light",
     primary: {
-      main: "#266763", // Green
-      light: "#757de8", // Lighter shade of primary color
-      dark: "#002984", // Darker shade of primary color
-      contrastText: "#ffffff", // Text color contrast for primary color
+      main: "#266763",
+      light: "#348d87",
+      dark: "#1A4845",
+      contrastText: "#ffffff",
     },
     secondary: {
-      main: "#f50057", // Red
-      light: "#ff4081", // Lighter shade of secondary color
-      dark: "#c51162", // Darker shade of secondary color
-      contrastText: "#ffffff", // Text color contrast for secondary color
+      main: "#c3fa7b",
+      light: "#CFFB95",
+      dark: "#88AF56",
+      contrastText: "#266763",
     },
     error: {
-      main: "#f44336", // Red
-      light: "#e57373", // Lighter shade of error color
-      dark: "#d32f2f", // Darker shade of error color
-      contrastText: "#ffffff", // Text color contrast for error color
+      main: "#f44336",
+      light: "#e57373",
+      dark: "#d32f2f",
+      contrastText: "#ffffff",
     },
     warning: {
-      main: "#ffc107", // Yellow
-      light: "#ffecb3", // Lighter shade of warning color
-      dark: "#ff8f00", // Darker shade of warning color
-      contrastText: "#000000", // Text color contrast for warning color
+      main: "#ffc107",
+      light: "#ffecb3",
+      dark: "#ff8f00",
+      contrastText: "#000000",
     },
     info: {
-      main: "#2196f3", // Light blue
-      light: "#64b5f6", // Lighter shade of info color
-      dark: "#1976d2", // Darker shade of info color
-      contrastText: "#ffffff", // Text color contrast for info color
+      main: "#2196f3",
+      light: "#64b5f6",
+      dark: "#1976d2",
+      contrastText: "#ffffff",
     },
     success: {
-      main: "#4caf50", // Light green
-      light: "#81c784", // Lighter shade of success color
-      dark: "#388e3c", // Darker shade of success color
-      contrastText: "#000000", // Text color contrast for success color
+      main: "#4caf50",
+      light: "#81c784",
+      dark: "#388e3c",
+      contrastText: "#000000",
     },
     text: {
       icon: '#000000',
-      primary: "#000000", // Primary text color
-      secondary: "#757575", // Secondary text color
+      primary: "#000000",
+      secondary: "#757575",
     },
     background: {
-      default: "#ffffff", // Default background color
-      paper: "#f5f5f5", // Paper background color (for example, for containers)
+      default: "#ffffff",
+      paper: "#f5f5f5",
     },
     action: {
-      active: "#3f51b5", // Active action color (e.g., hover, selection, etc.)
-      hover: "#c3fa7b", // Action color on hover
+      active: "#3f51b5",
+      hover: "#c3fa7b",
       selected: "#eeeeee", // Selected action color
       disabled: "#bdbdbd", // Disabled action color
     },
