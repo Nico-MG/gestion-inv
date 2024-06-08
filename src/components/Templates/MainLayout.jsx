@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Table from "../organisms/Table";
 import AddButton from "../molecules/AddButton";
-import LoadingData from "../atoms/LoadingData"
+import LoadingData from "../atoms/LoadingData";
 import RenderForm from "../../functions/RenderForm";
+import SkeletonTable from "../../styles/SkeletonTable";
 
 const MainLayout = ({ currentTable, data, fetchData }) => {
   const [activeForm, setActiveForm] = useState(false);
@@ -15,7 +16,7 @@ const MainLayout = ({ currentTable, data, fetchData }) => {
   return (
     <>
       {!data ? (
-        <LoadingData />
+        <SkeletonTable />
       ) : (
         <>
           <Table
