@@ -193,7 +193,7 @@ const Sidebar = () => {
         </Box>
       </Grid>
       {value === "products" && <Products />}
-      {value === "orders" && <Orders />}
+      {/* {value === "orders" && <Orders />} */}
     </>
   );
 };
