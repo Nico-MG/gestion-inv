@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useTheme } from "@mui/material/styles";
 import { TabContext, TabList } from "@mui/lab";
-import { Box, CardMedia, Typography, Tab, Grid } from "@mui/material";
+import { Box, CardMedia, Typography, Tab, Grid, Tooltip } from "@mui/material";
 import {
   AttachMoney,
   Groups,
@@ -20,20 +20,10 @@ import Products from "../Pages/Products";
 const StyledTab = styled(Tab)(({ theme }) => ({
   fontSize: "18px",
   color: theme.palette.primary.contrastText,
-  height: "50px",
-  width: "80%",
+  height: "100%",
+  
   textTransform: "none",
   marginBottom: "1.5%",
-  "@media (max-width: 899px)": {
-    height: "100%",
-    width: "76px",
-    // display: "none",
-  },
-  "@media (min-width: 900px)": {
-    height: "100%",
-    maxWidth: "230px",
-    // display: "none",
-  },
 }));
 
 const Sidebar = () => {
@@ -43,12 +33,12 @@ const Sidebar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsSmallScreen(window.innerWidth <= 899);
+      setIsSmallScreen(window.innerWidth <= theme.breakpoints.values.md);
     };
     window.addEventListener("resize", handleResize);
     // Limpia el evento de cambio de tamaño al desmontar el componente
     return () => {
-      window.removeEventListener("resize", handleResize);
+      setIsSmallScreen(window.innerWidth <= theme.breakpoints.values.md);
     };
   }, []);
 
@@ -57,20 +47,13 @@ const Sidebar = () => {
   };
 
   return (
-    <Grid item xs={2} md={2.75}>
+    <Grid item xs={2} md={3}>
       <Box
         sx={{
           margin: 2,
-          minHeight: "100vh",
-          "@media (max-width: 899px)": {
-            width: "72px",
-          },
-          "@media (min-width: 900px)": {
-            minWidth: "250px",
-          },
           height: "100%",
-          minHeight: "500px", // Editar
-          bgcolor: "#266763",
+          minHeight: "100vh",
+          bgcolor: theme.palette.primary.main,
           borderRadius: "24px",
         }}
       >
@@ -92,12 +75,7 @@ const Sidebar = () => {
               }}
             />
             {!isSmallScreen && (
-              <Box
-                display="flex"
-                alignItems="center"
-                justifyContent="center"
-                flexDirection="column"
-              >
+              <Box display="flex" alignItems="center" flexDirection="column">
                 <Typography variant="h5" color="primary.contrastText">
                   StockBox
                 </Typography>
@@ -123,9 +101,9 @@ const Sidebar = () => {
                 orientation="vertical"
                 onChange={handleChange}
                 sx={{
-                  alignItems: isSmallScreen ? "center" : "left",
-                  alignContent: isSmallScreen ? "center" : "left",
-                  justifyContent: isSmallScreen ? "center" : "left",
+                  "& .MuiTabs-flexContainer": {
+                    alignItems: isSmallScreen ? "center" : "left",
+                  },
                   "& .MuiTab-root": {
                     minWidth: 0,
                     width: isSmallScreen ? "50px" : "auto",
@@ -154,7 +132,7 @@ const Sidebar = () => {
               >
                 <StyledTab
                   value="analytics"
-                  label={!isSmallScreen && "Analiticas"}
+                  label={!isSmallScreen && "Analíticas"}
                   icon={<Leaderboard />}
                   iconPosition="start"
                 />
@@ -182,6 +160,7 @@ const Sidebar = () => {
                   icon={<Inventory />}
                   iconPosition="start"
                 />
+
                 <StyledTab
                   value="clients"
                   label={!isSmallScreen && "Clientes"}

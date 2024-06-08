@@ -4,6 +4,7 @@ import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import TableHeader from "../Molecules/TableHeader";
 import TableRows from "../Molecules/TableRows";
+import { Grid } from "@mui/material";
 
 const useTableColumns = ({ data }) => {
   const [columns, setColumns] = useState([]);
@@ -21,15 +22,16 @@ const Table = ({ data, fetchData, currentTable, toggleForm, setFormProps }) => {
   const columns = useTableColumns({ data });
 
   return (
+    <Grid item xs={10} md={9}>
     <TableContainer
-      sx={{ width: "1130px", left: "23%", top: "20px", position: "absolute" }}
+      // sx={{ height: "50%" }}
       component={Paper}
     >
       <TableMUI
         className="tabla-datos"
-        sx={{ minWidth: 800 }}
+        // sx={{ minWidth: 800 }}
         aria-label="customized table"
-        stickyHeader
+        // stickyHeader
       >
         <TableHeader 
           currentTable={currentTable}
@@ -44,6 +46,7 @@ const Table = ({ data, fetchData, currentTable, toggleForm, setFormProps }) => {
         />
       </TableMUI>
     </TableContainer>
+    </Grid>
   );
 };
 
