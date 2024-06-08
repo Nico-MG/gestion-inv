@@ -7,6 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { auxDelete } from "../../functions/auxDelete";
+import RenderModal from "../../functions/renderModal";
 
 const isDetailTable = (currentTable) => {
   return (
@@ -29,9 +30,24 @@ const TableRows = ({
     ? Object.keys(data[0]).length - 1
     : null;
 
+  const [activeModal, setActiveModal] = useState(false);
+
   const handleDetails = (details) => {
-    console.log(details);
-    // TODO: render the modal and pass to it the details data to be shown
+    setActiveModal(true);
+
+    return (
+      <>
+        {activeModal && (
+          <RenderModal
+            currentTable={currentTable}
+            formProps={{
+              data: details,
+              closeModal: () => setActiveModal(!activeModal),
+            }}
+          />
+        )}
+      </>
+    );
   };
 
   const handleEdit = (obj) => {
@@ -83,7 +99,12 @@ const TableRows = ({
                     },
                   }}
                 >
-                  <Tooltip title="Ver detalles" placement="bottom" arrow enterDelay={500} >
+                  <Tooltip
+                    title="Ver detalles"
+                    placement="bottom"
+                    arrow
+                    enterDelay={500}
+                  >
                     <VisibilityIcon />
                   </Tooltip>
                 </IconButton>
@@ -100,7 +121,12 @@ const TableRows = ({
                   },
                 }}
               >
-                <Tooltip title="Editar" placement="bottom" arrow enterDelay={500} >
+                <Tooltip
+                  title="Editar"
+                  placement="bottom"
+                  arrow
+                  enterDelay={500}
+                >
                   <EditIcon />
                 </Tooltip>
               </IconButton>
@@ -116,7 +142,12 @@ const TableRows = ({
                   },
                 }}
               >
-                <Tooltip title="Borrar" placement="bottom" arrow enterDelay={500} >
+                <Tooltip
+                  title="Borrar"
+                  placement="bottom"
+                  arrow
+                  enterDelay={500}
+                >
                   <DeleteIcon />
                 </Tooltip>
               </IconButton>
