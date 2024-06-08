@@ -31,23 +31,14 @@ const TableRows = ({
     : null;
 
   const [activeModal, setActiveModal] = useState(false);
+  const [modalProps, setModalProps] = useState({});
 
   const handleDetails = (details) => {
+    setModalProps({
+      data: details,
+      closeModal: () => setActiveModal(false),
+    });
     setActiveModal(true);
-
-    return (
-      <>
-        {activeModal && (
-          <RenderModal
-            currentTable={currentTable}
-            formProps={{
-              data: details,
-              closeModal: () => setActiveModal(!activeModal),
-            }}
-          />
-        )}
-      </>
-    );
   };
 
   const handleEdit = (obj) => {
@@ -73,22 +64,45 @@ const TableRows = ({
   };
 
   return (
-    <TableBody>
-      {data.map((obj, index) => (
-        <StyledTableRow key={index}>
-          {columns.map(
-            (column) =>
-              !Array.isArray(obj[column]) && (
-                <StyledTableCell key={obj[column]}>
-                  {obj[column]}
-                </StyledTableCell>
-              )
-          )}
-          <StyledTableCell key="actions">
-            <div>
-              {dIndexKey && (
+    <>
+      <TableBody>
+        {data.map((obj, index) => (
+          <StyledTableRow key={index}>
+            {columns.map(
+              (column) =>
+                !Array.isArray(obj[column]) && (
+                  <StyledTableCell key={obj[column]}>
+                    {obj[column]}
+                  </StyledTableCell>
+                )
+            )}
+            <StyledTableCell key="actions">
+              <div>
+                {dIndexKey && (
+                  <IconButton
+                    onClick={() => handleDetails(obj[columns[dIndexKey]])}
+                    sx={{
+                      width: 32,
+                      height: 32,
+                      borderRadius: 1,
+                      color: "secondary.contrastText",
+                      "&:hover": {
+                        backgroundColor: "#C3FA7B",
+                      },
+                    }}
+                  >
+                    <Tooltip
+                      title="Ver detalles"
+                      placement="bottom"
+                      arrow
+                      enterDelay={500}
+                    >
+                      <VisibilityIcon />
+                    </Tooltip>
+                  </IconButton>
+                )}
                 <IconButton
-                  onClick={() => handleDetails(obj[columns[dIndexKey]])}
+                  onClick={() => handleEdit(obj)}
                   sx={{
                     width: 32,
                     height: 32,
@@ -100,62 +114,44 @@ const TableRows = ({
                   }}
                 >
                   <Tooltip
-                    title="Ver detalles"
+                    title="Editar"
                     placement="bottom"
                     arrow
                     enterDelay={500}
                   >
-                    <VisibilityIcon />
+                    <EditIcon />
                   </Tooltip>
                 </IconButton>
-              )}
-              <IconButton
-                onClick={() => handleEdit(obj)}
-                sx={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 1,
-                  color: "secondary.contrastText",
-                  "&:hover": {
-                    backgroundColor: "#C3FA7B",
-                  },
-                }}
-              >
-                <Tooltip
-                  title="Editar"
-                  placement="bottom"
-                  arrow
-                  enterDelay={500}
+                <IconButton
+                  onClick={() => handleDelete(obj[columns[0]])}
+                  sx={{
+                    width: 32,
+                    height: 32,
+                    borderRadius: 1,
+                    color: "secondary.contrastText",
+                    "&:hover": {
+                      backgroundColor: "#C3FA7B",
+                    },
+                  }}
                 >
-                  <EditIcon />
-                </Tooltip>
-              </IconButton>
-              <IconButton
-                onClick={() => handleDelete(obj[columns[0]])}
-                sx={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 1,
-                  color: "secondary.contrastText",
-                  "&:hover": {
-                    backgroundColor: "#C3FA7B",
-                  },
-                }}
-              >
-                <Tooltip
-                  title="Borrar"
-                  placement="bottom"
-                  arrow
-                  enterDelay={500}
-                >
-                  <DeleteIcon />
-                </Tooltip>
-              </IconButton>
-            </div>
-          </StyledTableCell>
-        </StyledTableRow>
-      ))}
-    </TableBody>
+                  <Tooltip
+                    title="Borrar"
+                    placement="bottom"
+                    arrow
+                    enterDelay={500}
+                  >
+                    <DeleteIcon />
+                  </Tooltip>
+                </IconButton>
+              </div>
+            </StyledTableCell>
+          </StyledTableRow>
+        ))}
+      </TableBody>
+      {activeModal && (
+        <RenderModal currentTable={currentTable} modalProps={modalProps} />
+      )}
+    </>
   );
 };
 

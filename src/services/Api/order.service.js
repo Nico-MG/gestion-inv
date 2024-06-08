@@ -4,7 +4,7 @@ const API_URL = `${import.meta.env.VITE_API_URL}/orders`;
 
 const OrderApi = {
   async getAllOrders() {
-    try { 
+    try {
       const response = await axios.get(`${API_URL}`);
       return response.data;
     } catch (error) {

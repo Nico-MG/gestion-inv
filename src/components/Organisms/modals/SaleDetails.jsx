@@ -1,4 +1,5 @@
 import React from "react";
+import { useTheme } from "@mui/material/styles";
 import { Box, Typography, Button } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 
@@ -16,25 +17,27 @@ const saleDetails = {
 };
 
 const SaleDetails = ({ data, closeModal }) => {
+  const theme = useTheme();
+
   return (
     <Box
       sx={{
-        position: "fixed",
-        right: "50%",
+        position: "absolute",
         left: "50%",
-        transform: "translateX(-50%)",
+        transform: "translateX(-25%)",
+        top: "20%",
         width: "80vw",
         maxWidth: "600px",
         maxHeight: "90vh",
-        bgcolor: "#ffffff",
+        bgcolor: theme.palette.background.default,
         boxShadow: 15,
         borderRadius: "15px",
       }}
     >
       <Box
         sx={{
-          bgcolor: "#292929",
-          color: "#C3FA7B",
+          bgcolor: theme.palette.primary.main,
+          color: theme.palette.primary.contrastText,
           width: "100%",
           position: "relative",
           display: "flex",
@@ -93,13 +96,13 @@ const SaleDetails = ({ data, closeModal }) => {
           variant="contained"
           endIcon={<CloseIcon />}
           sx={{
-            backgroundColor: "#266763",
-            color: "#ffffff",
+            backgroundColor: theme.palette.primary.main,
+            color: theme.palette.primary.contrastText,
             fontSize: "0.8rem",
             width: "150px",
             "&:hover": {
-              backgroundColor: "#c3fa7b",
-              color: "#7e7e7e",
+              backgroundColor: theme.palette.secondary.main,
+              color: theme.palette.secondary.contrastText,
             },
             margin: "0 auto",
           }}

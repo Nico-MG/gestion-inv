@@ -1,4 +1,4 @@
-import SaleDetails from "../components/organisms/details/SaleDetails";
+import SaleDetails from "../components/organisms/modals/SaleDetails";
 
 const RenderModal = ({ currentTable, modalProps }) => {
   switch (currentTable) {
