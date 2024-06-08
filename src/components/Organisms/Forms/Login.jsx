@@ -1,12 +1,11 @@
 import { useState } from "react";
-import UserApi from "../../../services/Api/user.service";
+import { useTheme } from "@mui/material/styles";
+import UserApi from "../../../services/api/user.service";
 import Sidebar from '../Sidebar';
 import {
   Box,
   Button,
   Card,
-  CardContent,
-  CardActions,
   CardMedia,
   Typography,
   TextField,
@@ -27,12 +26,14 @@ const StyledTextField = styled(TextField)({
 });
 
 const T2 = ({ handleChange, handleSubmit }) => {
+  const theme = useTheme();
+
   return (
     <Grid container spacing={2} sx={{ height: "100vh" }}>
       <Grid item xs={12} md={6}>
         <Box
           sx={{
-            "@media (max-width: 899px)": {
+            "@media (max-width: 899.99px)": {
               height: "300px",
             },
             "@media (min-width: 900px)": {
@@ -73,6 +74,7 @@ const T2 = ({ handleChange, handleSubmit }) => {
             sx={{
               width: "65%",
               borderRadius: "16px",
+              bgcolor: theme.palette.background.default,
               boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
             }}
           >

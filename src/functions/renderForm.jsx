@@ -1,5 +1,5 @@
-import OrderForm from "../components/Organisms/forms/OrderForm";
-import ProductForm from "../components/Organisms/forms/ProductForm";
+import OrderForm from "../components/organisms/forms/OrderForm";
+import ProductForm from "../components/organisms/forms/ProductForm";
 
 const RenderForm = ({ currentTable, formProps }) => {
   switch (currentTable) {

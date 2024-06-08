@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import "./orderform.css";
-import OrderApi from "../../../services/Api/order.service";
+import OrderApi from "../../../services/api/order.service";
 
 const OrderForm = (props) => {
   const { initialData, setInitialData, mode, fetchData, closeForm } = props;

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProductApi from "../../services/Api/product.service";
+import ProductApi from "../../services/api/product.service";
 import MainLayout from "../templates/MainLayout";
 
 const Products = () => {

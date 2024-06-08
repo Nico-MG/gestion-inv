@@ -7,7 +7,7 @@ import Login from "./components/Organisms/forms/Login";
 const App = () => {
   return (
     <ThemeProvider theme={lightTheme}>
-      <Grid container spacing={2} sx={{ minHeight: "100vh", minWidth: "720px" }}>
+      <Grid container sx={{ minHeight: "100vh", minWidth: "720px" }}>
         <Login />
       </Grid>
     </ThemeProvider>

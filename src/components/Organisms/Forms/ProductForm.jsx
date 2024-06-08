@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ProductApi from "../../../services/Api/product.service";
+import ProductApi from "../../../services/api/product.service";
 import { Button, TextField, Box, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import LoadingButton from "@mui/lab/LoadingButton";
