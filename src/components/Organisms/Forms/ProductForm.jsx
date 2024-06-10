@@ -66,6 +66,8 @@ const ProductForm = ({
       return;
     }
 
+    console.log(formData.cat)
+
     setLoading(true);
 
     const newErrors = {};
@@ -262,17 +264,14 @@ const ProductForm = ({
             }}
             options={categories}
             value={formData.cat}
-            onChange={(event, newValue) => {
-              handleChange({
-                target: { name: "cat", value: newValue },
-              });
-            }}
             freeSolo
             renderInput={(params) => (
               <StyledTextField
                 {...params}
                 label="Categoría"
                 name="cat"
+                value={formData.cat}
+                onChange={handleChange}
                 error={!!errors.cat}
                 helperText={errors.cat}
                 inputProps={{
