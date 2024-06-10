@@ -37,7 +37,13 @@ const MainLayout = ({ currentTable, data, fetchData }) => {
       {activeForm && (
         <RenderForm
           currentTable={currentTable}
-          formProps={{ ...formProps, closeForm: toggleForm }}
+          formProps={{
+            ...formProps,
+            closeForm: toggleForm,
+            ...(currentTable === "products" && {
+              categories: [...new Set(data.data.map((item) => item.cat))],
+            }),
+          }}
         />
       )}
     </>

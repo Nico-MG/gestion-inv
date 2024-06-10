@@ -1,11 +1,17 @@
 import React, { useState } from "react";
 import ProductApi from "../../../services/api/product.service";
-import { Button, TextField, Box, Typography, MenuItem } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Box,
+  Typography,
+  MenuItem,
+  Autocomplete,
+} from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { styled } from "@mui/material/styles";
 import { sendNotification } from "@tauri-apps/api/notification";
-import { CircularProgress } from "@mui/material";
 
 const StyledTextField = styled(TextField)({
   marginBottom: "2vh",
@@ -21,7 +27,13 @@ const StyledTextField = styled(TextField)({
   },
 });
 
-const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
+const ProductForm = ({
+  mode,
+  initialData,
+  closeForm,
+  fetchData,
+  categories,
+}) => {
   const [formData, setFormData] = useState({
     idp: initialData?.idp || "",
     nombre: initialData?.nombre || "",
@@ -30,6 +42,8 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
     mCit: initialData?.mCit || "",
     precio: initialData?.precio || "",
   });
+
+  console.log(categories);
 
   const [loading, setLoading] = useState(false);
 
@@ -153,9 +167,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
         closeForm();
       } catch (error) {
         // alert(`Error al crear producto: ${error}`);
-        sendNotification(
-          `Hubo un error, asegúrate de no ingresar caracteres especiales y no repetir ID`
-        );
+        sendNotification(`Se produjo un erro: ${error.message}`);
 
         setLoading(false);
       }
@@ -234,7 +246,8 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
               maxLength: 20,
             }}
           />
-          <StyledTextField
+
+          {/* <StyledTextField
             select
             label="Categoría"
             name="cat"
@@ -249,7 +262,16 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             <MenuItem value={"categoria1"}>Categoría 1</MenuItem>
             <MenuItem value={"categoria2"}>Categoría 2</MenuItem>
             <MenuItem value={"categoria3"}>Categoría 3</MenuItem>
-          </StyledTextField>
+          </StyledTextField> */}
+
+          <Autocomplete
+            sx={{ width: "100%", alignItems: "center" }}
+            options={categories}
+            renderInput={(params) => (
+              <StyledTextField {...params} label="Cantidad" />
+            )}
+          />
+
           <StyledTextField
             label="Cantidad"
             name="cit"
@@ -314,9 +336,6 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
               variant="contained"
               loading={loading}
               loadingPosition="end"
-              endIcon={
-                loading ? <CircularProgress size={20} color="inherit" /> : null
-              }
               sx={{
                 backgroundColor: "#266763",
                 color: "#ffffff",
