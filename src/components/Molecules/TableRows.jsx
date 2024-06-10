@@ -69,9 +69,9 @@ const TableRows = ({
         {data.map((obj, index) => (
           <StyledTableRow key={index}>
             {columns.map(
-              (column) =>
+              (column, index) =>
                 !Array.isArray(obj[column]) && (
-                  <StyledTableCell key={obj[column]}>
+                  <StyledTableCell key={index}>
                     {obj[column]}
                   </StyledTableCell>
                 )

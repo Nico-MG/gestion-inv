@@ -98,7 +98,6 @@ const Sidebar = () => {
                 }}
               >
                 <TabList
-                  disableUnderline
                   orientation="vertical"
                   onChange={handleChange}
                   sx={{

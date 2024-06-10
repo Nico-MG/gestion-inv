@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import ProductApi from "../../../services/api/product.service";
-import { Button, TextField, Box, Typography } from "@mui/material";
+import { Button, TextField, Box, Typography, MenuItem } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { styled } from "@mui/material/styles";
 import { sendNotification } from "@tauri-apps/api/notification";
+import { CircularProgress } from "@mui/material";
 
 const StyledTextField = styled(TextField)({
   marginBottom: "2vh",
@@ -71,7 +72,8 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
         newErrors.cit = "Cantidad es requerida";
       } else {
         if (
-          (!Number.isInteger(parseFloat(formData.cit.trim())) || !Number.isInteger(Number(formData.cit.trim()))) ||
+          !Number.isInteger(parseFloat(formData.cit.trim())) ||
+          !Number.isInteger(Number(formData.cit.trim())) ||
           Number(formData.cit < 0)
         ) {
           newErrors.cit = "Cantidad debe ser un número entero válido";
@@ -85,10 +87,10 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       } else {
         if (
           !Number.isInteger(parseFloat(formData.mCit.trim())) ||
-          Number(formData.mCit < 0) || !Number.isInteger(Number(formData.mCit.trim()))
+          Number(formData.mCit < 0) ||
+          !Number.isInteger(Number(formData.mCit.trim()))
         ) {
-          newErrors.mCit =
-            "Cantidad mínima debe ser un número entero válido";
+          newErrors.mCit = "Cantidad mínima debe ser un número entero válido";
         }
       }
     }
@@ -99,10 +101,10 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
       } else {
         if (
           !Number.isInteger(parseFloat(formData.precio.trim())) ||
-          Number(formData.precio < 0) || !Number.isInteger(Number(formData.precio.trim()))
+          Number(formData.precio < 0) ||
+          !Number.isInteger(Number(formData.precio.trim()))
         ) {
-          newErrors.precio =
-            "Precio de venta debe ser un número entero válido";
+          newErrors.precio = "Precio de venta debe ser un número entero válido";
         }
       }
     }
@@ -125,9 +127,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
         await ProductApi.updateProduct(initialData.idp, formData);
         await fetchData();
 
-        sendNotification(
-          `Modificado producto con ID: ${initialData.idp}`
-        );
+        sendNotification(`Modificado producto con ID: ${initialData.idp}`);
 
         setLoading(false);
 
@@ -235,6 +235,7 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             }}
           />
           <StyledTextField
+            select
             label="Categoría"
             name="cat"
             value={formData.cat}
@@ -244,7 +245,11 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
             inputProps={{
               maxLength: 20,
             }}
-          />
+          >
+            <MenuItem value={"categoria1"}>Categoría 1</MenuItem>
+            <MenuItem value={"categoria2"}>Categoría 2</MenuItem>
+            <MenuItem value={"categoria3"}>Categoría 3</MenuItem>
+          </StyledTextField>
           <StyledTextField
             label="Cantidad"
             name="cit"
@@ -309,6 +314,9 @@ const ProductForm = ({ mode, initialData, closeForm, fetchData }) => {
               variant="contained"
               loading={loading}
               loadingPosition="end"
+              endIcon={
+                loading ? <CircularProgress size={20} color="inherit" /> : null
+              }
               sx={{
                 backgroundColor: "#266763",
                 color: "#ffffff",
