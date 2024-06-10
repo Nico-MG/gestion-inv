@@ -54,16 +54,17 @@ const StyledStack = styled(Stack)(({ theme }) => ({
   alignItems: "center",
 }));
 
-const Mockup_OrderForm = ({ closeForm, fetchData }) => {
+const Mockup_OrderForm = ({ mode, fetchData, closeForm }) => {
   const theme = useTheme();
-  const initialData = mockOrders[0];
+
+  const initialData = mockOrders[1];
 
   const initialRow = {
     id_pedido: "",
     id_producto: "",
     cantidad: "",
     precio_unidad: "",
-    precio_total: "",
+    precio_total: "0",
   };
 
   const [formData, setFormData] = useState(
@@ -97,6 +98,7 @@ const Mockup_OrderForm = ({ closeForm, fetchData }) => {
 
   const handleChangeItem = (index, e) => {
     const { name, value } = e.target;
+
     setOrderItems(
       orderItems.map((row, i) =>
         i === index
@@ -104,17 +106,41 @@ const Mockup_OrderForm = ({ closeForm, fetchData }) => {
               ...row,
               [name]: value,
               precio_total:
-                !isNaN(row.cantidad) && !isNaN(row.precio_unidad)
-                  ? parseInt(row.cantidad) * parseInt(row.precio_unidad)
-                  : 0,
+                name === "cantidad" || name === "precio_unidad"
+                  ? name === "cantidad"
+                    ? !isNaN(value) && value.trim() != ""
+                      ? parseInt(value) * row.precio_unidad
+                      : 0
+                    : name === "precio_unidad"
+                    ? !isNaN(value) && value.trim() != ""
+                      ? parseInt(value) * row.cantidad
+                      : 0
+                    : 0
+                  : row.precio_total,
             }
           : row
       )
     );
   };
 
-  const handleSubmit = async (e) => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    setOrderItems(
+      orderItems.map(row => ({
+        ...row,
+        id_pedido: formData.id_pedido,
+      }))
+    );
 
+    setFormData({
+      ...formData,
+      detalle_pedido: orderItems,
+    })
+
+    console.log("Form Data:", formData)
+  };
+  
   const addOrderItem = () => {
     setOrderItems([...orderItems, { ...initialRow }]);
   };
@@ -167,7 +193,7 @@ const Mockup_OrderForm = ({ closeForm, fetchData }) => {
         </Typography>
       </Box>
 
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} style={{ width: "100%" }}>
         <Box
           sx={{
             width: "100%",
@@ -250,7 +276,7 @@ const Mockup_OrderForm = ({ closeForm, fetchData }) => {
             }}
           >
             {orderItems.map((row, index) => (
-              <StyledStack padding="2px 0 0 0">
+              <StyledStack paddingBottom=".5%">
                 <SaleTextField
                   name="id_producto"
                   value={row.id_producto}
@@ -310,7 +336,6 @@ const Mockup_OrderForm = ({ closeForm, fetchData }) => {
                   <IconButton
                     onClick={() => removeOrderItem(index)}
                     sx={{
-                      // justifyContent: "flex-start",
                       width: 32,
                       height: 32,
                       borderRadius: 1,
@@ -335,7 +360,12 @@ const Mockup_OrderForm = ({ closeForm, fetchData }) => {
               borderTop: "2px solid grey",
             }}
           >
-            <Box display="flex" width="100%" flexDirection="row" paddingTop="2%">
+            <Box
+              display="flex"
+              width="100%"
+              flexDirection="row"
+              paddingTop="2%"
+            >
               <Button
                 variant="contained"
                 onClick={addOrderItem}
