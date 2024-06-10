@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTheme } from "@mui/material/styles"
 import ProductApi from "../../../services/api/product.service";
 import {
   Button,
@@ -34,6 +35,8 @@ const ProductForm = ({
   fetchData,
   categories,
 }) => {
+  const theme = useTheme();
+
   const [formData, setFormData] = useState({
     idp: initialData?.idp || "",
     nombre: initialData?.nombre || "",
@@ -264,13 +267,39 @@ const ProductForm = ({
             <MenuItem value={"categoria3"}>Categoría 3</MenuItem>
           </StyledTextField> */}
 
-          <Autocomplete
-            sx={{ width: "100%", alignItems: "center" }}
-            options={categories}
-            renderInput={(params) => (
-              <StyledTextField {...params} label="Cantidad" />
-            )}
-          />
+<Autocomplete
+  sx={{
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    '& .MuiSvgIcon-root': {
+      color: theme.palette.secondary.contrastText,
+    },
+  }}
+  options={categories}
+  value={formData.cat}
+  onChange={(event, newValue) => {
+    handleChange({
+      target: { name: "cat", value: newValue },
+    });
+  }}
+  freeSolo
+  renderInput={(params) => (
+    <StyledTextField
+      {...params}
+      label="Categoría"
+      name="cat"
+      error={!!errors.cat}
+      helperText={errors.cat}
+      inputProps={{
+        ...params.inputProps,
+        maxLength: 20,
+      }}
+    />
+  )}
+/>
+
 
           <StyledTextField
             label="Cantidad"
