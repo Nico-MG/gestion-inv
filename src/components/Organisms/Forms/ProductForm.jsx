@@ -13,6 +13,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { styled } from "@mui/material/styles";
 import { sendNotification } from "@tauri-apps/api/notification";
+import { validateProduct } from "../../../services/validation/productValidation";
 
 const StyledTextField = styled(TextField)({
   marginBottom: "2vh",
@@ -66,67 +67,9 @@ const ProductForm = ({
       return;
     }
 
-    console.log(formData.cat)
-
     setLoading(true);
 
-    const newErrors = {};
-
-    console.log("formData:", formData);
-
-    if (formData.idp.trim() === "") {
-      newErrors.idp = "ID del producto es requerido";
-    }
-
-    if (formData.nombre.trim() === "") {
-      newErrors.nombre = "Nombre es requerido";
-    }
-
-    if (formData.cat.trim() === "") {
-      newErrors.cat = "Categoría es requerida";
-    }
-
-    if (typeof formData.cit === "string") {
-      if (formData.cit.trim() === "") {
-        newErrors.cit = "Cantidad es requerida";
-      } else {
-        if (
-          !Number.isInteger(parseFloat(formData.cit.trim())) ||
-          !Number.isInteger(Number(formData.cit.trim())) ||
-          Number(formData.cit < 0)
-        ) {
-          newErrors.cit = "Cantidad debe ser un número entero válido";
-        }
-      }
-    }
-
-    if (typeof formData.mCit === "string") {
-      if (formData.mCit.trim() === "") {
-        newErrors.mCit = "Cantidad mínima es requerida";
-      } else {
-        if (
-          !Number.isInteger(parseFloat(formData.mCit.trim())) ||
-          Number(formData.mCit < 0) ||
-          !Number.isInteger(Number(formData.mCit.trim()))
-        ) {
-          newErrors.mCit = "Cantidad mínima debe ser un número entero válido";
-        }
-      }
-    }
-
-    if (typeof formData.precio === "string") {
-      if (formData.precio.trim() === "") {
-        newErrors.precio = "Precio de venta es requerido";
-      } else {
-        if (
-          !Number.isInteger(parseFloat(formData.precio.trim())) ||
-          Number(formData.precio < 0) ||
-          !Number.isInteger(Number(formData.precio.trim()))
-        ) {
-          newErrors.precio = "Precio de venta debe ser un número entero válido";
-        }
-      }
-    }
+    const newErrors = validateProduct(formData);
 
     // Verificar si hay errores
     if (Object.keys(newErrors).length > 0) {
@@ -172,7 +115,7 @@ const ProductForm = ({
         closeForm();
       } catch (error) {
         // alert(`Error al crear producto: ${error}`);
-        sendNotification(`Se produjo un erro: ${error.message}`);
+        sendNotification(`Se produjo un error: ${error.message}`);
 
         setLoading(false);
       }
