@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useTheme } from "@mui/material/styles"
+import { useTheme } from "@mui/material/styles";
 import ProductApi from "../../../services/api/product.service";
 import {
   Button,
@@ -250,56 +250,38 @@ const ProductForm = ({
             }}
           />
 
-          {/* <StyledTextField
-            select
-            label="Categoría"
-            name="cat"
-            value={formData.cat}
-            onChange={handleChange}
-            error={!!errors.cat}
-            helperText={errors.cat}
-            inputProps={{
-              maxLength: 20,
+          <Autocomplete
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              "& .MuiSvgIcon-root": {
+                color: theme.palette.secondary.contrastText,
+              },
             }}
-          >
-            <MenuItem value={"categoria1"}>Categoría 1</MenuItem>
-            <MenuItem value={"categoria2"}>Categoría 2</MenuItem>
-            <MenuItem value={"categoria3"}>Categoría 3</MenuItem>
-          </StyledTextField> */}
-
-<Autocomplete
-  sx={{
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    '& .MuiSvgIcon-root': {
-      color: theme.palette.secondary.contrastText,
-    },
-  }}
-  options={categories}
-  value={formData.cat}
-  onChange={(event, newValue) => {
-    handleChange({
-      target: { name: "cat", value: newValue },
-    });
-  }}
-  freeSolo
-  renderInput={(params) => (
-    <StyledTextField
-      {...params}
-      label="Categoría"
-      name="cat"
-      error={!!errors.cat}
-      helperText={errors.cat}
-      inputProps={{
-        ...params.inputProps,
-        maxLength: 20,
-      }}
-    />
-  )}
-/>
-
+            options={categories}
+            value={formData.cat}
+            onChange={(event, newValue) => {
+              handleChange({
+                target: { name: "cat", value: newValue },
+              });
+            }}
+            freeSolo
+            renderInput={(params) => (
+              <StyledTextField
+                {...params}
+                label="Categoría"
+                name="cat"
+                error={!!errors.cat}
+                helperText={errors.cat}
+                inputProps={{
+                  ...params.inputProps,
+                  maxLength: 20,
+                }}
+              />
+            )}
+          />
 
           <StyledTextField
             label="Cantidad"
