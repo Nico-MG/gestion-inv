@@ -170,12 +170,12 @@ const TableRows = ({
         <RenderModal currentTable={currentTable} modalProps={modalProps} />
       )}
       <StyledDialog
+        currentTable={currentTable}
         loading={loading}
         open={openDialog}
         closeDialog={() => setOpenDialog(false)}
-        title={"Eliminar producto"}
-        text={`¿Está seguro que desea eliminar el producto con ID: ${idToDelete}?`}
-        actionText={"Eliminar"}
+        id={idToDelete}
+        action={"delete"}
         confirmAction={() => confirmDelete(idToDelete)}
       />
     </>

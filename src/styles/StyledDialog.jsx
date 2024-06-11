@@ -10,16 +10,76 @@ import {
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
+const texts = ({ currentTable, action, id }) => {
+  switch (currentTable) {
+    case "products":
+      if (action === "delete") {
+        return {
+          title: "Eliminar producto",
+          text: `¿Está seguro que desea eliminar el producto con ID: ${id}?`,
+          actionText: "Eliminar"
+        };
+      } else if (action === "modify") {
+        return {
+          title: "Modificar producto",
+          text: `¿Está seguro que desea modificar el producto con ID: ${id}?`,
+          actionText: "Modificar"
+        };
+      }
+      break;
+
+    case "orders":
+      if (action === "delete") {
+        return {
+          title: "Eliminar pedido",
+          text: `¿Está seguro que desea eliminar el pedido con ID: ${id}?`,
+          actionText: "Eliminar"
+        };
+      } else if (action === "modify") {
+        return {
+          title: "Modificar pedido",
+          text: `¿Está seguro que desea modificar el pedido con ID: ${id}?`,
+          actionText: "Modificar"
+        };
+      }
+      break;
+
+    case "sales":
+      if (action === "delete") {
+        return {
+          title: "Eliminar venta",
+          text: `¿Está seguro que desea eliminar la venta con ID: ${id}?`,
+          actionText: "Eliminar"
+        };
+      } else if (action === "modify") {
+        return {
+          title: "Modificar venta",
+          text: `¿Está seguro que desea modificar la venta con ID: ${id}?`,
+          actionText: "Modificar"
+        };
+      }
+      break;
+
+    default:
+      return {
+        title: "Acción no reconocida",
+        text: "El tipo de tabla o acción no coincide con ninguno especificado.",
+      };
+  }
+};
+
 const StyledDialog = ({
+  currentTable,
   loading,
   open,
   closeDialog,
-  title,
-  text,
   confirmAction,
-  actionText,
+  action,
+  id,
 }) => {
   const theme = useTheme();
+
+  const { title, text, actionText } = texts({ currentTable, action, id })
 
   return (
     <Dialog open={open} onClose={closeDialog} maxWidth="sm">
