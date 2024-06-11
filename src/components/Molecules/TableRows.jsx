@@ -38,6 +38,7 @@ const TableRows = ({
   const [activeModal, setActiveModal] = useState(false);
   const [modalProps, setModalProps] = useState({});
   const [idToDelete, setIdToDelete] = useState(null);
+  const [loading, setLoading] = useState(false)
 
   const handleDetails = (details) => {
     setModalProps({
@@ -62,6 +63,8 @@ const TableRows = ({
   };
 
   const confirmDelete = async (id) => {
+    setLoading(true)
+
     try {
       await auxDelete({ currentTable, id });
       await fetchData();
@@ -72,6 +75,8 @@ const TableRows = ({
         `Error al eliminar producto: Problemas de conexión al servidor`
       );
     }
+
+    setLoading(false)
 
     setOpenDialog(false);
   };
@@ -163,6 +168,7 @@ const TableRows = ({
         <RenderModal currentTable={currentTable} modalProps={modalProps} />
       )}
       <StyledDialog
+        loading={loading}
         open={openDialog}
         closeDialog={() => setOpenDialog(false)}
         title={"Eliminar producto"}

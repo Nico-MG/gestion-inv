@@ -8,8 +8,10 @@ import {
   DialogActions,
   Button,
 } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 const StyledDialog = ({
+  loading,
   open,
   closeDialog,
   title,
@@ -61,10 +63,11 @@ const StyledDialog = ({
         >
           Cancelar
         </Button>
-        <Button
+        <LoadingButton
           onClick={confirmAction}
           variant="contained"
           size="small"
+          loading={loading}
           sx={{
             bgcolor: theme.palette.primary.main,
             color: theme.palette.primary.contrastText,
@@ -75,8 +78,8 @@ const StyledDialog = ({
           }}
           autoFocus
         >
-          {actionText}
-        </Button>
+          <span>{actionText}</span>
+        </LoadingButton>
       </DialogActions>
     </Dialog>
   );

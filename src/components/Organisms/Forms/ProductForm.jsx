@@ -6,10 +6,10 @@ import {
   TextField,
   Box,
   Typography,
-  MenuItem,
   Autocomplete,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import SaveIcon from '@mui/icons-material/Save';
 import LoadingButton from "@mui/lab/LoadingButton";
 import { styled } from "@mui/material/styles";
 import { sendNotification } from "@tauri-apps/api/notification";
@@ -293,6 +293,7 @@ const ProductForm = ({
               variant="contained"
               loading={loading}
               loadingPosition="end"
+              endIcon={<SaveIcon />}
               sx={{
                 backgroundColor: "#266763",
                 color: "#ffffff",
