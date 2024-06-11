@@ -7,13 +7,11 @@ import {
   Typography,
   IconButton,
   Stack,
-  Grid,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
 import { sendNotification } from "@tauri-apps/api/notification";
-import mockOrders from "../../../../mock/orderMocks.js";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   marginBottom: "2vh",
@@ -54,10 +52,8 @@ const StyledStack = styled(Stack)(({ theme }) => ({
   alignItems: "center",
 }));
 
-const Mockup_OrderForm = ({ mode, fetchData, closeForm }) => {
+const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
   const theme = useTheme();
-
-  const initialData = mockOrders[1];
 
   const initialRow = {
     id_pedido: "",

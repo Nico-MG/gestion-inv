@@ -42,7 +42,7 @@ const MainLayout = ({ currentTable, data, fetchData, products }) => {
             closeForm: toggleForm,
             products: products,
             ...(currentTable === "products" && {
-              categories: [...new Set(data.data.map((item) => item.cat))],
+              categories: [...new Set(data.map((item) => item.cat))],
             }),
           }}
         />
