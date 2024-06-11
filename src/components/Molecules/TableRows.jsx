@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+import { useTheme } from "@mui/material";
 import { IconButton, Tooltip } from "@mui/material";
 import TableBody from "@mui/material/TableBody";
 import { StyledTableCell, StyledTableRow } from "../../styles/StylesTable";
@@ -8,6 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { auxDelete } from "../../functions/auxDelete";
 import RenderModal from "../../functions/renderModal";
+import StyledDialog from "../../styles/StyledDialog";
 
 const isDetailTable = (currentTable) => {
   return (
@@ -25,13 +27,17 @@ const TableRows = ({
   toggleForm,
   setFormProps,
 }) => {
+  const theme = useTheme();
+
   // index key which would contain the array of details if it exists
   const dIndexKey = isDetailTable(currentTable)
     ? Object.keys(data[0]).length - 1
     : null;
 
+  const [openDialog, setOpenDialog] = useState(false);
   const [activeModal, setActiveModal] = useState(false);
   const [modalProps, setModalProps] = useState({});
+  const [idToDelete, setIdToDelete] = useState(null);
 
   const handleDetails = (details) => {
     setModalProps({
@@ -50,7 +56,12 @@ const TableRows = ({
     toggleForm();
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = (id) => {
+    setIdToDelete(id);
+    setOpenDialog(true);
+  };
+
+  const confirmDelete = async (id) => {
     try {
       await auxDelete({ currentTable, id });
       await fetchData();
@@ -61,6 +72,8 @@ const TableRows = ({
         `Error al eliminar producto: Problemas de conexión al servidor`
       );
     }
+
+    setOpenDialog(false);
   };
 
   return (
@@ -71,9 +84,7 @@ const TableRows = ({
             {columns.map(
               (column, index) =>
                 !Array.isArray(obj[column]) && (
-                  <StyledTableCell key={index}>
-                    {obj[column]}
-                  </StyledTableCell>
+                  <StyledTableCell key={index}>{obj[column]}</StyledTableCell>
                 )
             )}
             <StyledTableCell key="actions">
@@ -151,6 +162,14 @@ const TableRows = ({
       {activeModal && (
         <RenderModal currentTable={currentTable} modalProps={modalProps} />
       )}
+      <StyledDialog
+        open={openDialog}
+        closeDialog={() => setOpenDialog(false)}
+        title={"Eliminar producto"}
+        text={`¿Está seguro que desea eliminar el producto con ID: ${idToDelete}?`}
+        actionText={"Eliminar"}
+        confirmAction={() => confirmDelete(idToDelete)}
+      />
     </>
   );
 };

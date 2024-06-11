@@ -3,7 +3,7 @@ import Table from "../organisms/Table";
 import AddButton from "../molecules/AddButton";
 import LoadingData from "../atoms/LoadingData";
 import RenderForm from "../../functions/RenderForm";
-import SkeletonTable from "../../styles/SkeletonTable";
+import SkeletonTable from "../../components/molecules/SkeletonTable";
 
 const MainLayout = ({ currentTable, data, fetchData }) => {
   const [activeForm, setActiveForm] = useState(false);

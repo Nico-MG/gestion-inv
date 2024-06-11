@@ -9,6 +9,10 @@ const lightTheme = createTheme({
       dark: "#1A4845",
       contrastText: "#ffffff",
     },
+    common: {
+      black: "#000000",
+      white: "#ffffff",
+    },
     secondary: {
       main: "#c3fa7b",
       light: "#CFFB95",
