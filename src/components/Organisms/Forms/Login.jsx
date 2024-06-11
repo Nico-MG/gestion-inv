@@ -83,10 +83,10 @@ const T2 = ({ handleChange, handleSubmit }) => {
                 variant="h4"
                 sx={{ fontWeight: "bold", textAlign: "center" }}
               >
-                ¡BIENVENIDO!
+                ¡BIENVENIDO A STOCKBOX!
               </Typography>
               <Typography variant="h5" sx={{ textAlign: "center" }}>
-                ACCEDE A TU CUENTA
+                Accede a tu cuenta
               </Typography>
             </Box>
             <form onSubmit={handleSubmit}>
