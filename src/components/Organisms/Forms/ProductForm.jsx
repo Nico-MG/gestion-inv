@@ -38,6 +38,9 @@ const ProductForm = ({
 }) => {
   const theme = useTheme();
 
+  const [loading, setLoading] = useState(false);
+  const [errors, setErrors] = useState({});
+
   const [formData, setFormData] = useState({
     idp: initialData?.idp || "",
     nombre: initialData?.nombre || "",
@@ -47,18 +50,15 @@ const ProductForm = ({
     precio: initialData?.precio || "",
   });
 
-  console.log(categories);
-
-  const [loading, setLoading] = useState(false);
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
+    if (e.target.name === "cat") {
+      console.log("Categoría: ", e.target.value);
+    }
   };
-
-  const [errors, setErrors] = useState({});
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -194,7 +194,6 @@ const ProductForm = ({
               maxLength: 20,
             }}
           />
-
           <Autocomplete
             sx={{
               width: "100%",
@@ -208,6 +207,11 @@ const ProductForm = ({
             options={categories}
             value={formData.cat}
             freeSolo
+            onChange={(event, newValue) => {
+              handleChange({
+                target: { name: "cat", value: newValue },
+              });
+            }}
             renderInput={(params) => (
               <StyledTextField
                 {...params}
