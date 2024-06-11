@@ -7,7 +7,7 @@ const Products = () => {
 
   const fetchData = async () => {
     const products = await ProductApi.getAllProducts();
-    setTableData(products);
+    setTableData(products.data);
   };
 
   useEffect(() => {

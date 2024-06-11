@@ -29,6 +29,8 @@ const TableRows = ({
 }) => {
   const theme = useTheme();
 
+  console.log("Data", data)
+
   // index key which would contain the array of details if it exists
   const dIndexKey = isDetailTable(currentTable)
     ? Object.keys(data[0]).length - 1
