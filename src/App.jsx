@@ -3,8 +3,6 @@ import { Grid } from "@mui/material";
 import { ThemeProvider } from "@mui/material/styles";
 import { lightTheme, darkTheme } from "./theme/theme";
 import Login from "./components/Organisms/forms/Login";
-import OrderDetails from "./components/Organisms/modals/OrderDetails";
-import OrderDetailsTest from "./components/Organisms/modals/OrderDetailsTest";
 
 const App = () => {
   return (
