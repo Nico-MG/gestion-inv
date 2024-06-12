@@ -8,56 +8,63 @@ const or_data = {
     rut_proveedor: "12345678-9",
     rut_usuario: "98765432-1",
     fecha: "2023-06-01",
-    compra_total: "150",
+    compra_total: "150,000",
     detalle_pedido: [
       {
         id_pedido: "1",
-        id_producto: "101",
+        id_producto: "P101",
         cantidad: 2,
-        precio_unidad: 50,
-        precio_total: 100,
+        precio_unidad: 5000,
+        precio_total: 4000000,
       },
       {
         id_pedido: "1",
-        id_producto: "102",
-        cantidad: 1,
+        id_producto: "P102",
+        cantidad: 10,
         precio_unidad: 50,
         precio_total: 50,
       },
       {
         id_pedido: "1",
-        id_producto: "103",
-        cantidad: 1,
-        precio_unidad: 50,
-        precio_total: 50,
+        id_producto: "P103",
+        cantidad: 100,
+        precio_unidad: 500,
+        precio_total: 500,
       },
       {
         id_pedido: "1",
-        id_producto: "104",
-        cantidad: 1,
-        precio_unidad: 50,
-        precio_total: 50,
+        id_producto: "P104",
+        cantidad: 1000,
+        precio_unidad: 5000,
+        precio_total: 5000,
       },
       {
         id_pedido: "1",
-        id_producto: "105",
-        cantidad: 1,
-        precio_unidad: 50,
-        precio_total: 50,
+        id_producto: "P105",
+        cantidad: 10,
+        precio_unidad: 5,
+        precio_total: 5,
       },
       {
         id_pedido: "1",
-        id_producto: "106",
-        cantidad: 1,
-        precio_unidad: 50,
-        precio_total: 50,
+        id_producto: "P106",
+        cantidad: 19,
+        precio_unidad: 500000,
+        precio_total: 500000,
       },
       {
         id_pedido: "1",
-        id_producto: "107",
-        cantidad: 1,
-        precio_unidad: 50,
-        precio_total: 50,
+        id_producto: "P107",
+        cantidad: 199,
+        precio_unidad: 500,
+        precio_total: 500,
+      },
+      {
+        id_pedido: "1",
+        id_producto: "P108",
+        cantidad: 19,
+        precio_unidad: 5000,
+        precio_total: 5000,
       },
     ],
   }
@@ -93,15 +100,15 @@ const OrderDetails = ({ data, closeModal }) => {
         }}
       >
         <Box>
-          <Typography variant="h5" sx={{ mb: 1, pl: 3, pt: 3, pb: 1.5 }}>
-            Total venta:
+          <Typography variant="h5" sx={{ mb: 0, pl: 3, pt: 4, pb: 1.5 }}>
+            Total Venta:
           </Typography>
-          <Typography variant="h4" sx={{ mb: 1, pl: 3, pb: 3 }}>
+          <Typography variant="h4" sx={{ mb: 0, pl: 3, pb: 3 }}>
             ${or_data.compra_total}
           </Typography>
         </Box>
         <Box>
-          <Typography sx={{ textAlign: "right", pr: 3 }}>
+          <Typography sx={{ textAlign: "right", pr: 3}}>
             Nº Pedido: {or_data.id_pedido}
           </Typography>
           <Typography sx={{ textAlign: "right", pr: 3 }}>
@@ -118,33 +125,38 @@ const OrderDetails = ({ data, closeModal }) => {
           <strong>RUT Usuario:</strong> {or_data.rut_usuario}
         </Typography>
 
-        <Box sx={{ maxHeight: "150px", overflowY: "auto", mt: 2 }}> {/* Añadido el contenedor con scroll */}
-          <Stack spacing={2} sx={{ mt: 2 }}>
-            <table style={{ width: "100%" }}>
-              <thead>
-                <tr>
-                  <th style={{ textAlign: "center" }}>ID</th>
-                  <th style={{ textAlign: "center" }}>Precio Unitario</th>
-                  <th style={{ textAlign: "center" }}>Cantidad</th>
-                  <th style={{ textAlign: "center" }}>Precio (=total) </th>
-                </tr>
-              </thead>
-              <tbody>
-                {or_data.detalle_pedido.map((item, index) => (
-                  <tr key={index}>
-                    <td style={{ textAlign: "center" }}>{item.id_producto}</td>
-                    <td style={{ textAlign: "center" }}>${item.precio_unidad}</td>
-                    <td style={{ textAlign: "center" }}>{item.cantidad}</td>
-                    <td style={{ textAlign: "center" }}>${item.precio_total}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </Stack>
-        </Box>
+        <hr style={{ borderTop: "1px solid black", marginBottom: "10px", marginTop: "15px" }} /> {/* LINEA */}
 
-        <Typography variant="h6" sx={{ mt: 3, textAlign: "center" }}>
-          Total: ${or_data.compra_total}
+        <Box sx={{ py: 1, fontWeight: "bold", textAlign: "center"}}>
+        <Typography component="div">
+          <Box>
+            <span style={{ width: "25%", display: "inline-block", fontWeight: "bold", textAlign: "center" }}>ID</span>
+            <span style={{ width: "25%", display: "inline-block", fontWeight: "bold", textAlign: "center" }}>Precio Unitario</span>
+            <span style={{ width: "25%", display: "inline-block", fontWeight: "bold", textAlign: "center" }}>Cantidad</span>
+            <span style={{ width: "25%", display: "inline-block", fontWeight: "bold", textAlign: "center" }}>Subtotal</span>
+          </Box>
+        </Typography>
+      </Box>
+      
+      <Box sx={{ maxHeight: "150px", overflowY: "auto" }}>
+        <table style={{ width: "100%" }}>
+          <tbody>
+            {or_data.detalle_pedido.map((item, index) => (
+              <tr key={index}>
+                <td style={{ textAlign: "center", width: "25%" }}>{item.id_producto}</td>
+                <td style={{ textAlign: "center", width: "25%" }}>${item.precio_unidad}</td>
+                <td style={{ textAlign: "center", width: "25%" }}>{item.cantidad}</td>
+                <td style={{ textAlign: "center", width: "20%" }}>${item.precio_total}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </Box>
+
+        <hr style={{ borderTop: "1px solid black", marginBottom: "15px",  marginTop: "20px" }} /> {/* LINEA */}
+
+        <Typography variant="h6" sx={{ mt: 1, textAlign: "Right", marginRight: "25px", fontSize: "17px" }}>
+          Monto Total: ${or_data.compra_total}
         </Typography>
       </Box>
 
