@@ -7,39 +7,40 @@ import {
   Typography,
   IconButton,
   Stack,
+  Autocomplete,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { styled } from "@mui/material/styles";
-import { sendNotification } from "@tauri-apps/api/notification";
 
 const StyledTextField = styled(TextField)(({ theme }) => ({
   marginBottom: "2vh",
+  width: "100%",
   "& .MuiInputBase-input": {
-    fontSize: "14px",
+    fontSize: "16px",
     height: "15px",
   },
   "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-    borderColor: theme.palette.secondary.dark,
+    borderColor: theme.palette.primary.main,
   },
   "& .MuiInputLabel-outlined.Mui-focused": {
-    color: theme.palette.secondary.dark,
+    color: theme.palette.primary.main,
   },
   "& .MuiInputLabel-root": {
-    fontSize: "14px",
+    fontSize: "16px",
   },
 }));
 
-const SaleTextField = styled(TextField)(({ theme }) => ({
+const OrderTextField = styled(TextField)(({ theme }) => ({
   "& .MuiInputBase-input": {
     fontSize: "14px",
     height: "4px",
   },
   "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
-    borderColor: theme.palette.secondary.dark,
+    borderColor: theme.palette.primary.main,
   },
   "& .MuiInputLabel-outlined.Mui-focused": {
-    color: theme.palette.secondary.dark,
+    color: theme.palette.primary.main,
   },
   "& .MuiInputLabel-root": {
     fontSize: "14px",
@@ -52,7 +53,7 @@ const StyledStack = styled(Stack)(({ theme }) => ({
   alignItems: "center",
 }));
 
-const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
+const OrderForm = ({ mode, fetchData, closeForm, initialData, products }) => {
   const theme = useTheme();
 
   const initialRow = {
@@ -104,11 +105,11 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
               precio_total:
                 name === "cantidad" || name === "precio_unidad"
                   ? name === "cantidad"
-                    ? !isNaN(value) && value.trim() != ""
+                    ? !isNaN(value) && value.trim() !== ""
                       ? parseInt(value) * row.precio_unidad
                       : 0
                     : name === "precio_unidad"
-                    ? !isNaN(value) && value.trim() != ""
+                    ? !isNaN(value) && value.trim() !== ""
                       ? parseInt(value) * row.cantidad
                       : 0
                     : 0
@@ -121,9 +122,9 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     setOrderItems(
-      orderItems.map(row => ({
+      orderItems.map((row) => ({
         ...row,
         id_pedido: formData.id_pedido,
       }))
@@ -132,11 +133,11 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
     setFormData({
       ...formData,
       detalle_pedido: orderItems,
-    })
+    });
 
-    console.log("Form Data:", formData)
+    console.log("Form Data:", formData);
   };
-  
+
   const addOrderItem = () => {
     setOrderItems([...orderItems, { ...initialRow }]);
   };
@@ -157,18 +158,17 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
   return (
     <Box
       sx={{
+        position: "absolute",
+        width: "50vw",
+        minWidth: "440px",
+        maxHeight: "90vh",
+        top: "50%",
+        left: "50%",
         display: "flex",
+        transform: "translate(-27.5%, -50%)",
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        position: "fixed",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        width: "50vw",
-        // maxWidth: "600px",
-        minWidth: "440px",
-        maxHeight: "90vh",
         overflow: "hidden",
         bgcolor: "#ffffff",
         border: "1.5px solid #266763",
@@ -185,7 +185,7 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
         }}
       >
         <Typography variant="h5" sx={{ color: "#ffffff", fontWeight: "bold" }}>
-          REGISTRO DE PEDIDO
+          {mode === "modify" ? "Modificar pedido" : "Registrar pedido"}
         </Typography>
       </Box>
 
@@ -198,7 +198,7 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
             alignItems: "center",
           }}
         >
-          <Stack alignItems="center" p={1}>
+          <Stack alignItems="center" width="30%" p={1}>
             <StyledTextField
               label="ID del pedido"
               name="id_pedido"
@@ -266,27 +266,62 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
               overflowY: "auto",
               display: "flex",
               flexDirection: "column",
-              width: "95%",
+              width: "90%",
               minHeight: "220px",
               maxHeight: "220px",
             }}
           >
             {orderItems.map((row, index) => (
               <StyledStack paddingBottom=".5%">
-                <SaleTextField
-                  name="id_producto"
-                  value={row.id_producto}
-                  onChange={(e) => handleChangeItem(index, e)}
-                  error={!!errors.id_producto}
-                  helperText={errors.id_producto}
-                  sx={{ alignItems: "center", flex: 1 }}
-                  InputProps={{
-                    sx: {
-                      width: "100%",
+                <Autocomplete
+                  sx={{
+                    display: "flex",
+                    flex: 1,
+                    "& .MuiSvgIcon-root": {
+                      color: theme.palette.secondary.contrastText,
                     },
                   }}
+                  options={products}
+                  name="id_producto"
+                  value={
+                    products.find(
+                      (product) => product.idp === row.id_producto
+                    ) || null
+                  }
+                  getOptionLabel={(option) => option.idp}
+                  noOptionsText="Sin opciones"
+                  onChange={(event, newValue) =>
+                    handleChangeItem(index, {
+                      target: {
+                        name: "id_producto",
+                        value: newValue ? newValue.idp : "",
+                      },
+                    })
+                  }
+                  renderOption={(props, option) => (
+                    <Box component="li" {...props}>
+                      <div>
+                        <Typography fontSize="14px">{option.idp}</Typography>
+                        <Typography fontSize="12px" color="textSecondary">
+                          {option.nombre}
+                        </Typography>
+                      </div>
+                    </Box>
+                  )}
+                  renderInput={(params) => (
+                    <OrderTextField
+                      {...params}
+                      error={!!errors.id_producto}
+                      helperText={errors.id_producto}
+                      InputProps={{
+                        ...params.InputProps,
+                        sx: { width: "100%" },
+                      }}
+                    />
+                  )}
                 />
-                <SaleTextField
+
+                <OrderTextField
                   name="cantidad"
                   value={row.cantidad}
                   onChange={(e) => handleChangeItem(index, e)}
@@ -296,7 +331,7 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
                   sx={{ alignItems: "center", flex: 1 }}
                   InputProps={{
                     sx: {
-                      width: "80%",
+                      width: "60%",
                     },
                   }}
                 />
@@ -305,7 +340,7 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
                   <Typography variant="body1" margin="5%">
                     x
                   </Typography>
-                  <SaleTextField
+                  <OrderTextField
                     name="precio_unidad"
                     value={row.precio_unidad}
                     onChange={(e) => handleChangeItem(index, e)}
@@ -315,7 +350,7 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
                     sx={{ alignItems: "left" }}
                     InputProps={{
                       sx: {
-                        width: "100%",
+                        width: "80%",
                       },
                     }}
                   />
@@ -353,7 +388,7 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
               display: "flex",
               flexDirection: "row",
               width: "90%",
-              borderTop: "2px solid grey",
+              borderTop: "2px solid lightgrey",
             }}
           >
             <Box
@@ -444,4 +479,4 @@ const Mockup_OrderForm = ({ mode, fetchData, closeForm, initialData }) => {
   );
 };
 
-export default Mockup_OrderForm;
+export default OrderForm;

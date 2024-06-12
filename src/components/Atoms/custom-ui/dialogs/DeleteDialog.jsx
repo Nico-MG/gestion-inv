@@ -10,55 +10,26 @@ import {
 } from "@mui/material";
 import LoadingButton from "@mui/lab/LoadingButton";
 
-const texts = ({ currentTable, action, id }) => {
+const texts = ({ currentTable, id }) => {
   switch (currentTable) {
     case "products":
-      if (action === "delete") {
-        return {
-          title: "Eliminar producto",
-          text: `¿Está seguro que desea eliminar el producto con ID: ${id}?`,
-          actionText: "Eliminar"
-        };
-      } else if (action === "modify") {
-        return {
-          title: "Modificar producto",
-          text: `¿Está seguro que desea modificar el producto con ID: ${id}?`,
-          actionText: "Modificar"
-        };
-      }
+      return {
+        title: "Eliminar producto",
+        text: `¿Está seguro que desea eliminar el producto con ID: ${id}?`,
+      };
       break;
 
     case "orders":
-      if (action === "delete") {
-        return {
-          title: "Eliminar pedido",
-          text: `¿Está seguro que desea eliminar el pedido con ID: ${id}?`,
-          actionText: "Eliminar"
-        };
-      } else if (action === "modify") {
-        return {
-          title: "Modificar pedido",
-          text: `¿Está seguro que desea modificar el pedido con ID: ${id}?`,
-          actionText: "Modificar"
-        };
-      }
-      break;
+      return {
+        title: "Eliminar pedido",
+        text: `¿Está seguro que desea eliminar el pedido con ID: ${id}?`,
+      };
 
     case "sales":
-      if (action === "delete") {
-        return {
-          title: "Eliminar venta",
-          text: `¿Está seguro que desea eliminar la venta con ID: ${id}?`,
-          actionText: "Eliminar"
-        };
-      } else if (action === "modify") {
-        return {
-          title: "Modificar venta",
-          text: `¿Está seguro que desea modificar la venta con ID: ${id}?`,
-          actionText: "Modificar"
-        };
-      }
-      break;
+      return {
+        title: "Eliminar venta",
+        text: `¿Está seguro que desea eliminar la venta con ID: ${id}?`,
+      };
 
     default:
       return {
@@ -68,18 +39,17 @@ const texts = ({ currentTable, action, id }) => {
   }
 };
 
-const StyledDialog = ({
+const DeleteDialog = ({
   currentTable,
-  loading,
   open,
   closeDialog,
-  confirmAction,
-  action,
   id,
+  confirmAction,
+  loading,
 }) => {
   const theme = useTheme();
 
-  const { title, text, actionText } = texts({ currentTable, action, id })
+  const { title, text } = texts({ currentTable, id });
 
   return (
     <Dialog open={open} onClose={closeDialog} maxWidth="sm">
@@ -116,8 +86,8 @@ const StyledDialog = ({
             bgcolor: theme.palette.grey[400],
             color: theme.palette.common.black,
             "&:hover": {
-              bgcolor: theme.palette.action.hover,
-              color: theme.palette.secondary.contrastText,
+              bgcolor: theme.palette.grey[500],
+              color: theme.palette.common.black,
             },
           }}
         >
@@ -129,20 +99,20 @@ const StyledDialog = ({
           size="small"
           loading={loading}
           sx={{
-            bgcolor: theme.palette.primary.main,
+            bgcolor: theme.palette.error.main,
             color: theme.palette.primary.contrastText,
             "&:hover": {
-              bgcolor: theme.palette.action.hover,
-              color: theme.palette.secondary.contrastText,
+              bgcolor: theme.palette.error.dark,
+              color: theme.palette.primary.contrastText,
             },
           }}
           autoFocus
         >
-          <span>{actionText}</span>
+          <span>Eliminar</span>
         </LoadingButton>
       </DialogActions>
     </Dialog>
   );
 };
 
-export default StyledDialog;
+export default DeleteDialog;

@@ -5,7 +5,13 @@ import LoadingData from "../atoms/LoadingData";
 import RenderForm from "../../functions/RenderForm";
 import SkeletonTable from "../../components/molecules/SkeletonTable";
 
-const MainLayout = ({ currentTable, data, fetchData, products }) => {
+const MainLayout = ({
+  currentTable,
+  data,
+  fetchData,
+  products,
+  productsCategories,
+}) => {
   const [activeForm, setActiveForm] = useState(false);
   const [formProps, setFormProps] = useState({});
 
@@ -39,11 +45,10 @@ const MainLayout = ({ currentTable, data, fetchData, products }) => {
           currentTable={currentTable}
           formProps={{
             ...formProps,
+            currentTable: currentTable,
             closeForm: toggleForm,
             products: products,
-            ...(currentTable === "products" && {
-              categories: [...new Set(data.map((item) => item.cat))],
-            }),
+            categories: productsCategories,
           }}
         />
       )}

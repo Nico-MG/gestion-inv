@@ -9,7 +9,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import { auxDelete } from "../../functions/auxDelete";
 import RenderModal from "../../functions/renderModal";
-import StyledDialog from "../../styles/StyledDialog";
+import DeleteDialog from "../atoms/custom-ui/dialogs/DeleteDialog";
+import { Delete } from "@mui/icons-material";
 
 const isDetailTable = (currentTable) => {
   return (
@@ -29,8 +30,6 @@ const TableRows = ({
 }) => {
   const theme = useTheme();
 
-  console.log("Data", data)
-
   // index key which would contain the array of details if it exists
   const dIndexKey = isDetailTable(currentTable)
     ? Object.keys(data[0]).length - 1
@@ -40,7 +39,7 @@ const TableRows = ({
   const [activeModal, setActiveModal] = useState(false);
   const [modalProps, setModalProps] = useState({});
   const [idToDelete, setIdToDelete] = useState(null);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
 
   const handleDetails = (details) => {
     setModalProps({
@@ -65,7 +64,7 @@ const TableRows = ({
   };
 
   const confirmDelete = async (id) => {
-    setLoading(true)
+    setLoading(true);
 
     try {
       await auxDelete({ currentTable, id });
@@ -78,9 +77,9 @@ const TableRows = ({
       );
     }
 
-    setLoading(false)
-
     setOpenDialog(false);
+
+    setLoading(false);
   };
 
   return (
@@ -98,7 +97,7 @@ const TableRows = ({
               <div>
                 {dIndexKey && (
                   <IconButton
-                    onClick={() => handleDetails(obj[columns[dIndexKey]])}
+                    onClick={() => handleDetails(obj)}
                     sx={{
                       width: 32,
                       height: 32,
@@ -169,13 +168,12 @@ const TableRows = ({
       {activeModal && (
         <RenderModal currentTable={currentTable} modalProps={modalProps} />
       )}
-      <StyledDialog
+      <DeleteDialog
         currentTable={currentTable}
         loading={loading}
         open={openDialog}
         closeDialog={() => setOpenDialog(false)}
         id={idToDelete}
-        action={"delete"}
         confirmAction={() => confirmDelete(idToDelete)}
       />
     </>

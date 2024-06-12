@@ -9,14 +9,14 @@ const mockOrders = [
     detalle_pedido: [
       {
         id_pedido: 1,
-        id_producto: 101,
+        id_producto: "P001",
         cantidad: 2,
         precio_unidad: 50,
         precio_total: 100,
       },
       {
         id_pedido: 1,
-        id_producto: 102,
+        id_producto: "P002",
         cantidad: 1,
         precio_unidad: 50,
         precio_total: 50,
